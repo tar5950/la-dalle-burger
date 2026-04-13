@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Dalle Burger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Futura:wght@700&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ── SUPREME SYSTEM ── */
+:root {
+  --r: #e8170a;
+  --w: #ffffff;
+  --b: #0a0a0a;
+  --g: #f0f0f0;
+  --mid: #888;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--w);
+  color: var(--b);
+  font-family: 'Barlow', sans-serif;
+  overflow-x: hidden;
+}
+
+/* BOX LOGO FONT — Futura Bold approximation */
+.box {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── PROMO ── */
+.promo {
+  background: var(--r);
+  color: var(--w);
+  text-align: center;
+  padding: 11px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 40px;
+  left: 0; right: 0;
+  z-index: 90;
+  background: var(--w);
+  border-bottom: 3px solid var(--b);
+  padding: 0 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  transition: top 0.3s;
+}
+nav.at-top { background: transparent; border-color: transparent; }
+
+.nav-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--r);
+  color: var(--w);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 18px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 8px 20px;
+  border: 3px solid var(--r);
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.nav-logo:hover { background: var(--b); border-color: var(--b); }
+
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--b);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--r); }
+
+.nav-cta {
+  background: var(--b);
+  color: var(--w);
+  padding: 10px 22px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 3px solid var(--b);
+  transition: all 0.2s;
+}
+.nav-cta:hover { background: var(--r); border-color: var(--r); }
+
+/* ── HERO ── */
+#hero {
+  position: relative;
+  height: 100vh;
+  min-height: 640px;
+  overflow: hidden;
+  margin-top: 0;
+  display: flex;
+  align-items: flex-end;
+}
+
+.hero-left {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 6% 64px;
+  width: 100%;
+}
+
+/* Marquee bg text */
+.hero-bg-text {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.05;
+}
+.hero-bg-row {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 80px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--w);
+  white-space: nowrap;
+  line-height: 1;
+  animation: slideBg 18s linear infinite;
+}
+.hero-bg-row:nth-child(2) { animation-direction: reverse; animation-duration: 14s; }
+.hero-bg-row:nth-child(3) { animation-duration: 22s; }
+@keyframes slideBg { from{transform:translateX(0)} to{transform:translateX(-30%)} }
+
+/* BOX LOGO — Supreme style */
+.box-logo-wrap {
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.2s ease forwards;
+}
+.box-logo {
+  display: inline-block;
+  background: var(--r);
+  color: var(--w);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(28px, 4vw, 48px);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  line-height: 1;
+}
+
+.hero-headline {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(52px, 7vw, 96px);
+  line-height: 0.88;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--w);
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.4s ease forwards;
+}
+.hero-headline span { color: var(--r); display: block; }
+
+.hero-sub {
+  font-size: 14px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.7;
+  max-width: 320px;
+  margin-bottom: 36px;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.6s ease forwards;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.8s ease forwards;
+}
+
+.btn-supreme {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--r);
+  color: var(--w);
+  padding: 16px 32px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 3px solid var(--r);
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.btn-supreme::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--w);
+  transform: translateX(-101%);
+  transition: transform 0.25s;
+  z-index: 0;
+}
+.btn-supreme:hover::after { transform: translateX(0); }
+.btn-supreme:hover { color: var(--r); }
+.btn-supreme span { position: relative; z-index: 1; }
+
+.btn-ghost-s {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--w);
+  padding: 16px 28px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 3px solid rgba(255,255,255,0.3);
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.btn-ghost-s:hover { border-color: var(--w); }
+
+.hero-stats {
+  display: flex;
+  gap: 24px;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  opacity: 0;
+  animation: fadeUp 0.7s 1s ease forwards;
+}
+.s-val { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 28px; color: var(--r); line-height: 1; }
+.s-lbl { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 4px; font-family: 'Barlow Condensed', sans-serif; }
+
+/* HERO RIGHT — video plein écran */
+.hero-right {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+.hero-right video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.65;
+}
+.hero-right::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.3) 50%, rgba(10,10,10,0.1) 100%);
+}
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── TICKER ── */
+.ticker {
+  background: var(--b);
+  color: var(--w);
+  padding: 12px 0;
+  overflow: hidden;
+  border-top: 4px solid var(--r);
+  border-bottom: 4px solid var(--r);
+}
+.ticker-track {
+  display: flex;
+  white-space: nowrap;
+  animation: slideBg2 16s linear infinite;
+}
+@keyframes slideBg2 { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.tick-i {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 24px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.tick-dot { width: 6px; height: 6px; background: var(--r); border-radius: 50%; flex-shrink: 0; }
+
+/* ── MENU ── */
+#menu { padding: 100px 5%; background: var(--w); }
+
+.s-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 60px;
+  border-bottom: 4px solid var(--b);
+  padding-bottom: 20px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.s-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--r);
+  margin-bottom: 8px;
+}
+.s-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(44px, 6vw, 80px);
+  line-height: 0.88;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--b);
+}
+.s-title span { color: var(--r); }
+
+/* Supreme product grid */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 3px solid var(--b);
+}
+
+.menu-card {
+  position: relative;
+  border-right: 3px solid var(--b);
+  border-bottom: 3px solid var(--b);
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--w);
+}
+.menu-card:nth-child(3n) { border-right: none; }
+.menu-card:nth-last-child(-n+3) { border-bottom: none; }
+
+.menu-card-img {
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  position: relative;
+  background: var(--g);
+}
+.menu-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s, filter 0.3s;
+  filter: brightness(0.9);
+}
+.menu-card:hover .menu-card-img img { transform: scale(1.06); filter: brightness(1); }
+
+.menu-card-badge {
+  position: absolute;
+  top: 0; left: 0;
+  background: var(--r);
+  color: var(--w);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+}
+
+.menu-card-body {
+  padding: 16px;
+  border-top: 3px solid var(--b);
+}
+.menu-card-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 18px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--b);
+  margin-bottom: 4px;
+}
+.menu-card-desc { font-size: 11px; color: var(--mid); line-height: 1.5; margin-bottom: 12px; }
+.menu-card-footer { display: flex; align-items: center; justify-content: space-between; }
+.menu-card-price {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 22px;
+  color: var(--r);
+}
+.menu-card-price .old { font-size: 13px; color: var(--mid); text-decoration: line-through; margin-left: 4px; font-weight: 400; }
+
+.qty { display: flex; align-items: center; border: 2px solid var(--b); }
+.qty-b { width: 28px; height: 28px; background: transparent; border: none; font-size: 16px; cursor: pointer; transition: background 0.15s; display: flex; align-items: center; justify-content: center; font-family: 'Barlow', sans-serif; }
+.qty-b:hover { background: var(--r); color: var(--w); }
+.qty-n { width: 28px; text-align: center; font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; background: transparent; border: none; pointer-events: none; }
+
+/* Extras */
+.extras-row {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 0;
+  border: 3px solid var(--b);
+  border-top: none;
+}
+.extra-card {
+  padding: 16px;
+  border-right: 3px solid var(--b);
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.extra-card:last-child { border-right: none; }
+.extra-card:hover { background: var(--g); }
+.extra-name { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+.extra-sub { font-size: 10px; color: var(--mid); margin-top: 2px; }
+.extra-price { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 18px; color: var(--r); flex-shrink: 0; }
+
+/* ── COMMANDER ── */
+#commander { background: var(--b); padding: 100px 5%; }
+
+.order-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* Steps */
+.steps-list { display: flex; flex-direction: column; }
+.step-row {
+  display: flex;
+  gap: 20px;
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.step-row:last-child { border: none; }
+.step-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 56px;
+  color: var(--r);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 52px;
+  opacity: 0.3;
+}
+.step-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 17px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--w);
+  margin-bottom: 6px;
+}
+.step-desc { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.7; }
+
+.d-modes { display: flex; gap: 8px; margin-top: 14px; }
+.d-mode {
+  flex: 1;
+  border: 2px solid rgba(255,255,255,0.15);
+  padding: 12px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.d-mode.active, .d-mode:hover { border-color: var(--r); background: rgba(232,23,10,0.1); }
+.d-mode-ico { font-size: 18px; margin-bottom: 4px; }
+.d-mode-n { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--w); }
+
+/* Cart — Supreme box */
+.cart-panel {
+  background: var(--w);
+  border: 4px solid var(--w);
+  position: sticky;
+  top: 110px;
+}
+.cart-top {
+  background: var(--r);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cart-top-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 16px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--w);
+}
+.cart-count-badge {
+  background: var(--w);
+  color: var(--r);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 3px 10px;
+  letter-spacing: 0.1em;
+}
+.cart-body { padding: 20px; }
+
+/* Register */
+.reg-block {
+  background: var(--g);
+  border-left: 4px solid var(--b);
+  padding: 12px 14px;
+  margin-bottom: 14px;
+}
+.reg-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--b); margin-bottom: 8px; }
+.reg-row { display: flex; gap: 6px; }
+.reg-input { flex: 1; background: var(--w); border: 2px solid var(--b); color: var(--b); padding: 8px 12px; font-family: 'Barlow', sans-serif; font-size: 13px; outline: none; }
+.reg-input:focus { border-color: var(--r); }
+.reg-btn { background: var(--b); color: var(--w); border: none; padding: 8px 14px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+.reg-btn:hover { background: var(--r); }
+.reg-ok { font-size: 11px; color: #25D366; margin-top: 6px; display: none; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.08em; }
+
+/* Fidelity */
+.fidel-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--b);
+  color: var(--w);
+  padding: 12px 14px;
+  margin-bottom: 14px;
+}
+.fidel-t { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: var(--w); margin-bottom: 3px; }
+.fidel-d { font-size: 10px; color: rgba(255,255,255,0.5); }
+.fdots { display: flex; gap: 3px; margin-top: 6px; }
+.fdot { width: 10px; height: 10px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.25); }
+.fdot.on { background: var(--r); border-color: var(--r); }
+
+.reco-btn { width: 100%; background: transparent; border: 2px solid rgba(0,0,0,0.15); color: var(--mid); padding: 9px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; margin-bottom: 12px; display: none; }
+.reco-btn.show { display: block; }
+.reco-btn:hover { border-color: var(--b); color: var(--b); }
+
+.cart-items { min-height: 60px; margin-bottom: 16px; }
+.cart-empty { text-align: center; padding: 24px 0; color: var(--mid); font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; border: 2px dashed rgba(0,0,0,0.1); }
+.cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+.ci-name { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+.ci-qty { font-size: 10px; color: var(--mid); margin-top: 2px; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.08em; }
+.ci-price { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 18px; color: var(--r); }
+
+.cart-total-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-top: 3px solid var(--b); margin-bottom: 14px; }
+.ct-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mid); }
+.ct-val { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 32px; color: var(--b); }
+
+.wa-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 16px; background: #25D366; color: var(--w); font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 900; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; transition: background 0.2s; }
+.wa-btn:hover { background: #1da855; }
+.cart-note-txt { text-align: center; font-size: 10px; color: var(--mid); margin-top: 8px; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* ── CONCEPT ── */
+#concept { padding: 0; display: grid; grid-template-columns: 1fr 1fr; min-height: 560px; }
+
+.concept-left {
+  background: var(--r);
+  padding: 80px 6%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.concept-eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 16px; }
+.concept-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(44px, 5vw, 72px); line-height: 0.9; letter-spacing: 0.02em; text-transform: uppercase; color: var(--w); margin-bottom: 24px; }
+.concept-body { font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.8; margin-bottom: 32px; max-width: 380px; }
+.pillars-list { display: flex; flex-direction: column; gap: 0; }
+.pillar-row { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-top: 1px solid rgba(255,255,255,0.15); }
+.pillar-row:last-child { border-bottom: 1px solid rgba(255,255,255,0.15); }
+.p-ico { font-size: 20px; flex-shrink: 0; }
+.p-t { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--w); }
+.p-d { font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 2px; }
+
+.concept-right { position: relative; overflow: hidden; background: var(--b); min-height: 400px; }
+.concept-right img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+
+/* ── AVIS ── */
+#avis { padding: 100px 5%; background: var(--g); }
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 0;
+  border: 3px solid var(--b);
+  margin-top: 48px;
+}
+.rev-card { padding: 28px; border-right: 3px solid var(--b); position: relative; }
+.rev-card:last-child { border-right: none; }
+.rev-stars { display: flex; gap: 3px; margin-bottom: 14px; }
+.star { color: var(--r); font-size: 13px; }
+.rev-text { font-size: 13px; line-height: 1.7; color: var(--b); margin-bottom: 16px; }
+.rev-author { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); }
+.rev-card::before { content: '"'; position: absolute; top: 16px; right: 20px; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 72px; color: rgba(0,0,0,0.06); line-height: 1; }
+
+.rating-block { display: flex; align-items: center; gap: 16px; }
+.r-n { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 64px; color: var(--b); line-height: 1; }
+.r-stars { display: flex; gap: 3px; margin-bottom: 4px; }
+.r-star { color: var(--r); font-size: 16px; }
+.r-count { font-size: 11px; color: var(--mid); font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.1em; }
+
+/* ── LIVRAISON ── */
+#livraison { display: grid; grid-template-columns: 1fr 1fr; border-top: 4px solid var(--b); }
+
+.map-side { position: relative; overflow: hidden; min-height: 360px; background: var(--b); }
+.map-side img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) brightness(0.4); }
+.map-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px; }
+.map-pin { font-size: 36px; animation: bounce 2s infinite; }
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+.map-tag { background: var(--r); color: var(--w); font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 7px 18px; }
+
+.livraison-side { padding: 60px 6%; background: var(--w); }
+.zones-wrap { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 28px; }
+.zone-tag { background: var(--b); color: var(--w); font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 14px; }
+
+/* ── FOOTER ── */
+footer { background: var(--b); padding: 60px 5% 28px; border-top: 4px solid var(--r); }
+.footer-top { display: flex; justify-content: space-between; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap; }
+.footer-logo-box { display: inline-flex; align-items: center; justify-content: center; background: var(--r); color: var(--w); font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 22px; letter-spacing: 0.14em; text-transform: uppercase; padding: 10px 20px; text-decoration: none; margin-bottom: 10px; display: block; width: fit-content; }
+.f-tagline { font-size: 11px; color: rgba(255,255,255,0.35); max-width: 180px; line-height: 1.6; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; }
+.f-info { display: flex; flex-direction: column; gap: 8px; }
+.f-row { display: flex; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.45); font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.06em; }
+.f-row strong { color: var(--w); font-weight: 600; }
+.footer-bottom { display: flex; justify-content: space-between; padding-top: 24px; font-size: 10px; color: rgba(255,255,255,0.2); font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* ── UPSELL MODAL ── */
+.modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 500; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+.modal-bg.show { opacity: 1; pointer-events: all; }
+.modal-box { background: var(--w); border: 4px solid var(--b); max-width: 420px; width: 90%; transform: scale(0.95); transition: transform 0.25s; }
+.modal-bg.show .modal-box { transform: scale(1); }
+.modal-header { background: var(--b); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; }
+.modal-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 18px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--w); }
+.modal-body { padding: 20px; }
+.modal-sub { font-size: 12px; color: var(--mid); margin-bottom: 16px; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
+.up-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--g); gap: 8px; }
+.up-name { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+.up-sub { font-size: 10px; color: var(--mid); margin-top: 2px; }
+.up-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.up-price { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 18px; color: var(--r); }
+.up-add { background: var(--r); color: var(--w); border: none; padding: 6px 12px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+.up-add:hover { background: var(--b); }
+.modal-footer { padding: 0 20px 20px; display: flex; flex-direction: column; gap: 8px; }
+.modal-ok { width: 100%; padding: 14px; background: var(--r); color: var(--w); border: none; cursor: pointer; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 900; letter-spacing: 0.16em; text-transform: uppercase; transition: background 0.2s; }
+.modal-ok:hover { background: var(--b); }
+.modal-skip { width: 100%; padding: 11px; background: transparent; border: 2px solid rgba(0,0,0,0.12); color: var(--mid); cursor: pointer; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; transition: border-color 0.2s; }
+.modal-skip:hover { border-color: var(--b); color: var(--b); }
+
+/* ── LIVE NOTIF ── */
+.live-notif { position: fixed; bottom: 24px; left: 24px; background: var(--w); border: 3px solid var(--b); border-left: 6px solid var(--r); max-width: 300px; width: calc(100% - 48px); z-index: 200; transform: translateX(-120%); transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1); pointer-events: none; box-shadow: 4px 4px 0 var(--b); }
+.live-notif.show { transform: translateX(0); }
+.ln-top { background: var(--b); padding: 8px 14px; display: flex; align-items: center; gap: 8px; }
+.ln-dot { width: 7px; height: 7px; background: #25D366; border-radius: 50%; animation: pulse 1.5s infinite; flex-shrink: 0; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+.ln-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+.ln-body { padding: 12px 14px; }
+.ln-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 18px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--b); margin-bottom: 3px; }
+.ln-txt { font-size: 12px; color: var(--mid); line-height: 1.4; }
+.ln-txt strong { color: var(--r); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+.ln-time { font-size: 10px; color: rgba(0,0,0,0.3); margin-top: 6px; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.08em; }
+
+/* ── STICKY ── */
+.sticky { position: fixed; bottom: 0; left: 0; right: 0; background: var(--b); border-top: 4px solid var(--r); padding: 12px 5%; display: flex; align-items: center; justify-content: space-between; gap: 12px; z-index: 80; transform: translateY(100%); transition: transform 0.3s; }
+.sticky.show { transform: translateY(0); }
+.sticky-tot { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 20px; color: var(--w); }
+.sticky-tot span { color: var(--r); }
+
+/* ── RESPONSIVE ── */
+@media(max-width:1000px) {
+  #hero { height: 100vh; }
+  .hero-right { height: 50vw; min-height: 300px; }
+  .menu-grid { grid-template-columns: repeat(2,1fr); }
+  .menu-card:nth-child(2n) { border-right: none; }
+  .menu-card:nth-child(3n) { border-right: 3px solid var(--b); }
+  .menu-card:nth-last-child(-n+2) { border-bottom: none; }
+  .menu-card:nth-last-child(-n+3) { border-bottom: 3px solid var(--b); }
+  .extras-row { grid-template-columns: repeat(2,1fr); }
+  .extra-card:nth-child(2n) { border-right: none; }
+  .extra-card:nth-child(1), .extra-card:nth-child(2) { border-bottom: 3px solid var(--b); }
+  .order-grid { grid-template-columns: 1fr; gap: 36px; }
+  .cart-panel { position: static; }
+  #concept { grid-template-columns: 1fr; }
+  .concept-right { min-height: 300px; }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .rev-card { border-right: none; border-bottom: 3px solid var(--b); }
+  .rev-card:last-child { border-bottom: none; }
+  #livraison { grid-template-columns: 1fr; }
+  .footer-top { flex-direction: column; gap: 24px; }
+  .nav-links { display: none; }
+}
+@media(max-width:600px) {
+  nav { height: 56px; padding: 0 4%; }
+  nav.at-top { top: 30px; }
+  .promo { font-size: 10px; padding: 8px 10px; }
+  .hero-left { padding: 40px 5% 48px; }
+  .hero-headline { font-size: clamp(44px,16vw,72px); }
+  #hero { margin-top: 86px; }
+  #menu, #commander, #avis { padding: 60px 4%; }
+  .menu-grid { grid-template-columns: 1fr; }
+  .menu-card { border-right: none; border-bottom: 3px solid var(--b) !important; }
+  .menu-card:last-child { border-bottom: none !important; }
+  .menu-card:nth-last-child(-n+3) { border-bottom: 3px solid var(--b) !important; }
+  .extras-row { grid-template-columns: 1fr; }
+  .extra-card { border-right: none !important; border-bottom: 3px solid var(--b); }
+  .extra-card:last-child { border-bottom: none; }
+  .extra-card:nth-child(1),.extra-card:nth-child(2) { border-bottom: 3px solid var(--b) !important; }
+  .hero-btns { flex-direction: column; }
+  .btn-supreme, .btn-ghost-s { width: 100%; justify-content: center; }
+  .hero-stats { display: none; }
+  .concept-left { padding: 48px 5%; }
+  .livraison-side { padding: 40px 4%; }
+  footer { padding: 48px 4% 24px; }
+  .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
+  .live-notif { left: 10px; right: 10px; max-width: none; width: auto; bottom: 76px; }
+  .sticky { padding: 10px 4%; }
+  .d-modes { flex-wrap: wrap; }
+  .reg-row { flex-direction: column; }
+  .reg-btn { width: 100%; }
+}
+@media(max-width:380px) { .nav-cta { display: none; } }
+</style>
+</head>
+<body>
+
+<!-- PROMO -->
+<div class="promo">🔥 Burger du jour à 9€ au lieu de 12€ &nbsp;<span id="countdown"></span></div>
+
+<!-- NAV -->
+<nav id="navbar" class="at-top">
+  <a href="#" class="nav-logo">La Dalle Burger</a>
+  <ul class="nav-links">
+    <li><a href="#menu">La Carte</a></li>
+    <li><a href="#commander">Commander</a></li>
+    <li><a href="#avis">Avis</a></li>
+  </ul>
+  <a href="https://wa.me/33600000000?text=Yo%20je%20veux%20commander%20%F0%9F%94%A5" target="_blank" class="nav-cta">Commander →</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-bg-text">
+      <div class="hero-bg-row">LA DALLE BURGER — STREET FOOD — LA DALLE BURGER — STREET FOOD —</div>
+      <div class="hero-bg-row">HALAL — FRAIS — MAISON — AUTHENTIQUE — HALAL — FRAIS — MAISON —</div>
+      <div class="hero-bg-row">COMMANDER — LIVRAISON — TRIOLO — COMMANDER — LIVRAISON —</div>
+    </div>
+    <div class="box-logo-wrap">
+      <div class="box-logo">La Dalle Burger</div>
+    </div>
+    <h1 class="hero-headline">
+      Street<br>Food<br><span>Authentique</span>
+    </h1>
+    <p class="hero-sub">Bun brioché maison. Viande fraîche chaque matin. Sauces secrètes. Commandé en 30 secondes sur WhatsApp.</p>
+    <div class="hero-btns">
+      <a href="#commander" class="btn-supreme"><span>🔥 Commander maintenant</span></a>
+      <a href="tel:0600000000" class="btn-ghost-s">📞 Appeler</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="s-val">4.9</div><div class="s-lbl">★ Google</div></div>
+      <div><div class="s-val">200+</div><div class="s-lbl">Avis</div></div>
+      <div><div class="s-val">7j/7</div><div class="s-lbl">11h–23h</div></div>
+      <div><div class="s-val" id="cmd-count">43</div><div class="s-lbl">Commandes</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <video id="heroVideo" autoplay muted playsinline preload="auto" webkit-playsinline>
+      <source src="https://res.cloudinary.com/dzh5vllay/video/upload/q_auto,w_720/v1776027285/un_burger_%C3%A9clat%C3%A9_ok_ehmmyc.mp4" type="video/mp4" media="(max-width:600px)">
+      <source src="https://res.cloudinary.com/dzh5vllay/video/upload/v1776027285/un_burger_%C3%A9clat%C3%A9_ok_ehmmyc.mp4" type="video/mp4">
+    </video>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="tick-i">Bun Maison <span class="tick-dot"></span></span>
+    <span class="tick-i">Viande Fraîche <span class="tick-dot"></span></span>
+    <span class="tick-i">100% Halal <span class="tick-dot"></span></span>
+    <span class="tick-i">Sauce Secrète <span class="tick-dot"></span></span>
+    <span class="tick-i">Jamais Surgelé <span class="tick-dot"></span></span>
+    <span class="tick-i">Livraison Express <span class="tick-dot"></span></span>
+    <span class="tick-i">Bun Maison <span class="tick-dot"></span></span>
+    <span class="tick-i">Viande Fraîche <span class="tick-dot"></span></span>
+    <span class="tick-i">100% Halal <span class="tick-dot"></span></span>
+    <span class="tick-i">Sauce Secrète <span class="tick-dot"></span></span>
+    <span class="tick-i">Jamais Surgelé <span class="tick-dot"></span></span>
+    <span class="tick-i">Livraison Express <span class="tick-dot"></span></span>
+  </div>
+</div>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="s-header">
+    <div>
+      <div class="s-eyebrow">La Carte</div>
+      <div class="s-title">Nos <span>Burgers</span></div>
+    </div>
+    <div class="rating-block">
+      <div class="r-n">4.9</div>
+      <div>
+        <div class="r-stars"><span class="r-star">★</span><span class="r-star">★</span><span class="r-star">★</span><span class="r-star">★</span><span class="r-star">★</span></div>
+        <div class="r-count">200+ avis Google</div>
+        <a href="#" style="font-size:10px;color:var(--r);font-family:'Barlow Condensed',sans-serif;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;display:block;margin-top:4px">⭐ Laisser un avis →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-grid" id="menuGrid">
+    <div class="menu-card" data-id="dalle-classic" data-name="La Dalle Classic" data-price="11" data-old="14">
+      <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80" alt=""><div class="menu-card-badge">⭐ Best-seller</div></div>
+      <div class="menu-card-body"><div class="menu-card-name">La Dalle Classic</div><div class="menu-card-desc">Steak 180g, cheddar fondu, salade, tomate, oignon, sauce maison.</div><div class="menu-card-footer"><div class="menu-card-price">11€ <span class="old">14€</span></div><div class="qty"><button class="qty-b" onclick="changeQty(this,-1)">−</button><span class="qty-n">0</span><button class="qty-b" onclick="changeQty(this,1)">+</button></div></div></div>
+    </div>
+    <div class="menu-card" data-id="double-dalle" data-name="Double Dalle" data-price="14">
+      <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=600&q=80" alt=""><div class="menu-card-badge">🔥 XL</div></div>
+      <div class="menu-card-body"><div class="menu-card-name">Double Dalle</div><div class="menu-card-desc">Double steak 2×150g, double cheddar, bacon, sauce spéciale.</div><div class="menu-card-footer"><div class="menu-card-price">14€</div><div class="qty"><button class="qty-b" onclick="changeQty(this,-1)">−</button><span class="qty-n">0</span><button class="qty-b" onclick="changeQty(this,1)">+</button></div></div></div>
+    </div>
+    <div class="menu-card" data-id="dalle-crispy" data-name="Dalle Crispy" data-price="12">
+      <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1615297928064-24977384d0da?w=600&q=80" alt=""></div>
+      <div class="menu-card-body"><div class="menu-card-name">Dalle Crispy</div><div class="menu-card-desc">Poulet crispy, coleslaw maison, pickles, sauce sriracha miel.</div><div class="menu-card-footer"><div class="menu-card-price">12€</div><div class="qty"><button class="qty-b" onclick="changeQty(this,-1)">−</button><span class="qty-n">0</span><button class="qty-b" onclick="changeQty(this,1)">+</button></div></div></div>
+    </div>
+    <div class="menu-card" data-id="smash-dalle" data-name="Smash Dalle" data-price="13">
+      <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1586816001966-79b736744398?w=600&q=80" alt=""><div class="menu-card-badge">🆕 Nouveau</div></div>
+      <div class="menu-card-body"><div class="menu-card-name">Smash Dalle</div><div class="menu-card-desc">Smash burger 2×100g, cheese américain, oignons caramélisés.</div><div class="menu-card-footer"><div class="menu-card-price">13€</div><div class="qty"><button class="qty-b" onclick="changeQty(this,-1)">−</button><span class="qty-n">0</span><button class="qty-b" onclick="changeQty(this,1)">+</button></div></div></div>
+    </div>
+    <div class="menu-card" data-id="dalle-veggie" data-name="Dalle Veggie" data-price="11">
+      <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1520072959219-c595dc870360?w=600&q=80" alt=""></div>
+      <div class="menu-card-body"><div class="menu-card-name">Dalle Veggie</div><div class="menu-card-desc">Steak végétal, avocat, tomate confite, feta, sauce verte.</div><div class="menu-card-footer"><div class="menu-card-price">11€</div><div class="qty"><button class="qty-b" onclick="changeQty(this,-1)">−</button><span class="qty-n">0</span><button class="qty-b" onclick="changeQty(this,1)">+</button></div></div></div>
+    </div>
+    <div class="menu-card" data-id="menu-dalle" data-name="Menu La Dalle" data-price="15" data-old="18">
+      <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=600&q=80" alt=""><div class="menu-card-badge">💰 Économise 3€</div></div>
+      <div class="menu-card-body"><div class="menu-card-name">Menu La Dalle</div><div class="menu-card-desc">Burger Classic + Frites maison + Boisson. Le combo parfait.</div><div class="menu-card-footer"><div class="menu-card-price">15€ <span class="old">18€</span></div><div class="qty"><button class="qty-b" onclick="changeQty(this,-1)">−</button><span class="qty-n">0</span><button class="qty-b" onclick="changeQty(this,1)">+</button></div></div></div>
+    </div>
+  </div>
+
+  <div class="extras-row">
+    <div class="extra-card" data-id="frites" data-name="Frites Maison" data-price="3" onclick="addExtra(this)"><div><div class="extra-name">🍟 Frites Maison</div><div class="extra-sub">Sel fumé + sauce</div></div><div class="extra-price">3€</div></div>
+    <div class="extra-card" data-id="onion" data-name="Onion Rings" data-price="3" onclick="addExtra(this)"><div><div class="extra-name">🧅 Onion Rings</div><div class="extra-sub">Panés, ranch</div></div><div class="extra-price">3€</div></div>
+    <div class="extra-card" data-id="nuggets" data-name="Nuggets ×6" data-price="4" onclick="addExtra(this)"><div><div class="extra-name">🍗 Nuggets ×6</div><div class="extra-sub">Poulet tendre</div></div><div class="extra-price">4€</div></div>
+    <div class="extra-card" data-id="soda" data-name="Soda" data-price="2" onclick="addExtra(this)"><div><div class="extra-name">🥤 Soda</div><div class="extra-sub">Coca · Fanta · Sprite</div></div><div class="extra-price">2€</div></div>
+  </div>
+</section>
+
+<!-- COMMANDER -->
+<section id="commander">
+  <div class="s-header" style="border-color:rgba(255,255,255,0.15);margin-bottom:48px">
+    <div><div class="s-eyebrow" style="color:rgba(255,255,255,0.4)">Commande</div><div class="s-title" style="color:var(--w)">Comment <span>ça marche</span></div></div>
+  </div>
+  <div class="order-grid">
+    <div class="steps-list">
+      <div class="step-row"><div class="step-num">01</div><div><div class="step-title">Choisis tes burgers</div><div class="step-desc">Ajoute depuis la carte ci-dessus. Tout s'ajoute en temps réel dans ton récap.</div></div></div>
+      <div class="step-row"><div class="step-num">02</div><div>
+        <div class="step-title">Ton mode de retrait</div><div class="step-desc">Livraison à domicile, sur place ou à emporter.</div>
+        <div class="d-modes">
+          <label class="d-mode active" onclick="selectDelivery(this,'livraison')"><div class="d-mode-ico">🛵</div><div class="d-mode-n">Livraison</div></label>
+          <label class="d-mode" onclick="selectDelivery(this,'surplace')"><div class="d-mode-ico">🍽️</div><div class="d-mode-n">Sur place</div></label>
+          <label class="d-mode" onclick="selectDelivery(this,'emporter')"><div class="d-mode-ico">🥡</div><div class="d-mode-n">À emporter</div></label>
+        </div>
+      </div></div>
+      <div class="step-row"><div class="step-num">03</div><div><div class="step-title">1 clic WhatsApp</div><div class="step-desc">Message pré-rempli avec ta commande. On confirme sous 2 min chrono.</div></div></div>
+    </div>
+
+    <div class="cart-panel">
+      <div class="cart-top">
+        <div class="cart-top-title">Ma commande</div>
+        <div class="cart-count-badge" id="cartCount">0</div>
+      </div>
+      <div class="cart-body">
+        <div class="reg-block">
+          <div class="reg-label">📲 Ton numéro = tes points fidélité</div>
+          <div class="reg-row"><input class="reg-input" type="tel" id="phoneInput" placeholder="06 XX XX XX XX" maxlength="14"><button class="reg-btn" onclick="registerPhone()">OK</button></div>
+          <div class="reg-ok" id="regOk">✅ Enregistré — tu cumules des points !</div>
+        </div>
+        <div class="fidel-block">
+          <div style="font-size:20px;flex-shrink:0">⭐</div>
+          <div><div class="fidel-t">10e commande offerte</div><div class="fidel-d">1 point par commande.</div><div class="fdots" id="fidelDots"></div></div>
+        </div>
+        <button class="reco-btn" id="recoBtn" onclick="recommande()">🔄 Recommander la même chose</button>
+        <div class="cart-items" id="cartItems"><div class="cart-empty">Ajoute des burgers ↑</div></div>
+        <div class="cart-total-row"><span class="ct-lbl">Total</span><span class="ct-val" id="cartTotal">0€</span></div>
+        <a href="#" class="wa-btn" onclick="triggerUpsell(event)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Commander sur WhatsApp
+        </a>
+        <p class="cart-note-txt">Confirmé sous 2 min · Paiement à la livraison</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONCEPT -->
+<section id="concept">
+  <div class="concept-left">
+    <div class="concept-eyebrow">Notre philosophie</div>
+    <div class="concept-title">Pas de<br>Surgelé.<br>Jamais.</div>
+    <p class="concept-body">La Dalle c'est pas un fast food comme les autres. Chaque burger est assemblé à la commande, viande fraîche livrée chaque matin. Pas de congélateur, pas de compromis.</p>
+    <div class="pillars-list">
+      <div class="pillar-row"><div class="p-ico">🥩</div><div><div class="p-t">Viande fraîche chaque matin</div><div class="p-d">Bœuf haché le jour même, jamais congelé.</div></div></div>
+      <div class="pillar-row"><div class="p-ico">🍞</div><div><div class="p-t">Bun brioché maison</div><div class="p-d">Moelleux, légèrement toasté à chaque commande.</div></div></div>
+      <div class="pillar-row"><div class="p-ico">🌶️</div><div><div class="p-t">Sauces secrètes</div><div class="p-d">Recettes exclusives, jamais dans le commerce.</div></div></div>
+    </div>
+  </div>
+  <div class="concept-right">
+    <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&q=80" alt="Burger artisanal">
+  </div>
+</section>
+
+<!-- AVIS -->
+<section id="avis">
+  <div class="s-header">
+    <div><div class="s-eyebrow">Avis Clients</div><div class="s-title">Ils ont <span>Kiffé</span></div></div>
+  </div>
+  <div class="reviews-grid">
+    <div class="rev-card"><div class="rev-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div><div class="rev-text">Frère le smash burger c'est une tuerie. Le bun est parfait, la viande saigne encore un peu. C'est les meilleurs de la zone sans débat.</div><div class="rev-author">Karim A.</div></div>
+    <div class="rev-card"><div class="rev-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div><div class="rev-text">Livraison rapide, burger encore chaud à l'arrivée. Les frites maison sont croustillantes comme jamais. J'y retourne chaque semaine.</div><div class="rev-author">Yasmine B.</div></div>
+    <div class="rev-card"><div class="rev-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div><div class="rev-text">Le Double Dalle c'est un monument. Ça tient bien dans les mains, ça déborde de partout. C'est exactement ça qu'on veut d'un vrai burger street.</div><div class="rev-author">Mehdi O.</div></div>
+  </div>
+</section>
+
+<!-- LIVRAISON -->
+<section id="livraison">
+  <div class="map-side">
+    <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=800&q=80" alt="Zone">
+    <div class="map-overlay"><div class="map-pin">📍</div><div class="map-tag">Notre quartier</div></div>
+  </div>
+  <div class="livraison-side">
+    <div class="s-eyebrow">Zone de livraison</div>
+    <div class="s-title" style="margin-bottom:12px">On vient <span>chez toi</span></div>
+    <p style="font-size:13px;color:var(--mid);line-height:1.7;margin-bottom:14px">On livre dans un rayon de 5km. Envoie un message pour vérifier ta zone.</p>
+    <div class="zones-wrap"><span class="zone-tag">Centre-ville</span><span class="zone-tag">Les Blocs</span><span class="zone-tag">La Cité</span><span class="zone-tag">Zone Ouest</span><span class="zone-tag">Zone Est</span><span class="zone-tag">Et +</span></div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <a href="https://wa.me/33600000000?text=Yo%20je%20veux%20v%C3%A9rifier%20ma%20zone" target="_blank" class="btn-supreme" style="display:inline-flex;width:fit-content"><span>Vérifier ma zone →</span></a>
+      <div style="font-size:11px;color:var(--mid);font-family:'Barlow Condensed',sans-serif;letter-spacing:.08em">🕐 7j/7 · 11h – 23h · ~25 min</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div><a href="#" class="footer-logo-box">La Dalle Burger</a><p class="f-tagline">Street food authentique — bœuf frais — bun maison — sans compromis</p></div>
+    <div class="f-info"><div class="f-row">📍 <strong>Notre quartier · Votre ville</strong></div><div class="f-row">📞 <strong>06 00 00 00 00</strong></div><div class="f-row">🕐 <strong>7j/7 · 11h – 23h</strong></div></div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <a href="https://wa.me/33600000000" target="_blank" class="btn-supreme" style="display:inline-flex;width:fit-content"><span>Commander →</span></a>
+      <a href="#" class="btn-ghost-s" style="width:fit-content;font-size:12px;padding:10px 18px">⭐ Laisser un avis</a>
+    </div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 La Dalle Burger — Street Food Authentique</span><span>fait avec 🔥</span></div>
+</footer>
+
+<!-- UPSELL MODAL -->
+<div class="modal-bg" id="upsellModal">
+  <div class="modal-box">
+    <div class="modal-header"><div class="modal-title">Attends frère... 👀</div></div>
+    <div class="modal-body">
+      <div class="modal-sub">Les gens qui commandent ça prennent aussi :</div>
+      <div class="up-row"><div><div class="up-name">🍟 Frites maison</div><div class="up-sub">Croustillantes + sel fumé</div></div><div class="up-right"><div class="up-price">3€</div><button class="up-add" onclick="addUpsell('fr-up','Frites maison',3,this)">+ Ajouter</button></div></div>
+      <div class="up-row"><div><div class="up-name">🧅 Onion Rings</div><div class="up-sub">Panés, sauce ranch</div></div><div class="up-right"><div class="up-price">3€</div><button class="up-add" onclick="addUpsell('on-up','Onion Rings',3,this)">+ Ajouter</button></div></div>
+      <div class="up-row"><div><div class="up-name">🥤 Soda</div><div class="up-sub">Coca · Fanta · Sprite</div></div><div class="up-right"><div class="up-price">2€</div><button class="up-add" onclick="addUpsell('sd-up','Soda',2,this)">+ Ajouter</button></div></div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-ok" onclick="closeUpsell()">✅ C'est bon, commander</button>
+      <button class="modal-skip" onclick="closeUpsell()">Non merci</button>
+    </div>
+  </div>
+</div>
+
+<!-- LIVE NOTIF -->
+<div class="live-notif" id="liveNotif">
+  <div class="ln-top"><div class="ln-dot"></div><div class="ln-lbl">Commande en direct</div></div>
+  <div class="ln-body">
+    <div class="ln-name" id="notifName">Karim B.</div>
+    <div class="ln-txt" id="notifTxt">vient de commander un <strong>Double Dalle</strong></div>
+    <div class="ln-time" id="notifTime">il y a 2 min</div>
+  </div>
+</div>
+
+<!-- STICKY -->
+<div class="sticky" id="stickyBar">
+  <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.4)">Ta commande</span>
+  <span class="sticky-tot">Total : <span id="stickyTot">0€</span></span>
+  <a href="#" onclick="triggerUpsell(event)" class="wa-btn" style="width:auto;padding:12px 20px;font-size:12px">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    Commander
+  </a>
+</div>
+
+<script>
+const menuData={};
+document.querySelectorAll('.menu-card').forEach(c=>{if(c.dataset.id)menuData[c.dataset.id]={name:c.dataset.name,price:parseFloat(c.dataset.price)}});
+let cart={},deliveryMode='livraison',upsellShown=false;
+let orderCount=parseInt(localStorage.getItem('ld_orders')||'0');
+
+function renderFidel(){const d=document.getElementById('fidelDots');if(!d)return;d.innerHTML=Array.from({length:10},(_,i)=>`<div class="fdot ${i<orderCount?'on':''}"></div>`).join('');if(orderCount>=1)document.getElementById('recoBtn')?.classList.add('show')}
+renderFidel();
+
+const sp=localStorage.getItem('ld_phone');
+if(sp){const inp=document.getElementById('phoneInput');if(inp){inp.value=sp;inp.disabled=true}document.getElementById('regOk').style.display='block';const btn=document.querySelector('.reg-btn');if(btn)btn.disabled=true}
+
+function registerPhone(){const p=document.getElementById('phoneInput').value.trim();if(p.length<10){alert('Numéro invalide');return}localStorage.setItem('ld_phone',p);document.getElementById('regOk').style.display='block';document.getElementById('phoneInput').disabled=true;document.querySelector('.reg-btn').disabled=true}
+
+function recommande(){const s=localStorage.getItem('ld_last');if(!s)return;cart=JSON.parse(s);document.querySelectorAll('.menu-card').forEach(c=>{const n=c.querySelector('.qty-n');if(n)n.textContent=cart[c.dataset.id]?.qty||0});updateCart();document.getElementById('commander')?.scrollIntoView({behavior:'smooth'})}
+
+function changeQty(btn,delta){const card=btn.closest('.menu-card');const id=card.dataset.id;const n=btn.parentElement.querySelector('.qty-n');let v=Math.max(0,(parseInt(n.textContent)||0)+delta);n.textContent=v;if(v===0)delete cart[id];else cart[id]={name:menuData[id].name,price:menuData[id].price,qty:v};updateCart();if(delta>0&&!upsellShown){clearTimeout(window._ut);window._ut=setTimeout(()=>{document.getElementById('upsellModal').classList.add('show');upsellShown=true},1000)}}
+
+function addExtra(el){const id=el.dataset.id,name=el.dataset.name,price=parseFloat(el.dataset.price);if(!cart[id])cart[id]={name,price,qty:0};cart[id].qty++;updateCart();el.style.background='#f0f0f0';setTimeout(()=>el.style.background='',600)}
+
+function addUpsell(id,name,price,btn){if(!cart[id])cart[id]={name,price,qty:0};cart[id].qty++;updateCart();btn.textContent='✓ OK';btn.style.background='#25D366';btn.disabled=true}
+
+function selectDelivery(el,mode){document.querySelectorAll('.d-mode').forEach(o=>o.classList.remove('active'));el.classList.add('active');deliveryMode=mode}
+
+function triggerUpsell(e){e.preventDefault();if(!Object.values(cart).some(i=>i.qty>0)){alert('Choisis au moins un burger !');return}sendWhatsApp()}
+
+function closeUpsell(){document.getElementById('upsellModal').classList.remove('show')}
+
+function sendWhatsApp(){const items=Object.values(cart).filter(i=>i.qty>0);if(!items.length)return;const ml={livraison:'🛵 Livraison',surplace:'🍽️ Sur place',emporter:'🥡 À emporter'}[deliveryMode];const ph=localStorage.getItem('ld_phone')||'';const lines=items.map(i=>`• ${i.qty}x ${i.name} — ${(i.price*i.qty).toFixed(0)}€`).join('\n');const total=items.reduce((s,i)=>s+i.price*i.qty,0);const phLine=ph?`\nMon numéro fidélité : ${ph}`:'';const msg=`Yo ! Je voudrais commander 🔥\n\n${lines}\n\nTotal : ${total}€\nMode : ${ml}${phLine}\n\nMerci !`;localStorage.setItem('ld_last',JSON.stringify(cart));orderCount++;localStorage.setItem('ld_orders',orderCount.toString());renderFidel();window.open('https://wa.me/33600000000?text='+encodeURIComponent(msg),'_blank');setTimeout(()=>showReview(),3000)}
+
+function showReview(){document.getElementById('notifName').textContent='Merci pour ta commande !';document.getElementById('notifTxt').innerHTML='⭐ <a href="#" style="color:var(--r)">Un avis Google</a> ça nous aide vraiment 🙏';document.getElementById('notifTime').textContent='30 secondes chrono';const el=document.getElementById('liveNotif');el.classList.add('show');setTimeout(()=>el.classList.remove('show'),8000)}
+
+function updateCart(){const items=Object.values(cart).filter(i=>i.qty>0);const total=items.reduce((s,i)=>s+i.price*i.qty,0);const count=items.reduce((s,i)=>s+i.qty,0);const el=document.getElementById('cartItems');el.innerHTML=items.length?items.map(i=>`<div class="cart-item"><div><div class="ci-name">${i.name}</div><div class="ci-qty">×${i.qty}</div></div><div class="ci-price">${(i.price*i.qty).toFixed(0)}€</div></div>`).join(''):'<div class="cart-empty">Ajoute des burgers ↑</div>';document.getElementById('cartTotal').textContent=total+'€';document.getElementById('cartCount').textContent=count;document.getElementById('stickyTot').textContent=total+'€';count>0?document.getElementById('stickyBar').classList.add('show'):document.getElementById('stickyBar').classList.remove('show')}
+
+function tick(){const now=new Date(),end=new Date();end.setHours(23,0,0,0);const d=end-now;if(d<=0){document.getElementById('countdown').textContent='— Offre terminée';return}const h=String(Math.floor(d/3600000)).padStart(2,'0');const m=String(Math.floor((d%3600000)/60000)).padStart(2,'0');const s=String(Math.floor((d%60000)/1000)).padStart(2,'0');document.getElementById('countdown').textContent=`⏰ ${h}:${m}:${s}`}
+setInterval(tick,1000);tick();
+
+// Nav
+window.addEventListener('scroll',()=>{const nb=document.getElementById('navbar');nb.classList.toggle('at-top',window.scrollY<20)});
+
+// Notifs
+const notifs=[{name:'Karim B.',txt:'vient de commander un <strong>Double Dalle 🔥</strong>',t:'il y a 2 min'},{name:'Yasmine T.',txt:'vient de commander le <strong>Menu La Dalle</strong>',t:'il y a 5 min'},{name:'Mehdi O.',txt:'vient de commander un <strong>Smash Dalle</strong>',t:'il y a 8 min'},{name:'Issa D.',txt:'vient de commander <strong>2× Dalle Classic</strong>',t:'il y a 11 min'},{name:'Nadia K.',txt:'vient de commander un <strong>Dalle Crispy 🍗</strong>',t:'il y a 14 min'},{name:'Bilal M.',txt:'vient de commander le <strong>Triple Dalle 👑</strong>',t:'il y a 17 min'}];
+let ni=0;
+function showNotif(){const n=notifs[ni%notifs.length];document.getElementById('notifName').textContent=n.name;document.getElementById('notifTxt').innerHTML=n.txt;document.getElementById('notifTime').textContent=n.t;const el=document.getElementById('liveNotif');el.classList.add('show');setTimeout(()=>el.classList.remove('show'),5000);ni++}
+setTimeout(()=>{showNotif();setInterval(showNotif,10000)},4000);
+
+let cc=43;setInterval(()=>{if(Math.random()<.3){cc++;document.getElementById('cmd-count').textContent=cc}},30000);
+
+document.getElementById('upsellModal').addEventListener('click',e=>{if(e.target===document.getElementById('upsellModal'))closeUpsell()});
+
+// Video
+const hv=document.getElementById('heroVideo');
+if(hv){hv.muted=true;hv.setAttribute('playsinline','');hv.addEventListener('ended',()=>{hv.currentTime=0;hv.pause()});const tp=()=>hv.play().catch(()=>{});tp();setTimeout(tp,500);setTimeout(tp,1500);['touchstart','click'].forEach(e=>document.addEventListener(e,()=>tp(),{once:true}))}
+</script>
+</body>
+</html>

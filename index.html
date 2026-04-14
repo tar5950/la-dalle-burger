@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prestige Barber — L'excellence rencontre la tradition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* ── VARIABLES ── */
+:root {
+  --n:   #0a0a0a;
+  --n2:  #111;
+  --n3:  #1a1a1a;
+  --or:  #c8a84b;
+  --or2: #e8c86a;
+  --w:   #f5f0e8;
+  --w2:  #ffffff;
+  --g:   #666;
+  --g2:  #999;
+  --border: rgba(200,168,75,0.2);
+}
+
+/* ── RESET ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--n); color: var(--w); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 6%; height: 80px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: all 0.4s;
+}
+nav.scrolled {
+  background: rgba(10,10,10,0.97);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  height: 64px;
+}
+.nav-logo {
+  display: flex; flex-direction: column;
+  text-decoration: none;
+}
+.nav-logo-main {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--w); line-height: 1;
+}
+.nav-logo-sub {
+  font-size: 8px; font-weight: 500;
+  letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--or); margin-top: 3px;
+}
+.nav-links { display: flex; gap: 36px; align-items: center; }
+.nav-links a {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: rgba(245,240,232,0.45);
+  text-decoration: none; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--or); }
+.nav-cta {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--n); background: var(--or);
+  padding: 11px 26px; text-decoration: none;
+  transition: all 0.2s; border: 1px solid var(--or);
+}
+.nav-cta:hover { background: transparent; color: var(--or); }
+
+/* ── HERO ── */
+#hero {
+  position: relative; height: 100vh; min-height: 640px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.hero-video {
+  position: absolute; inset: 0;
+}
+.hero-video video {
+  width: 100%; height: 100%;
+  object-fit: cover; opacity: 0.45;
+}
+.hero-video::after {
+  display: none;
+}
+
+/* Barberpole */
+.pole {
+  position: absolute; right: 8%; top: 50%;
+  transform: translateY(-50%);
+  width: 12px; height: 180px;
+  overflow: hidden; border-radius: 6px;
+  border: 1px solid rgba(200,168,75,0.3);
+  z-index: 5;
+}
+.pole-inner {
+  width: 100%; height: 400%;
+  background: repeating-linear-gradient(
+    -45deg,
+    #aa1020 0, #aa1020 8px,
+    #f5f0e8 8px, #f5f0e8 16px,
+    #0a3080 16px, #0a3080 24px,
+    #f5f0e8 24px, #f5f0e8 32px
+  );
+  animation: pole 3s linear infinite;
+}
+@keyframes pole { to { transform: translateY(-25%); } }
+
+.hero-content {
+  position: relative; z-index: 5;
+  text-align: center; padding: 0 5%;
+  max-width: 900px;
+}
+
+.hero-eyebrow {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.5em; text-transform: uppercase;
+  color: var(--or); margin-bottom: 24px;
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  opacity: 0; animation: fadeUp 0.7s 0.3s forwards;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: ''; display: block;
+  width: 40px; height: 1px; background: var(--or);
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(56px, 10vw, 140px);
+  font-weight: 300; line-height: 0.9;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--w); margin-bottom: 10px;
+  opacity: 0; animation: fadeUp 0.9s 0.5s forwards;
+}
+.hero-title span {
+  display: block; font-style: italic;
+  font-weight: 300; color: var(--or);
+  font-size: 0.65em; letter-spacing: 0.12em;
+}
+
+.hero-divider {
+  width: 60px; height: 1px;
+  background: var(--or); margin: 28px auto;
+  opacity: 0; animation: fadeUp 0.7s 0.8s forwards;
+}
+
+.hero-sub {
+  font-size: 12px; font-weight: 300;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(245,240,232,0.5); margin-bottom: 48px;
+  opacity: 0; animation: fadeUp 0.7s 1s forwards;
+}
+
+.hero-btns {
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp 0.7s 1.2s forwards;
+}
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--or); color: var(--n);
+  padding: 16px 40px;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  text-decoration: none; cursor: pointer; border: 1px solid var(--or);
+  transition: all 0.25s;
+}
+.btn-primary:hover { background: transparent; color: var(--or); }
+
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--w);
+  padding: 16px 40px;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  text-decoration: none; cursor: pointer;
+  border: 1px solid rgba(245,240,232,0.25);
+  transition: all 0.25s;
+}
+.btn-secondary:hover { border-color: var(--or); color: var(--or); }
+
+.hero-stats {
+  position: absolute; bottom: 48px; left: 0; right: 0;
+  display: flex; justify-content: center; gap: 64px;
+  z-index: 5;
+  opacity: 0; animation: fadeUp 0.7s 1.5s forwards;
+}
+.hstat-v {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px; font-weight: 600;
+  color: var(--or); line-height: 1; text-align: center;
+}
+.hstat-l {
+  font-size: 8px; font-weight: 500;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(245,240,232,0.35); margin-top: 6px;
+  text-align: center;
+}
+
+/* Scroll hint */
+.scroll-hint {
+  position: absolute; bottom: 30px; right: 6%; z-index: 5;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  font-size: 8px; font-weight: 500;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: rgba(245,240,232,0.2);
+  opacity: 0; animation: fadeUp 0.7s 1.8s forwards;
+}
+.scroll-line {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, transparent, var(--or));
+  opacity: 0.4; animation: breathe 2.5s infinite;
+}
+@keyframes breathe { 0%,100%{opacity:0.4} 50%{opacity:0.1} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── TICKER ── */
+.ticker {
+  background: var(--n2); padding: 14px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+.ticker-track {
+  display: flex; white-space: nowrap;
+  animation: ticker-scroll 20s linear infinite;
+}
+@keyframes ticker-scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.tick {
+  display: inline-flex; align-items: center; gap: 20px;
+  padding: 0 28px;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: rgba(200,168,75,0.5);
+}
+.tick-dot { width: 4px; height: 4px; background: var(--or); border-radius: 50%; opacity: 0.4; flex-shrink: 0; }
+
+/* ── SECTIONS COMMUNES ── */
+.section { padding: 100px 6%; }
+.section-label {
+  font-size: 9px; font-weight: 600;
+  letter-spacing: 0.5em; text-transform: uppercase;
+  color: var(--or); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 14px;
+}
+.section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); max-width: 60px; }
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(42px, 6vw, 80px);
+  font-weight: 300; letter-spacing: 0.06em;
+  text-transform: uppercase; line-height: 0.9;
+  color: var(--w);
+}
+.section-title em { font-style: italic; color: var(--or); }
+
+/* ── SERVICES ── */
+#services { background: var(--n); }
+.services-intro {
+  display: flex; justify-content: space-between;
+  align-items: flex-end; margin-bottom: 64px;
+  flex-wrap: wrap; gap: 24px;
+}
+.services-sub {
+  font-size: 12px; font-weight: 300;
+  letter-spacing: 0.08em; line-height: 1.8;
+  color: var(--g2); max-width: 360px;
+}
+
+.services-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--border);
+}
+.srv-card {
+  background: var(--n); padding: 48px 32px;
+  position: relative; overflow: hidden;
+  cursor: pointer; transition: all 0.3s;
+}
+.srv-card::before {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px; background: var(--or);
+  transform: scaleX(0); transition: transform 0.3s;
+}
+.srv-card:hover::before { transform: scaleX(1); }
+.srv-card:hover { background: var(--n2); }
+.srv-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 56px; font-weight: 300;
+  color: rgba(200,168,75,0.08); line-height: 1;
+  margin-bottom: 24px; letter-spacing: -0.02em;
+}
+.srv-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 600;
+  letter-spacing: 0.06em; color: var(--w);
+  margin-bottom: 12px; text-transform: uppercase;
+}
+.srv-desc {
+  font-size: 11px; font-weight: 300;
+  letter-spacing: 0.06em; line-height: 1.8;
+  color: var(--g); margin-bottom: 28px;
+}
+.srv-footer {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.srv-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px; font-weight: 600; color: var(--or);
+}
+.srv-time {
+  font-size: 9px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--g);
+}
+.srv-btn {
+  display: block; width: 100%;
+  background: transparent; border: 1px solid var(--border);
+  color: var(--or); padding: 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  cursor: pointer; margin-top: 20px;
+  transition: all 0.2s; opacity: 0;
+  transform: translateY(8px);
+}
+.srv-card:hover .srv-btn { opacity: 1; transform: translateY(0); }
+.srv-btn:hover { background: var(--or); color: var(--n); border-color: var(--or); }
+
+/* ── GALERIE ── */
+#galerie { background: var(--n2); padding: 100px 0; }
+.galerie-header { padding: 0 6%; margin-bottom: 48px; display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+.galerie-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 320px 220px;
+  gap: 2px;
+}
+.gal-item {
+  overflow: hidden; position: relative; background: var(--n3);
+}
+.gal-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(0.7) saturate(0.8);
+  transition: all 0.5s;
+}
+.gal-item:hover img { filter: brightness(0.9) saturate(1); transform: scale(1.04); }
+.gal-item:first-child { grid-row: 1 / 3; }
+.gal-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(10,10,10,0.6) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.3s;
+}
+.gal-item:hover .gal-overlay { opacity: 1; }
+
+/* ── À PROPOS ── */
+#apropos {
+  background: var(--n);
+  display: grid; grid-template-columns: 1fr 1fr;
+  min-height: 600px;
+}
+.apropos-img {
+  position: relative; overflow: hidden;
+  background: var(--n3);
+}
+.apropos-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(0.6) saturate(0.7);
+}
+.apropos-img::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, transparent 60%, var(--n) 100%);
+}
+.apropos-content {
+  padding: 80px 6% 80px 4%;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.apropos-text {
+  font-size: 13px; font-weight: 300;
+  letter-spacing: 0.04em; line-height: 2;
+  color: rgba(245,240,232,0.55);
+  margin-bottom: 48px;
+}
+.apropos-stats {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+.astat {
+  border-left: 2px solid var(--or); padding-left: 16px;
+}
+.astat-v {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px; font-weight: 600;
+  color: var(--or); line-height: 1; margin-bottom: 6px;
+}
+.astat-l {
+  font-size: 9px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--g);
+}
+
+/* ── ÉQUIPE ── */
+#equipe { background: var(--n2); }
+.equipe-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 2px; margin-top: 56px;
+}
+.eq-card {
+  position: relative; overflow: hidden; cursor: pointer;
+  background: var(--n3);
+}
+.eq-card img {
+  width: 100%; aspect-ratio: 3/4;
+  object-fit: cover; object-position: top;
+  filter: brightness(0.5) saturate(0.5) sepia(0.1);
+  transition: all 0.5s; display: block;
+}
+.eq-card:hover img { filter: brightness(0.75) saturate(0.9); transform: scale(1.04); }
+.eq-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 24px 18px 18px;
+  background: linear-gradient(to top, rgba(10,10,10,0.98) 0%, rgba(10,10,10,0.2) 70%, transparent 100%);
+}
+.eq-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-weight: 600;
+  letter-spacing: 0.08em; color: var(--w);
+  margin-bottom: 2px;
+}
+.eq-role {
+  font-size: 8px; font-weight: 600;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--or); margin-bottom: 10px;
+}
+.eq-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 10px; }
+.eq-tag {
+  font-size: 7px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  border: 1px solid rgba(200,168,75,0.3);
+  color: rgba(200,168,75,0.7); padding: 2px 7px;
+}
+.eq-btn {
+  width: 100%; background: transparent; border: 1px solid var(--or);
+  color: var(--or); padding: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  cursor: pointer; opacity: 0; transform: translateY(6px);
+  transition: all 0.25s;
+}
+.eq-card:hover .eq-btn { opacity: 1; transform: translateY(0); }
+.eq-btn:hover { background: var(--or); color: var(--n); }
+
+/* ── RDV ── */
+#rdv { background: var(--n); }
+.rdv-layout {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: start; margin-top: 64px;
+}
+
+/* Info contact */
+.rdv-info {}
+.rdv-contact-item {
+  display: flex; align-items: flex-start; gap: 16px;
+  padding: 20px 0; border-bottom: 1px solid var(--border);
+}
+.rdv-contact-item:last-child { border: none; }
+.rdv-contact-icon {
+  width: 36px; height: 36px;
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0; color: var(--or);
+}
+.rdv-contact-lbl {
+  font-size: 8px; font-weight: 600;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--g); margin-bottom: 5px;
+}
+.rdv-contact-val {
+  font-size: 13px; font-weight: 300;
+  letter-spacing: 0.04em; color: var(--w); line-height: 1.5;
+}
+
+/* Formulaire RDV */
+.rdv-form {
+  background: var(--n2);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--or);
+  padding: 40px;
+  position: sticky; top: 100px;
+}
+.rdv-form-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px; font-weight: 300;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--w); text-align: center;
+  margin-bottom: 28px; padding-bottom: 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Progress */
+.rdv-progress { display: flex; gap: 2px; margin-bottom: 28px; }
+.rp { flex: 1; height: 1px; background: var(--border); transition: background 0.3s; }
+.rp.done { background: var(--or); }
+
+.rdv-step-lbl {
+  font-size: 8px; font-weight: 600;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--or); margin-bottom: 10px; margin-top: 18px;
+}
+
+/* Grille coiffeurs */
+.b-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.b-chip {
+  background: var(--n3); border: 1px solid var(--border);
+  padding: 10px 6px; text-align: center; cursor: pointer; transition: all 0.18s;
+}
+.b-chip:hover, .b-chip.on { border-color: var(--or); background: rgba(200,168,75,0.06); }
+.b-chip-n {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.08em; color: var(--w);
+}
+.b-chip.on .b-chip-n { color: var(--or); }
+.b-chip-r { font-size: 8px; color: var(--g); margin-top: 2px; letter-spacing: 0.06em; }
+
+/* Services */
+.s-grid { display: flex; flex-direction: column; gap: 3px; }
+.s-chip {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 14px; background: var(--n3);
+  border: 1px solid var(--border); cursor: pointer; transition: all 0.18s;
+}
+.s-chip:hover, .s-chip.on { border-color: var(--or); background: rgba(200,168,75,0.06); }
+.s-chip-n {
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.06em; color: var(--w);
+}
+.s-chip.on .s-chip-n { color: var(--or); }
+.s-chip-p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 600; color: var(--or);
+}
+
+/* Calendrier */
+.cal { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+.cal-d {
+  background: var(--n3); border: 1px solid var(--border);
+  padding: 9px 4px; text-align: center; cursor: pointer; transition: all 0.18s;
+}
+.cal-d:hover, .cal-d.on { border-color: var(--or); background: rgba(200,168,75,0.06); }
+.cal-d-n {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-weight: 600; color: var(--w); line-height: 1;
+}
+.cal-d-l { font-size: 7px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--g); margin-top: 2px; }
+.cal-d.on .cal-d-n { color: var(--or); }
+
+/* Horaires */
+.hrs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+.hr {
+  background: var(--n3); border: 1px solid var(--border);
+  padding: 8px 4px; text-align: center; cursor: pointer;
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 0.04em; color: var(--w); transition: all 0.18s;
+}
+.hr:hover, .hr.on { border-color: var(--or); color: var(--or); background: rgba(200,168,75,0.06); }
+.hr.taken { opacity: 0.18; pointer-events: none; text-decoration: line-through; }
+
+/* Inputs */
+.f-inp {
+  width: 100%; display: block;
+  background: var(--n3); border: none;
+  border-bottom: 1px solid var(--border);
+  color: var(--w); padding: 12px 0;
+  font-family: 'Montserrat', sans-serif; font-size: 12px;
+  font-weight: 300; letter-spacing: 0.04em;
+  outline: none; transition: border-color 0.2s;
+  margin-bottom: 12px;
+}
+.f-inp:focus { border-color: var(--or); }
+.f-inp::placeholder { color: var(--g); font-size: 11px; }
+
+/* Récap */
+.recap {
+  background: rgba(200,168,75,0.04);
+  border-left: 1px solid var(--or);
+  padding: 14px 16px; margin-bottom: 16px;
+  display: none;
+}
+.recap.show { display: block; }
+.recap-line {
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.08em; color: var(--or);
+  margin-bottom: 4px;
+}
+.recap-line span { color: var(--w); }
+
+/* WA Button */
+.btn-wa {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 16px;
+  background: var(--r); color: var(--w);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  border: none; cursor: pointer; transition: all 0.2s;
+}
+.btn-wa:hover { background: var(--or); transform: translateY(-1px); }
+.rdv-note {
+  text-align: center; font-size: 9px; color: var(--g);
+  margin-top: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+}
+
+/* ── AVIS ── */
+#avis { background: var(--n2); }
+.avis-layout {
+  display: grid; grid-template-columns: auto 1fr;
+  gap: 80px; align-items: start; margin-top: 64px;
+}
+.avis-score {
+  text-align: center; min-width: 160px;
+  border: 1px solid var(--border); padding: 32px 28px;
+}
+.avis-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 72px; font-weight: 300;
+  color: var(--or); line-height: 1;
+}
+.avis-stars { font-size: 16px; letter-spacing: 3px; color: var(--or); margin: 8px 0; }
+.avis-cnt { font-size: 9px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--g); }
+.avis-lnk {
+  display: block; margin-top: 16px; padding: 10px;
+  border: 1px solid var(--border); color: var(--or);
+  font-size: 8px; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; text-decoration: none; transition: background 0.2s;
+}
+.avis-lnk:hover { background: rgba(200,168,75,0.08); }
+
+.avis-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.avis-card {
+  background: var(--n); padding: 28px;
+  border-top: 1px solid var(--border); transition: border-color 0.2s;
+  position: relative;
+}
+.avis-card:hover { border-color: var(--or); }
+.avis-card::before {
+  content: '"'; position: absolute; top: 14px; right: 20px;
+  font-family: 'Cormorant Garamond', serif; font-size: 64px;
+  color: rgba(200,168,75,0.06); line-height: 1; font-style: italic;
+}
+.avis-stars-s { font-size: 11px; letter-spacing: 2px; color: var(--or); margin-bottom: 12px; }
+.avis-txt {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px; font-style: italic; font-weight: 400;
+  line-height: 1.7; color: rgba(245,240,232,0.6); margin-bottom: 16px;
+}
+.avis-auth { font-size: 9px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--g); }
+.avis-by { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--or); margin-top: 3px; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--n); padding: 80px 6% 36px;
+  border-top: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.ft-bg {
+  position: absolute; bottom: -50px; left: -2%;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-style: italic;
+  font-size: clamp(80px, 16vw, 200px);
+  color: transparent; -webkit-text-stroke: 1px rgba(200,168,75,0.05);
+  pointer-events: none; user-select: none; line-height: 1;
+}
+.ft-logo-main {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(44px, 8vw, 100px);
+  font-weight: 300; font-style: italic;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--w); line-height: 0.9; margin-bottom: 6px;
+}
+.ft-logo-main span { color: var(--or); }
+.ft-logo-sub {
+  font-size: 9px; font-weight: 500;
+  letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--or); margin-bottom: 40px;
+  display: flex; align-items: center; gap: 12px;
+}
+.ft-logo-sub::after { content: ''; flex: 1; height: 1px; background: var(--border); max-width: 180px; }
+
+.ft-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; position: relative; z-index: 1; }
+.ft-col-lbl { font-size: 8px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--or); margin-bottom: 16px; }
+.ft-col-item { font-size: 12px; font-weight: 300; letter-spacing: 0.04em; color: rgba(245,240,232,0.35); line-height: 2; }
+.ft-col-item strong { color: var(--w); font-weight: 400; }
+
+.ft-bottom {
+  display: flex; justify-content: space-between;
+  padding-top: 28px; border-top: 1px solid var(--border);
+  position: relative; z-index: 1; margin-top: 40px;
+  flex-wrap: wrap; gap: 10px;
+}
+.ft-copy { font-size: 9px; color: rgba(245,240,232,0.14); letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* ── NOTIF ── */
+.notif {
+  position: fixed; bottom: 28px; left: 28px;
+  background: var(--n2); border: 1px solid var(--border);
+  border-left: 3px solid var(--or); max-width: 300px;
+  width: calc(100% - 56px); z-index: 200;
+  transform: translateX(-130%);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+}
+.notif.show { transform: translateX(0); }
+.notif-top {
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 8px;
+}
+.notif-dot { width: 5px; height: 5px; background: var(--or); border-radius: 50%; animation: breathe 2s infinite; flex-shrink: 0; }
+.notif-lbl { font-size: 8px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--or); }
+.notif-body { padding: 14px 16px; }
+.notif-name { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-style: italic; color: var(--w); margin-bottom: 3px; }
+.notif-txt { font-size: 11px; color: rgba(245,240,232,0.45); line-height: 1.4; }
+.notif-txt strong { color: var(--or); }
+.notif-time { font-size: 9px; color: var(--g); margin-top: 5px; letter-spacing: 0.08em; }
+
+/* ── NEON SIGN ── */
+.neon-sign {
+  position: absolute; top: 11%; right: 6%; z-index: 5;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(16px, 2.5vw, 30px);
+  color: var(--or);
+  text-shadow:
+    0 0 6px var(--or),
+    0 0 20px var(--or),
+    0 0 50px rgba(200,168,75,.4),
+    0 0 100px rgba(200,168,75,.2);
+  animation: neon-flicker 7s infinite;
+  line-height: 1.35;
+  letter-spacing: 0.06em;
+}
+.neon-sign-sub {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal; font-size: clamp(8px, 1vw, 11px);
+  font-weight: 600; letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.45); text-shadow: none;
+  margin-top: 5px;
+}
+@keyframes neon-flicker {
+  0%,18%,20%,55%,57%,100% { opacity: 1; text-shadow: 0 0 6px var(--or), 0 0 20px var(--or), 0 0 50px rgba(200,168,75,.4); }
+  19%,56% { opacity: 0.6; text-shadow: none; }
+  19.5%,56.5% { opacity: 1; text-shadow: 0 0 6px var(--or), 0 0 20px var(--or); }
+  20%,57% { opacity: 0.4; text-shadow: none; }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .equipe-grid { grid-template-columns: repeat(3, 1fr); }
+  .rdv-layout { grid-template-columns: 1fr; gap: 40px; }
+  .rdv-form { position: static; }
+  .avis-layout { grid-template-columns: 1fr; gap: 32px; }
+  .avis-cols { grid-template-columns: 1fr; }
+  #apropos { grid-template-columns: 1fr; }
+  .apropos-img { height: 400px; }
+  .ft-grid { grid-template-columns: 1fr 1fr; }
+  .hero-stats { gap: 36px; }
+}
+@media (max-width: 700px) {
+  .neon-sign { display: none; }
+  nav { padding: 0 4%; height: 64px; }
+  nav.scrolled { height: 56px; }
+  .nav-links { display: none; }
+  .section { padding: 64px 4%; }
+  .services-grid { grid-template-columns: 1fr; }
+  .equipe-grid { grid-template-columns: repeat(2, 1fr); }
+  .galerie-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .gal-item:first-child { grid-row: auto; grid-column: 1 / 3; }
+  .b-grid { grid-template-columns: repeat(2, 1fr); }
+  .cal { grid-template-columns: repeat(3, 1fr); }
+  .hrs { grid-template-columns: repeat(3, 1fr); }
+  .ft-grid { grid-template-columns: 1fr; }
+  .hero-stats { display: none; }
+  .pole { display: none; }
+  .notif { left: 10px; right: 10px; max-width: none; width: auto; }
+}
+@media (max-width: 380px) { .nav-cta { display: none; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">
+    <span class="nav-logo-main">Prestige Barber</span>
+    <span class="nav-logo-sub">Est. 1984 — New York</span>
+  </a>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#equipe">L'Équipe</a>
+    <a href="#apropos">À Propos</a>
+    <a href="#avis">Avis</a>
+  </div>
+  <a href="#rdv" class="nav-cta">Prendre RDV</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-video">
+    <video id="heroVid" autoplay muted playsinline preload="auto" webkit-playsinline>
+      <source src="https://res.cloudinary.com/dzh5vllay/video/upload/q_auto,w_720/v1776069098/001_A_man_with_dark_curly_hair_and_a_beard_is_shown_CILfgllK_rr7kz0.mp4" type="video/mp4" media="(max-width:600px)">
+      <source src="https://res.cloudinary.com/dzh5vllay/video/upload/v1776069098/001_A_man_with_dark_curly_hair_and_a_beard_is_shown_CILfgllK_rr7kz0.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class=pole><div class=pole-inner></div></div>
+  <div class=neon-sign>Open<span class=neon-sign-sub>Walk-ins Welcome</span></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Est. 1984 — New York</div>
+    <h1 class="hero-title">
+      Prestige
+      <span>Barber</span>
+    </h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">Là où l'excellence rencontre la tradition</p>
+    <div class="hero-btns">
+      <a href="#rdv" class="btn-primary">Prendre Rendez-Vous</a>
+      <a href="#services" class="btn-secondary">Voir les Services</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div><div class="hstat-v">5</div><div class="hstat-l">Artistes</div></div>
+    <div><div class="hstat-v">4.9★</div><div class="hstat-l">Google</div></div>
+    <div><div class="hstat-v">40+</div><div class="hstat-l">Ans d'art</div></div>
+    <div><div class="hstat-v">500+</div><div class="hstat-l">Clients</div></div>
+  </div>
+  <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="tick">Fresh Cuts <span class="tick-dot"></span></span>
+    <span class="tick">Skin Fade <span class="tick-dot"></span></span>
+    <span class="tick">Premium Service <span class="tick-dot"></span></span>
+    <span class="tick">Old School <span class="tick-dot"></span></span>
+    <span class="tick">New York Style <span class="tick-dot"></span></span>
+    <span class="tick">Est. 1984 <span class="tick-dot"></span></span>
+    <span class="tick">Fresh Cuts <span class="tick-dot"></span></span>
+    <span class="tick">Skin Fade <span class="tick-dot"></span></span>
+    <span class="tick">Premium Service <span class="tick-dot"></span></span>
+    <span class="tick">Old School <span class="tick-dot"></span></span>
+    <span class="tick">New York Style <span class="tick-dot"></span></span>
+    <span class="tick">Est. 1984 <span class="tick-dot"></span></span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services" class="section">
+  <div class="services-intro">
+    <div>
+      <div class="section-label">Nos Services</div>
+      <h2 class="section-title">Des prestations<br><em>d'exception</em></h2>
+    </div>
+    <p class="services-sub">Des services de toilettage haut de gamme, réalisés avec précision et soin par nos maîtres barbiers.</p>
+  </div>
+  <div class="services-grid">
+    <div class="srv-card" onclick="pickService('Coupe + Fade','20')">
+      <div class="srv-num">01</div>
+      <div class="srv-name">Coupe + Fade</div>
+      <div class="srv-desc">Dégradé complet avec contours ultra-précis. Notre signature depuis 1984.</div>
+      <div class="srv-footer"><div class="srv-price">20€</div><div class="srv-time">45 min</div></div>
+      <button class="srv-btn" onclick="pickService('Coupe + Fade','20')">Réserver →</button>
+    </div>
+    <div class="srv-card" onclick="pickService('Coupe Classique','15')">
+      <div class="srv-num">02</div>
+      <div class="srv-name">Coupe Classique</div>
+      <div class="srv-desc">Ciseaux et tondeuse, finitions soignées bord à bord.</div>
+      <div class="srv-footer"><div class="srv-price">15€</div><div class="srv-time">30 min</div></div>
+      <button class="srv-btn" onclick="pickService('Coupe Classique','15')">Réserver →</button>
+    </div>
+    <div class="srv-card" onclick="pickService('Barbe + Contours','12')">
+      <div class="srv-num">03</div>
+      <div class="srv-name">Barbe + Contours</div>
+      <div class="srv-desc">Taille, rasage au rasoir droit, finitions à la cire.</div>
+      <div class="srv-footer"><div class="srv-price">12€</div><div class="srv-time">25 min</div></div>
+      <button class="srv-btn" onclick="pickService('Barbe + Contours','12')">Réserver →</button>
+    </div>
+    <div class="srv-card" onclick="pickService('Combo Coupe + Barbe','28')">
+      <div class="srv-num">04</div>
+      <div class="srv-name">Combo Coupe + Barbe</div>
+      <div class="srv-desc">La totale. Coupe et barbe en une seule séance de luxe.</div>
+      <div class="srv-footer"><div class="srv-price">28€</div><div class="srv-time">60 min</div></div>
+      <button class="srv-btn" onclick="pickService('Combo Coupe + Barbe','28')">Réserver →</button>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIE -->
+<section id="galerie">
+  <div class="galerie-header">
+    <div>
+      <div class="section-label">Galerie</div>
+      <h2 class="section-title">Notre <em>savoir-faire</em></h2>
+    </div>
+  </div>
+  <div class="galerie-grid">
+    <div class="gal-item"><div class="gal-overlay"></div><img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=800&q=80&fit=crop" alt="Barbershop"></div>
+    <div class="gal-item"><div class="gal-overlay"></div><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=500&q=80&fit=crop&crop=top" alt="Barber"></div>
+    <div class="gal-item"><div class="gal-overlay"></div><img src="https://images.unsplash.com/photo-1622288432450-277d0fef5ed6?w=500&q=80&fit=crop&crop=top" alt="Barber"></div>
+    <div class="gal-item"><div class="gal-overlay"></div><img src="https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?w=500&q=80&fit=crop&crop=top" alt="Barber"></div>
+    <div class="gal-item"><div class="gal-overlay"></div><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&q=80&fit=crop&crop=top" alt="Barber"></div>
+  </div>
+</section>
+
+<!-- À PROPOS -->
+<section id="apropos">
+  <div class="apropos-img">
+    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Barbershop interior">
+  </div>
+  <div class="apropos-content">
+    <div class="section-label">À Propos de Nous</div>
+    <h2 class="section-title" style="margin-bottom:28px">L'art du<br><em>barbier</em></h2>
+    <p class="apropos-text">Chez Prestige Barber, nous croyons en l'art du barbier traditionnel allié aux techniques modernes. Nos maîtres barbiers cumulent des décennies d'expérience pour vous offrir des prestations exceptionnelles dans un cadre luxueux.<br><br>Chaque client bénéficie d'une attention personnalisée et de conseils d'experts. Nous sommes fiers de notre savoir-faire et nous nous engageons à l'excellence dans les moindres détails.</p>
+    <div class="apropos-stats">
+      <div class="astat"><div class="astat-v">40+</div><div class="astat-l">Ans d'expérience</div></div>
+      <div class="astat"><div class="astat-v">500+</div><div class="astat-l">Clients satisfaits</div></div>
+      <div class="astat"><div class="astat-v">5</div><div class="astat-l">Artistes experts</div></div>
+      <div class="astat"><div class="astat-v">6j/7</div><div class="astat-l">Ouvert chaque semaine</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ÉQUIPE -->
+<section id="equipe" class="section">
+  <div class="section-label">Les Artistes</div>
+  <h2 class="section-title">Notre <em>équipe</em></h2>
+  <div class="equipe-grid">
+    <div class="eq-card" onclick="pickBarber('Malik')">
+      <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&q=80&fit=crop&crop=top" alt="Malik">
+      <div class="eq-overlay">
+        <div class="eq-name">Malik</div>
+        <div class="eq-role">Head Barber</div>
+        <div class="eq-tags"><span class="eq-tag">Skin Fade</span><span class="eq-tag">Design</span></div>
+        <button class="eq-btn" onclick="pickBarber('Malik')">Réserver</button>
+      </div>
+    </div>
+    <div class="eq-card" onclick="pickBarber('Yanis')">
+      <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=400&q=80&fit=crop&crop=top" alt="Yanis">
+      <div class="eq-overlay">
+        <div class="eq-name">Yanis</div>
+        <div class="eq-role">Fade Specialist</div>
+        <div class="eq-tags"><span class="eq-tag">Low Fade</span><span class="eq-tag">Barbe</span></div>
+        <button class="eq-btn" onclick="pickBarber('Yanis')">Réserver</button>
+      </div>
+    </div>
+    <div class="eq-card" onclick="pickBarber('Jordan')">
+      <img src="https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?w=400&q=80&fit=crop&crop=top" alt="Jordan">
+      <div class="eq-overlay">
+        <div class="eq-name">Jordan</div>
+        <div class="eq-role">Style Expert</div>
+        <div class="eq-tags"><span class="eq-tag">Textured</span><span class="eq-tag">Afro</span></div>
+        <button class="eq-btn" onclick="pickBarber('Jordan')">Réserver</button>
+      </div>
+    </div>
+    <div class="eq-card" onclick="pickBarber('Amine')">
+      <img src="https://images.unsplash.com/photo-1622288432450-277d0fef5ed6?w=400&q=80&fit=crop&crop=top" alt="Amine">
+      <div class="eq-overlay">
+        <div class="eq-name">Amine</div>
+        <div class="eq-role">Beard Artist</div>
+        <div class="eq-tags"><span class="eq-tag">Beard</span><span class="eq-tag">Rasage</span></div>
+        <button class="eq-btn" onclick="pickBarber('Amine')">Réserver</button>
+      </div>
+    </div>
+    <div class="eq-card" onclick="pickBarber('Kevin')">
+      <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80&fit=crop&crop=top" alt="Kevin">
+      <div class="eq-overlay">
+        <div class="eq-name">Kevin</div>
+        <div class="eq-role">Classic Cuts</div>
+        <div class="eq-tags"><span class="eq-tag">Classic</span><span class="eq-tag">Kids</span></div>
+        <button class="eq-btn" onclick="pickBarber('Kevin')">Réserver</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RDV -->
+<section id="rdv" class="section">
+  <div class="section-label">Réservation</div>
+  <h2 class="section-title">Planifiez<br><em>votre visite</em></h2>
+  <div class="rdv-layout">
+
+    <!-- Infos contact -->
+    <div class="rdv-info">
+      <div class="rdv-contact-item">
+        <div class="rdv-contact-icon">📍</div>
+        <div><div class="rdv-contact-lbl">Adresse</div><div class="rdv-contact-val">Notre adresse<br>Votre ville</div></div>
+      </div>
+      <div class="rdv-contact-item">
+        <div class="rdv-contact-icon">📞</div>
+        <div><div class="rdv-contact-lbl">Téléphone</div><div class="rdv-contact-val">06 00 00 00 00</div></div>
+      </div>
+      <div class="rdv-contact-item">
+        <div class="rdv-contact-icon">🕐</div>
+        <div><div class="rdv-contact-lbl">Horaires</div><div class="rdv-contact-val">Mardi – Samedi<br>9h – 19h</div></div>
+      </div>
+      <div class="rdv-contact-item">
+        <div class="rdv-contact-icon">✉️</div>
+        <div><div class="rdv-contact-lbl">WhatsApp</div><div class="rdv-contact-val">Confirmation sous 30 min<br>Annulation 24h avant</div></div>
+      </div>
+    </div>
+
+    <!-- Formulaire -->
+    <div class="rdv-form">
+      <div class="rdv-form-title">Réserver un RDV</div>
+      <div class="rdv-progress">
+        <div class="rp done" id="rp1"></div>
+        <div class="rp" id="rp2"></div>
+        <div class="rp" id="rp3"></div>
+        <div class="rp" id="rp4"></div>
+      </div>
+
+      <div class="rdv-step-lbl">I — Ton coiffeur</div>
+      <div class="b-grid">
+        <div class="b-chip" data-v="Malik" onclick="selB(this)"><div class="b-chip-n">Malik</div><div class="b-chip-r">Head Barber</div></div>
+        <div class="b-chip" data-v="Yanis" onclick="selB(this)"><div class="b-chip-n">Yanis</div><div class="b-chip-r">Fade Specialist</div></div>
+        <div class="b-chip" data-v="Jordan" onclick="selB(this)"><div class="b-chip-n">Jordan</div><div class="b-chip-r">Style Expert</div></div>
+        <div class="b-chip" data-v="Amine" onclick="selB(this)"><div class="b-chip-n">Amine</div><div class="b-chip-r">Beard Artist</div></div>
+        <div class="b-chip" data-v="Kevin" onclick="selB(this)"><div class="b-chip-n">Kevin</div><div class="b-chip-r">Classic Cuts</div></div>
+        <div class="b-chip" data-v="Disponible" onclick="selB(this)"><div class="b-chip-n">Dispo</div><div class="b-chip-r">Premier dispo</div></div>
+      </div>
+
+      <div class="rdv-step-lbl">II — La prestation</div>
+      <div class="s-grid">
+        <div class="s-chip" data-v="Coupe + Fade" data-p="20" onclick="selS(this)"><div class="s-chip-n">Coupe + Fade</div><div class="s-chip-p">20€</div></div>
+        <div class="s-chip" data-v="Coupe Classique" data-p="15" onclick="selS(this)"><div class="s-chip-n">Coupe Classique</div><div class="s-chip-p">15€</div></div>
+        <div class="s-chip" data-v="Barbe + Contours" data-p="12" onclick="selS(this)"><div class="s-chip-n">Barbe + Contours</div><div class="s-chip-p">12€</div></div>
+        <div class="s-chip" data-v="Combo Coupe + Barbe" data-p="28" onclick="selS(this)"><div class="s-chip-n">Combo Coupe + Barbe</div><div class="s-chip-p">28€</div></div>
+      </div>
+
+      <div class="rdv-step-lbl">III — Le jour</div>
+      <div class="cal" id="cal"></div>
+
+      <div id="hrs-wrap" style="display:none">
+        <div class="rdv-step-lbl">L'heure</div>
+        <div class="hrs" id="hrs"></div>
+      </div>
+
+      <div class="rdv-step-lbl">IV — Tes infos</div>
+      <input class="f-inp" type="text" id="rp-name" placeholder="Ton prénom *">
+      <input class="f-inp" type="tel" id="rp-tel" placeholder="Ton numéro (optionnel)">
+
+      <div class="recap" id="recap">
+        <div class="recap-line">Coiffeur : <span id="rc-b">—</span></div>
+        <div class="recap-line">Prestation : <span id="rc-s">—</span></div>
+        <div class="recap-line">Jour : <span id="rc-d">—</span></div>
+        <div class="recap-line">Heure : <span id="rc-t">—</span></div>
+        <div class="recap-line">Prix : <span id="rc-p">—</span></div>
+      </div>
+
+      <button class="btn-wa" onclick="sendWA()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Confirmer sur WhatsApp
+      </button>
+      <p class="rdv-note">Confirmation sous 30 min · Annulation 24h avant</p>
+    </div>
+  </div>
+</section>
+
+<!-- AVIS -->
+<section id="avis" class="section">
+  <div class="avis-layout">
+    <div class="avis-score">
+      <div class="avis-num">4.9</div>
+      <div class="avis-stars">★★★★★</div>
+      <div class="avis-cnt">250+ avis Google</div>
+      <a href="#" class="avis-lnk">Laisser un avis →</a>
+    </div>
+    <div>
+      <div class="section-label">Témoignages</div>
+      <h2 class="section-title" style="margin-bottom:36px">Ils sont <em>revenus.</em></h2>
+      <div class="avis-cols">
+        <div class="avis-card">
+          <div class="avis-stars-s">★★★★★</div>
+          <div class="avis-txt">"Malik c'est le meilleur dans le secteur, pas de débat. Mon fade tient une semaine. Je fais 30 km juste pour lui."</div>
+          <div class="avis-auth">Karim D.</div>
+          <div class="avis-by">Coiffé par Malik</div>
+        </div>
+        <div class="avis-card">
+          <div class="avis-stars-s">★★★★★</div>
+          <div class="avis-txt">"L'ambiance du shop c'est une autre vibe. On se sent dans un vrai barbershop de New York."</div>
+          <div class="avis-auth">Mehdi S.</div>
+          <div class="avis-by">Coiffé par Yanis</div>
+        </div>
+        <div class="avis-card">
+          <div class="avis-stars-s">★★★★★</div>
+          <div class="avis-txt">"Amine pour la barbe c'est un artiste. Jamais eu une barbe aussi propre. Client à vie."</div>
+          <div class="avis-auth">Bilal T.</div>
+          <div class="avis-by">Coiffé par Amine</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-bg">Prestige</div>
+  <div style="position:relative;z-index:1">
+    <div class="ft-logo-main"><span>Prestige</span> Barber</div>
+    <div class="ft-logo-sub">Est. 1984 — L'excellence rencontre la tradition</div>
+    <div class="ft-grid">
+      <div>
+        <div class="ft-col-lbl">Contact</div>
+        <div class="ft-col-item">📍 <strong>Notre adresse · Votre ville</strong></div>
+        <div class="ft-col-item">📞 <strong>06 00 00 00 00</strong></div>
+        <div class="ft-col-item">🕐 <strong>Mar–Sam · 9h – 19h</strong></div>
+      </div>
+      <div>
+        <div class="ft-col-lbl">L'Équipe</div>
+        <div class="ft-col-item"><strong>Malik</strong> · Head Barber</div>
+        <div class="ft-col-item"><strong>Yanis</strong> · Fade Specialist</div>
+        <div class="ft-col-item"><strong>Jordan</strong> · Style Expert</div>
+        <div class="ft-col-item"><strong>Amine</strong> · Beard Artist</div>
+        <div class="ft-col-item"><strong>Kevin</strong> · Classic Cuts</div>
+      </div>
+      <div>
+        <div class="ft-col-lbl">Réserver</div>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:4px">
+          <a href="#rdv" class="btn-primary" style="width:fit-content;font-size:9px;padding:12px 24px">Prendre RDV →</a>
+          <a href="#" class="btn-secondary" style="width:fit-content;font-size:9px;padding:12px 24px">⭐ Laisser un avis</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <span class="ft-copy">© 2025 Prestige Barber — Est. 1984</span>
+    <span class="ft-copy">fait avec 💈</span>
+  </div>
+</footer>
+
+<!-- NOTIF -->
+<div class="notif" id="notif">
+  <div class="notif-top"><div class="notif-dot"></div><div class="notif-lbl">RDV confirmé</div></div>
+  <div class="notif-body">
+    <div class="notif-name" id="n-name">Karim</div>
+    <div class="notif-txt" id="n-txt">vient de réserver avec <strong>Malik</strong></div>
+    <div class="notif-time" id="n-time">il y a 4 min</div>
+  </div>
+</div>
+
+<script>
+// NAV
+window.addEventListener('scroll', function() {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 80);
+});
+
+// VIDEO — 1 tour puis arrêt
+var vid = document.getElementById('heroVid');
+if (vid) {
+  vid.muted = true;
+  vid.playbackRate = 1.2;
+  vid.setAttribute('playsinline', '');
+  vid.addEventListener('ended', function() { vid.currentTime = 0; vid.pause(); });
+  function tryPlay() { vid.play().catch(function(){}); }
+  tryPlay(); setTimeout(tryPlay, 600); setTimeout(tryPlay, 1600);
+  document.addEventListener('touchstart', tryPlay, { once: true });
+  document.addEventListener('click', tryPlay, { once: true });
+}
+
+// RDV STATE
+var R = { b:'', s:'', p:'', d:'', t:'' };
+
+function updBar() {
+  var v = [R.b, R.s, R.d, R.t];
+  for (var i = 0; i < 4; i++) {
+    document.getElementById('rp'+(i+1)).classList.toggle('done', !!v[i]);
+  }
+}
+function updRecap() {
+  var ok = R.b && R.s && R.d && R.t;
+  document.getElementById('recap').classList.toggle('show', ok);
+  if (ok) {
+    document.getElementById('rc-b').textContent = R.b;
+    document.getElementById('rc-s').textContent = R.s;
+    document.getElementById('rc-d').textContent = R.d;
+    document.getElementById('rc-t').textContent = R.t;
+    document.getElementById('rc-p').textContent = R.p + ' €';
+  }
+  updBar();
+}
+
+function selB(el) {
+  document.querySelectorAll('.b-chip').forEach(function(e){ e.classList.remove('on'); });
+  el.classList.add('on'); R.b = el.getAttribute('data-v'); updRecap();
+}
+function selS(el) {
+  document.querySelectorAll('.s-chip').forEach(function(e){ e.classList.remove('on'); });
+  el.classList.add('on'); R.s = el.getAttribute('data-v'); R.p = el.getAttribute('data-p'); updRecap();
+}
+function pickBarber(name) {
+  document.querySelectorAll('.b-chip').forEach(function(el){ if(el.getAttribute('data-v')===name) selB(el); });
+  document.getElementById('rdv').scrollIntoView({ behavior: 'smooth' });
+}
+function pickService(name, price) {
+  document.querySelectorAll('.s-chip').forEach(function(el){ if(el.getAttribute('data-v')===name) selS(el); });
+  document.getElementById('rdv').scrollIntoView({ behavior: 'smooth' });
+}
+
+// CALENDRIER
+(function() {
+  var grid = document.getElementById('cal');
+  var j = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+  var now = new Date(); var cnt = 0;
+  for (var i = 1; i <= 14 && cnt < 8; i++) {
+    var d = new Date(now); d.setDate(now.getDate() + i);
+    if (d.getDay() === 0) continue;
+    var el = document.createElement('div'); el.className = 'cal-d';
+    el.innerHTML = '<div class="cal-d-n">' + d.getDate() + '</div><div class="cal-d-l">' + j[d.getDay()] + '</div>';
+    el.setAttribute('data-date', j[d.getDay()] + ' ' + d.getDate() + '/' + (d.getMonth()+1));
+    el.addEventListener('click', (function(e) { return function() {
+      document.querySelectorAll('.cal-d').forEach(function(x){ x.classList.remove('on'); });
+      e.classList.add('on'); R.d = e.getAttribute('data-date');
+      buildHrs(); updRecap();
+    }; })(el));
+    grid.appendChild(el); cnt++;
+  }
+})();
+
+function buildHrs() {
+  var grid = document.getElementById('hrs'); var wrap = document.getElementById('hrs-wrap');
+  grid.innerHTML = ''; wrap.style.display = 'block';
+  var slots = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00'];
+  var taken = ['10:00','14:30','16:00'];
+  slots.forEach(function(t) {
+    var el = document.createElement('div');
+    el.className = 'hr' + (taken.indexOf(t) >= 0 ? ' taken' : '');
+    el.textContent = t;
+    el.addEventListener('click', (function(e, time) { return function() {
+      document.querySelectorAll('.hr').forEach(function(x){ x.classList.remove('on'); });
+      e.classList.add('on'); R.t = time; updRecap();
+    }; })(el, t));
+    grid.appendChild(el);
+  });
+}
+
+function sendWA() {
+  var prenom = document.getElementById('rp-name').value.trim() || 'Client';
+  var tel = document.getElementById('rp-tel').value.trim();
+  if (!R.b || !R.s || !R.d || !R.t) { alert('Merci de compléter toutes les étapes.'); return; }
+  var msg = 'Salam, je veux prendre RDV\n\nCoiffeur : ' + R.b + '\nPrestation : ' + R.s + '\nJour : ' + R.d + '\nHeure : ' + R.t + '\nPrénom : ' + prenom + (tel ? '\nNuméro : ' + tel : '') + '\n\nMerci !';
+  window.open('https://wa.me/33600000000?text=' + encodeURIComponent(msg), '_blank');
+}
+
+// NOTIFS
+var notifs = [
+  {n:'Karim', t:'vient de réserver avec <strong>Malik</strong>', time:'il y a 4 min'},
+  {n:'Mehdi', t:'vient de réserver un <strong>Combo Coupe + Barbe</strong>', time:'il y a 9 min'},
+  {n:'Issa', t:'vient de réserver avec <strong>Yanis</strong>', time:'il y a 14 min'},
+  {n:'Bilal', t:'vient de réserver un <strong>Skin Fade</strong>', time:'il y a 19 min'},
+];
+var ni = 0;
+function showNotif() {
+  var n = notifs[ni % notifs.length];
+  document.getElementById('n-name').textContent = n.n;
+  document.getElementById('n-txt').innerHTML = n.t;
+  document.getElementById('n-time').textContent = n.time;
+  var el = document.getElementById('notif');
+  el.classList.add('show');
+  setTimeout(function(){ el.classList.remove('show'); }, 5000);
+  ni++;
+}
+setTimeout(function(){ showNotif(); setInterval(showNotif, 12000); }, 6000);
+</script>
+</body>
+</html>

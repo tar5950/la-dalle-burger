@@ -3145,6 +3145,55 @@ footer{
   .menu-card-floating{top:6px;left:6px;gap:3px;}
   .menu-card-floating .mc-tag{font-size:8px;padding:2px 5px;letter-spacing:0.1em;}
 }
+
+/* === STICKY BESTSELLER HINT — au-dessus du menu === */
+.menu-sticky-hint{
+  position:sticky;
+  top:56px;                       /* sous nav */
+  z-index:20;
+  margin:0 0 18px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;
+  padding:10px 14px;
+  background:var(--ink);
+  color:var(--paper);
+  border:2px solid var(--ink);
+  border-radius:999px;
+  box-shadow:var(--shadow-hard);
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;font-weight:500;
+  letter-spacing:0.12em;text-transform:uppercase;
+  cursor:pointer;
+  transition:transform 0.15s,box-shadow 0.15s;
+}
+.menu-sticky-hint:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);}
+.menu-sticky-hint:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink);}
+.menu-sticky-hint .msh-l{display:inline-flex;align-items:center;gap:8px;min-width:0;}
+.menu-sticky-hint .msh-star{color:var(--mustard);font-size:14px;}
+.menu-sticky-hint .msh-name{
+  font-family:'Bowlby One',sans-serif;
+  font-size:14px;letter-spacing:0;text-transform:none;
+  color:var(--paper);
+}
+.menu-sticky-hint .msh-pct{color:var(--mustard);font-weight:700;}
+.menu-sticky-hint .msh-cta{
+  font-family:'Bowlby One',sans-serif;
+  font-size:13px;letter-spacing:0;text-transform:none;
+  background:var(--mustard);color:var(--ink);
+  padding:6px 12px;border-radius:999px;
+  white-space:nowrap;
+}
+@media(max-width:600px){
+  .menu-sticky-hint{
+    top:52px;
+    padding:8px 10px;
+    font-size:10px;letter-spacing:0.08em;
+    gap:8px;
+  }
+  .menu-sticky-hint .msh-name{font-size:12px;}
+  .menu-sticky-hint .msh-pct{display:none;}
+  .menu-sticky-hint .msh-cta{font-size:11px;padding:5px 10px;}
+}
 </style>
 </head>
 <body>
@@ -3250,6 +3299,14 @@ footer{
   </div>
   <h2 class="section-title fade-up">Le <span class="accent">menu.</span><br><span class="it">quatre burgers, point.</span></h2>
   <p class="section-lead fade-up drop">Une carte courte parce qu'on préfère faire <strong>quatre choses très bien</strong> que vingt à moitié. Tout est cuisiné devant toi, à la commande. Si tu veux une variante (sauce, cuisson, sans pain), demande — on s'arrange.</p>
+
+  <button type="button" class="menu-sticky-hint" onclick="pickSrv('Le Smash','10')" aria-label="Choisir Le Smash, le plus commandé, 10 euros">
+    <span class="msh-l">
+      <span class="msh-star" aria-hidden="true">★</span>
+      <span><span class="msh-pct">87%</span> choisissent <span class="msh-name">Le Smash</span></span>
+    </span>
+    <span class="msh-cta">10€ · Choisir →</span>
+  </button>
 
   <div class="menu-wrap">
     <div class="menu-card fade-up" onclick="pickSrv('Le Classic','8')">
@@ -4400,6 +4457,72 @@ document.addEventListener('keydown', function(e){
     if(p && p.classList.contains('open')) closeSrvPicker();
   }
 });
+
+// === pickSrv : entrée publique depuis cards menu / sticky hint ===
+// Trouve l'item picker correspondant, déclenche pickSrvPicker, scroll smooth vers form
+function pickSrv(name, price){
+  var item = document.querySelector('.srv-picker-item[data-v="'+name+'"]');
+  if(item){ pickSrvPicker(item); }
+  var target = document.getElementById('commande');
+  if(target){
+    setTimeout(function(){
+      target.scrollIntoView({behavior:'smooth',block:'start'});
+      // Focus prénom après scroll si vide (UX flow continu)
+      setTimeout(function(){
+        var n = document.getElementById('c-name');
+        if(n && !n.value){ try{ n.focus({preventScroll:true}); }catch(e){ n.focus(); } }
+      }, 600);
+    }, 100);
+  }
+}
+
+// === localStorage save state form (prénom · tel · zip · adresse) ===
+(function formPersist(){
+  var KEY = 'ldb_form_v1';
+  var FIELDS = ['c-name','c-tel','c-adresse','zipInput'];
+  function load(){
+    try{
+      var raw = localStorage.getItem(KEY);
+      if(!raw) return;
+      var data = JSON.parse(raw);
+      FIELDS.forEach(function(id){
+        var el = document.getElementById(id);
+        if(el && data[id] && !el.value){ el.value = data[id]; }
+      });
+      // Trigger zip validation si rempli
+      var zip = document.getElementById('zipInput');
+      if(zip && zip.value && typeof checkZip==='function'){ checkZip(); }
+    }catch(e){}
+  }
+  function save(){
+    try{
+      var data = {};
+      FIELDS.forEach(function(id){
+        var el = document.getElementById(id);
+        if(el && el.value){ data[id] = el.value; }
+      });
+      localStorage.setItem(KEY, JSON.stringify(data));
+    }catch(e){}
+  }
+  function bind(){
+    FIELDS.forEach(function(id){
+      var el = document.getElementById(id);
+      if(!el) return;
+      el.addEventListener('input', save);
+      el.addEventListener('blur', save);
+    });
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', function(){ load(); bind(); });
+  }else{
+    load(); bind();
+  }
+  // Clear sur soumission WhatsApp réussie (best effort)
+  document.addEventListener('click', function(e){
+    var t = e.target.closest && e.target.closest('.btn-wa');
+    if(t){ try{ localStorage.removeItem(KEY); }catch(e){} }
+  });
+})();
 
 // Compatibilité ancienne fonction (au cas où d'anciens handlers persistent)
 function selSFromDropdown(){}

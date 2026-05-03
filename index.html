@@ -131,20 +131,25 @@
 <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Caveat:wght@500;700&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
+  /* Surfaces */
   --paper:#efe5cf;
   --paper-2:#e6dabe;
   --paper-3:#dccfae;
+  /* Encre — 3 niveaux hiérarchie */
   --ink:#1a1410;
   --ink-2:#3b2e26;
-  --ink-3:#6c5a4a;
+  --ink-3:#7a6555;        /* éclairci pour passer WCAG AA sur paper (4.5:1) */
+  /* Sang — 2 usages stricts : --blood = CTA/accent fond clair · --blood-3 = accent fond sombre */
   --blood:#a8281f;
-  --blood-2:#7a1c14;
   --blood-3:#c63a2e;
+  /* Moutarde — accent unique */
   --mustard:#d99a1f;
-  --mustard-2:#b67c0d;
-  --leaf:#2d5a3f;
+  /* Lignes */
   --line:rgba(26,20,16,0.22);
   --line-soft:rgba(26,20,16,0.10);
+  /* Système d'ombres normalisé */
+  --shadow-hard:4px 4px 0 var(--ink);
+  --shadow-soft:0 8px 24px rgba(26,20,16,0.12);
 }
 
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
@@ -166,12 +171,7 @@ body::before{
   background-image:url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.10 0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0.32 0'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.55'/></svg>");
   opacity:0.55;mix-blend-mode:multiply;
 }
-/* Tâche d'huile en bas droite (atmosphère) */
-body::after{
-  content:'';position:fixed;right:-100px;bottom:-100px;width:400px;height:400px;pointer-events:none;z-index:0;
-  background:radial-gradient(ellipse,rgba(168,40,31,0.06) 0%,transparent 65%);
-  filter:blur(20px);
-}
+/* (tâche d'huile décorative supprimée — repaint inutile mobile) */
 
 a{color:inherit;text-decoration:none;}
 img{display:block;max-width:100%;}
@@ -180,6 +180,24 @@ input,textarea{font-family:inherit;color:inherit;}
 
 /* Sélection */
 ::selection{background:var(--blood);color:var(--paper);}
+
+/* === A11Y === */
+/* Focus clavier visible (réservé aux navigateurs au focus clavier) */
+:focus{outline:none;}
+:focus-visible{
+  outline:3px solid var(--mustard);
+  outline-offset:3px;
+  border-radius:4px;
+}
+/* Respect des préférences de mouvement réduit */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:0.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:0.01ms !important;
+    scroll-behavior:auto !important;
+  }
+}
 
 /* === TYPO HELPERS === */
 .display{font-family:'Bowlby One',sans-serif;letter-spacing:-0.01em;line-height:0.92;}
@@ -482,7 +500,7 @@ nav.scrolled{background:rgba(239,229,207,0.96);backdrop-filter:blur(8px);}
 .hero-stamp{
   top:90px;right:5%;z-index:4;
   background:rgba(239,229,207,0.96);
-  animation:stamp-tilt 6s ease-in-out infinite;
+  animation:stamp-tilt 12s ease-in-out infinite;
 }
 @keyframes stamp-tilt{
   0%,100%{transform:rotate(-12deg);}
@@ -2948,7 +2966,7 @@ footer{
   .ticker-track{font-size:22px;gap:24px;}
   .ticker-track .item{gap:24px;}
   .ticker-track .sep{width:14px;height:14px;}
-  .commande-form{box-shadow:5px 5px 0 var(--blood),10px 10px 0 var(--mustard);}
+  .commande-form{box-shadow:5px 5px 0 var(--blood);}
   .form-stamp-original{font-size:9px;padding:4px 8px;right:-8px;top:64px;}
   .srv-chip{grid-template-columns:auto 1fr auto;gap:10px;padding:12px 14px;}
   .srv-chip-n{font-size:15px;}
@@ -2973,7 +2991,7 @@ footer{
   .brand{font-size:17px;}
   .brand .small{display:none;}
   .loyalty-trigger{min-height:44px;}
-  .hero{padding:64px 5% 48px;min-height:64vh;}
+  .hero{padding:64px 5% 48px;min-height:88vh;}
   .hero-title{letter-spacing:-0.03em;}
   .hero-title .l2::before{left:4px;top:4px;}
   .hero-kicker{font-size:16px;gap:10px;margin:18px 0 18px;}
@@ -3058,18 +3076,23 @@ footer{
   /* Carte fidélité preview centrée + tape réflexe */
   .fidelity-card-preview{cursor:pointer;-webkit-tap-highlight-color:transparent;}
 
-  /* Réduit les ombres décoratives lourdes (perf mobile) */
-  .commande-form{box-shadow:4px 4px 0 var(--blood) !important;}
-  .upsell-modal{box-shadow:4px 4px 0 var(--blood) !important;}
+  /* Ombres simplifiées 1 niveau (perf mobile + lisibilité) */
+  .commande-form{box-shadow:4px 4px 0 var(--ink) !important;}
+  .upsell-modal{box-shadow:4px 4px 0 var(--ink) !important;}
+  .menu-card{box-shadow:none !important;}
+  .hero-vid-frame{box-shadow:4px 4px 0 var(--blood) !important;}
   .loyalty-card{box-shadow:0 16px 40px rgba(0,0,0,0.4),0 0 0 1px rgba(217,154,31,0.3) inset !important;}
 
+  /* Désactive backdrop-filter coûteux (sauf nav) */
+  .hero-tag,.hero-stats{backdrop-filter:none !important;}
+
   /* Viewport units fix iOS Safari (vh inclut la barre URL) */
-  .hero{min-height:60vh;min-height:60svh;}
+  .hero{min-height:88vh;min-height:88svh;}
 }
 
 /* === RESPONSIVE — petit mobile === */
 @media(max-width:380px){
-  .hero{padding:56px 5% 40px;min-height:60vh;}
+  .hero{padding:56px 5% 40px;min-height:88vh;}
   .hero-title{font-size:54px;}
   .hero-stats{grid-template-columns:1fr 1fr;}
   .hstat:nth-child(3){display:none;}
@@ -3078,6 +3101,49 @@ footer{
   .hero-stamp .stamp-top,.hero-stamp .stamp-bot{font-size:7px;}
   .menu-card-name{font-size:28px;}
   .menu-card-price{font-size:28px;}
+}
+
+/* === MENU COMPACT MOBILE — image left / content right (-35% hauteur) === */
+@media(max-width:600px){
+  .menu-wrap{grid-template-columns:1fr;}
+  .menu-card{
+    display:grid;
+    grid-template-columns:38% 1fr;
+    align-items:stretch;
+    padding:0;
+    border-right:none;
+    border-bottom:1.5px solid var(--ink);
+  }
+  .menu-card:nth-last-child(-n+2){border-bottom:1.5px solid var(--ink);}
+  .menu-card:last-child{border-bottom:none;}
+  .menu-card-img-wrap{
+    aspect-ratio:auto;
+    height:100%;
+    min-height:140px;
+    border-bottom:none;
+    border-right:1.5px solid var(--ink);
+  }
+  .menu-card-content{
+    padding:14px 14px 14px 16px;
+    display:flex;flex-direction:column;justify-content:space-between;
+    gap:8px;
+  }
+  .menu-card-num{position:static;font-size:9px;margin-bottom:2px;}
+  .menu-card-name{font-size:24px !important;line-height:0.95;margin-bottom:6px;}
+  .menu-card-desc{
+    font-size:13px;line-height:1.4;
+    margin-bottom:8px;
+    max-width:none;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  }
+  .menu-card-meta{margin:0 0 8px;gap:4px;}
+  .menu-card-meta-chip{font-size:9px;padding:3px 6px;letter-spacing:0.08em;}
+  .menu-card-rule{display:none;}
+  .menu-card-row{align-items:center;}
+  .menu-card-price{font-size:22px !important;}
+  .menu-card-time{font-size:9px;letter-spacing:0.12em;}
+  .menu-card-floating{top:6px;left:6px;gap:3px;}
+  .menu-card-floating .mc-tag{font-size:8px;padding:2px 5px;letter-spacing:0.1em;}
 }
 </style>
 </head>
@@ -3142,7 +3208,7 @@ footer{
       <span class="l1">LE SMASH</span>
       <span class="l2" data-text="DU QUARTIER">DU QUARTIER</span>
     </h1>
-    <p class="hero-sub">Halal AVS · Fait main · <strong>À partir de 8&nbsp;€</strong></p>
+    <p class="hero-sub">Fait main · Viande fraîche du matin · <strong>À partir de 8&nbsp;€</strong></p>
     <div class="hero-btns">
       <a href="#commande" class="btn-primary">→ Commander maintenant</a>
     </div>

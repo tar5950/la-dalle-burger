@@ -901,68 +901,199 @@ section{padding:90px 4%;position:relative;z-index:2;}
 .f-inp:focus::placeholder{opacity:0.4;}
 .f-inp::before{content:'→';}
 
-/* === UPSELL — Suggestion du chef === */
-.upsell{
-  margin:30px 0 14px;
-  position:relative;
-  border:2.5px solid var(--blood);
-  background:
-    repeating-linear-gradient(45deg,
-      transparent 0 14px,
-      rgba(217,154,31,0.08) 14px 16px),
-    var(--paper-2);
-  padding:30px 18px 18px;
-  box-shadow:4px 4px 0 var(--mustard);
-  animation:upsell-pop 0.6s ease-out 0.3s both;
+/* === UPSELL — MODALE KIOSQUE === */
+/* Bouton "Modifier mes extras" inline dans le form */
+.extras-summary{
+  margin:22px 0 6px;
+  padding:14px 16px;
+  border:1.5px dashed var(--ink);
+  background:rgba(217,154,31,0.08);
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  flex-wrap:wrap;
 }
-@keyframes upsell-pop{
-  from{transform:scale(0.96);opacity:0;}
-  to{transform:scale(1);opacity:1;}
+.extras-summary-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--ink-3);
+  margin-bottom:3px;
 }
-.upsell::before{
-  content:'★ Suggestion du chef ★';
-  position:absolute;top:-14px;left:50%;transform:translateX(-50%) rotate(-1.5deg);
-  background:var(--blood);color:var(--paper);
-  font-family:'Bowlby One',sans-serif;
-  font-size:13px;letter-spacing:0.06em;text-transform:uppercase;
-  padding:6px 16px;border:2px solid var(--ink);
-  white-space:nowrap;
-  box-shadow:2px 2px 0 var(--ink);
-}
-.upsell-intro{
+.extras-summary-val{
   font-family:'Fraunces',serif;font-style:italic;
   font-variation-settings:"opsz" 36,"WONK" 1;
-  font-size:14px;color:var(--ink-2);
-  text-align:center;margin-bottom:14px;line-height:1.4;
+  font-size:14px;color:var(--ink);font-weight:500;
 }
-.upsell-intro strong{color:var(--blood);font-weight:600;}
-.upsell-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.extras-summary-val.empty{color:var(--ink-3);}
+.extras-summary-btn{
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+  letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--blood);background:transparent;
+  border:1.5px solid var(--blood);
+  padding:9px 14px;
+  cursor:pointer;
+  transition:background 0.18s,color 0.18s;
+}
+.extras-summary-btn:hover{background:var(--blood);color:var(--paper);}
+.extras-summary-btn:focus-visible{outline:3px solid var(--mustard);outline-offset:2px;}
+
+/* Backdrop */
+.upsell-backdrop{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(10,8,6,0.78);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.25s ease-out;
+}
+.upsell-backdrop.show{opacity:1;pointer-events:auto;}
+
+/* Modale */
+.upsell-modal{
+  background:var(--paper);
+  border:3px solid var(--ink);
+  box-shadow:8px 8px 0 var(--blood),16px 16px 0 var(--mustard);
+  max-width:720px;width:100%;
+  max-height:90vh;
+  overflow-y:auto;overflow-x:hidden;
+  position:relative;
+  transform:scale(0.92) translateY(20px);
+  transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+.upsell-backdrop.show .upsell-modal{transform:scale(1) translateY(0);}
+
+.upsell-modal-header{
+  background:var(--ink);color:var(--paper);
+  padding:22px 28px 24px;
+  position:relative;
+  border-bottom:3px double var(--mustard);
+  text-align:center;
+}
+.upsell-modal-header::after{
+  content:'';position:absolute;left:0;right:0;bottom:-9px;height:6px;
+  background-image:radial-gradient(circle,var(--ink) 2.5px,transparent 3px);
+  background-size:10px 6px;background-repeat:repeat-x;
+}
+.upsell-modal-eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;
+  color:var(--mustard);margin-bottom:8px;
+}
+.upsell-modal-title{
+  font-family:'Bowlby One',sans-serif;
+  font-size:clamp(28px,4.5vw,42px);
+  letter-spacing:-0.01em;line-height:1;
+  color:var(--paper);margin-bottom:8px;
+}
+.upsell-modal-title .accent{color:var(--blood-3);}
+.upsell-modal-sub{
+  font-family:'Fraunces',serif;font-style:italic;
+  font-variation-settings:"opsz" 144,"WONK" 1;
+  font-size:15px;color:rgba(239,229,207,0.85);
+  max-width:480px;margin:0 auto;line-height:1.4;
+}
+
+.upsell-close{
+  position:absolute;top:14px;right:14px;
+  width:36px;height:36px;
+  background:transparent;border:1.5px solid rgba(239,229,207,0.45);
+  color:rgba(239,229,207,0.85);
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bowlby One',sans-serif;font-size:18px;line-height:1;
+  transition:all 0.18s;
+  border-radius:50%;
+}
+.upsell-close:hover{background:var(--blood);border-color:var(--paper);color:var(--paper);transform:rotate(90deg);}
+.upsell-close:focus-visible{outline:3px solid var(--mustard);outline-offset:2px;}
+
+.upsell-modal-body{padding:28px 26px 22px;}
+
+/* Footer modal */
+.upsell-modal-footer{
+  border-top:1.5px solid var(--ink);
+  padding:18px 26px;
+  display:flex;gap:14px;flex-wrap:wrap;
+  align-items:center;justify-content:space-between;
+  background:var(--paper-2);
+}
+.upsell-total{
+  font-family:'Bowlby One',sans-serif;
+  font-size:14px;letter-spacing:0;color:var(--ink);
+  display:flex;align-items:baseline;gap:8px;
+}
+.upsell-total strong{
+  font-family:'Bowlby One',sans-serif;
+  font-size:24px;color:var(--blood);
+}
+.upsell-total small{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--ink-3);
+}
+.upsell-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.upsell-btn-no{
+  font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;
+  letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--ink-2);background:transparent;
+  border:1.5px solid var(--ink-2);
+  padding:14px 22px;cursor:pointer;
+  transition:all 0.18s;
+}
+.upsell-btn-no:hover{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.upsell-btn-yes{
+  font-family:'Bowlby One',sans-serif;font-size:15px;letter-spacing:0;
+  background:var(--blood);color:var(--paper);
+  padding:14px 28px;
+  border:2px solid var(--ink);
+  box-shadow:4px 4px 0 var(--ink);
+  cursor:pointer;
+  transition:transform 0.15s,box-shadow 0.15s;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.upsell-btn-yes:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);}
+.upsell-btn-yes:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink);}
+.upsell-btn-no:focus-visible,.upsell-btn-yes:focus-visible{outline:3px solid var(--mustard);outline-offset:2px;}
+.upsell-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
 .upsell-chip{
   background:var(--paper);
   border:1.5px solid var(--ink);
-  padding:14px 8px 12px;
+  padding:0 0 10px;
   text-align:center;cursor:pointer;
   position:relative;
   transition:all 0.18s;
+  overflow:hidden;
 }
 .upsell-chip:hover{background:rgba(217,154,31,0.08);transform:translateY(-2px);}
 .upsell-chip:focus-visible{outline:3px solid var(--mustard);outline-offset:2px;}
 .upsell-chip.on{
   background:var(--mustard);
-  border-color:var(--ink);border-width:2px;padding:13.5px 7.5px 11.5px;
+  border-color:var(--ink);border-width:2.5px;
   transform:rotate(-1deg);
 }
 .upsell-chip.on::after{
-  content:'+';position:absolute;top:-12px;right:-8px;
-  width:26px;height:26px;border-radius:50%;
+  content:'+';position:absolute;top:-10px;right:-8px;
+  width:28px;height:28px;border-radius:50%;
   background:var(--blood);color:var(--paper);
-  font-family:'Bowlby One',sans-serif;font-size:18px;line-height:26px;
+  font-family:'Bowlby One',sans-serif;font-size:20px;line-height:28px;
   border:2px solid var(--ink);
+  z-index:3;
 }
-.upsell-emoji{font-size:28px;line-height:1;margin-bottom:6px;display:block;}
+.upsell-img{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  display:block;
+  border-bottom:1.5px solid var(--ink);
+  filter:saturate(0.95) contrast(1.05);
+  transition:filter 0.2s,transform 0.3s;
+}
+.upsell-chip:hover .upsell-img{transform:scale(1.04);filter:saturate(1.1) contrast(1.08);}
+.upsell-chip.on .upsell-img{filter:saturate(1.05);}
 .upsell-name{
   font-family:'Bowlby One',sans-serif;font-size:13px;letter-spacing:-0.01em;
   color:var(--ink);line-height:1.1;
+  margin-top:8px;
+  padding:0 4px;
 }
 .upsell-price{
   font-family:'JetBrains Mono',monospace;
@@ -970,12 +1101,21 @@ section{padding:90px 4%;position:relative;z-index:2;}
   margin-top:4px;letter-spacing:0.04em;
 }
 .upsell-chip.on .upsell-price{color:var(--ink);}
+@media(max-width:680px){
+  .upsell-grid{grid-template-columns:repeat(2,1fr);}
+}
 @media(max-width:600px){
-  .upsell{padding:20px 14px 12px;}
-  .upsell-grid{gap:6px;}
-  .upsell-emoji{font-size:24px;}
-  .upsell-name{font-size:11px;}
+  .upsell-modal{box-shadow:5px 5px 0 var(--blood),10px 10px 0 var(--mustard);}
+  .upsell-modal-header{padding:18px 22px 22px;}
+  .upsell-modal-body{padding:22px 18px 16px;}
+  .upsell-modal-footer{padding:14px 18px;flex-direction:column;align-items:stretch;}
+  .upsell-actions{justify-content:space-between;}
+  .upsell-actions button{flex:1;}
+  .upsell-grid{gap:8px;}
+  .upsell-name{font-size:12px;margin-top:6px;}
   .upsell-price{font-size:10px;}
+  .extras-summary{flex-direction:column;align-items:stretch;}
+  .extras-summary-btn{width:100%;}
 }
 
 /* Récap — souche carbone */
@@ -1585,26 +1725,13 @@ footer{
           <div class="srv-chip" data-v="Le Combo" data-p="14" onclick="selS(this)" tabindex="0" role="button" aria-label="Le Combo, 14 euros"><div class="srv-chip-n">Le Combo</div><div class="srv-chip-p">14€</div></div>
         </div>
 
-        <!-- UPSELL — Suggestion du chef -->
-        <div class="upsell" role="group" aria-label="Suggestions du chef à ajouter">
-          <p class="upsell-intro">On t'ajoute un truc&nbsp;? <strong>Frites maison</strong>, boisson fraîche ou cookie tiède sorti du four.</p>
-          <div class="upsell-grid">
-            <div class="upsell-chip" data-v="Frites maison" data-p="3" onclick="toggleUpsell(this)" tabindex="0" role="button" aria-label="Ajouter frites maison, 3 euros">
-              <span class="upsell-emoji">🍟</span>
-              <div class="upsell-name">Frites maison</div>
-              <div class="upsell-price">+3€</div>
-            </div>
-            <div class="upsell-chip" data-v="Boisson" data-p="2" onclick="toggleUpsell(this)" tabindex="0" role="button" aria-label="Ajouter boisson, 2 euros">
-              <span class="upsell-emoji">🥤</span>
-              <div class="upsell-name">Boisson 33cl</div>
-              <div class="upsell-price">+2€</div>
-            </div>
-            <div class="upsell-chip" data-v="Cookie tiède" data-p="3" onclick="toggleUpsell(this)" tabindex="0" role="button" aria-label="Ajouter cookie tiède, 3 euros">
-              <span class="upsell-emoji">🍪</span>
-              <div class="upsell-name">Cookie tiède</div>
-              <div class="upsell-price">+3€</div>
-            </div>
+        <!-- RÉSUMÉ EXTRAS (cliquable pour rouvrir la modale) -->
+        <div class="extras-summary" id="extrasSummary" style="display:none;">
+          <div>
+            <div class="extras-summary-label">★ Tes extras</div>
+            <div class="extras-summary-val empty" id="extrasSummaryVal">Aucun extra</div>
           </div>
+          <button type="button" class="extras-summary-btn" onclick="openUpsellModal(true)">Modifier</button>
         </div>
 
         <div class="step-lbl"><span class="step-num">II</span>Mode<span class="step-hint">— livraison ou à emporter</span></div>
@@ -1716,6 +1843,52 @@ footer{
   </div>
 </footer>
 
+<!-- MODALE UPSELL — style kiosque fast-food -->
+<div class="upsell-backdrop" id="upsellBackdrop" role="dialog" aria-modal="true" aria-labelledby="upsellTitle" aria-hidden="true">
+  <div class="upsell-modal">
+    <div class="upsell-modal-header">
+      <button type="button" class="upsell-close" onclick="closeUpsellModal()" aria-label="Fermer">×</button>
+      <div class="upsell-modal-eyebrow">★ Suggestion du chef ★</div>
+      <h2 class="upsell-modal-title" id="upsellTitle">On t'ajoute <span class="accent">quelque chose</span> ?</h2>
+      <p class="upsell-modal-sub">Ton burger c'est mieux avec des frites maison, une boisson fraîche, ou un dessert pour finir en beauté.</p>
+    </div>
+    <div class="upsell-modal-body">
+      <div class="upsell-grid">
+        <div class="upsell-chip" data-v="Frites maison" data-p="3" onclick="toggleUpsell(this)" tabindex="0" role="button" aria-pressed="false" aria-label="Ajouter frites maison, 3 euros">
+          <img class="upsell-img" src="https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?w=400&h=400&fit=crop&q=80" alt="Frites maison croustillantes" loading="lazy" width="200" height="200">
+          <div class="upsell-name">Frites maison</div>
+          <div class="upsell-price">+3€</div>
+        </div>
+        <div class="upsell-chip" data-v="Boisson" data-p="2" onclick="toggleUpsell(this)" tabindex="0" role="button" aria-pressed="false" aria-label="Ajouter boisson 33 cl, 2 euros">
+          <img class="upsell-img" src="https://images.unsplash.com/photo-1437418747212-8d9709afab22?w=400&h=400&fit=crop&q=80" alt="Boisson fraîche" loading="lazy" width="200" height="200">
+          <div class="upsell-name">Boisson 33cl</div>
+          <div class="upsell-price">+2€</div>
+        </div>
+        <div class="upsell-chip" data-v="Cookie tiède" data-p="3" onclick="toggleUpsell(this)" tabindex="0" role="button" aria-pressed="false" aria-label="Ajouter cookie tiède, 3 euros">
+          <img class="upsell-img" src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400&h=400&fit=crop&q=80" alt="Cookie tiède au chocolat" loading="lazy" width="200" height="200">
+          <div class="upsell-name">Cookie tiède</div>
+          <div class="upsell-price">+3€</div>
+        </div>
+        <div class="upsell-chip" data-v="Tiramisu" data-p="4" onclick="toggleUpsell(this)" tabindex="0" role="button" aria-pressed="false" aria-label="Ajouter tiramisu, 4 euros">
+          <img class="upsell-img" src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400&h=400&fit=crop&q=80" alt="Tiramisu maison" loading="lazy" width="200" height="200">
+          <div class="upsell-name">Tiramisu</div>
+          <div class="upsell-price">+4€</div>
+        </div>
+      </div>
+    </div>
+    <div class="upsell-modal-footer">
+      <div class="upsell-total">
+        <small>Extras</small>
+        <strong id="upsellTotal">0€</strong>
+      </div>
+      <div class="upsell-actions">
+        <button type="button" class="upsell-btn-no" onclick="declineUpsell()">Non merci</button>
+        <button type="button" class="upsell-btn-yes" onclick="confirmUpsell()"><span id="upsellYesLabel">Continuer</span> →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- NOTIF FLOTTANTE -->
 <div class="notif" id="notif">
   <div class="notif-top"><span class="ndot"></span><span>Commande en direct</span></div>
@@ -1804,23 +1977,119 @@ function updRecap() {
   updBar();
 }
 
-// EXTRAS — multi-select toggle
+// === MODALE UPSELL — STAGING ===
+// Pendant que la modale est ouverte, les choix sont gardés dans `stagingExtras`.
+// Ils ne sont écrits dans R.extras qu'à la confirmation ("Continuer").
+var stagingExtras = [];
+var prevFocus = null;
+
+function openUpsellModal(isEdit){
+  // En mode édition (clic sur "Modifier"), on précharge les extras existants
+  stagingExtras = R.extras.slice();
+  // Sync l'UI des chips selon staging
+  document.querySelectorAll('.upsell-chip').forEach(function(el){
+    var on = stagingExtras.some(function(x){return x.v===el.getAttribute('data-v');});
+    el.classList.toggle('on', on);
+    el.setAttribute('aria-pressed', on?'true':'false');
+  });
+  updateModalTotal();
+  prevFocus = document.activeElement;
+  var bd = document.getElementById('upsellBackdrop');
+  bd.classList.add('show');
+  bd.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+  // Focus sur 1er chip pour l'accessibilité
+  setTimeout(function(){
+    var first = bd.querySelector('.upsell-chip');
+    if(first) first.focus();
+  }, 250);
+}
+
+function closeUpsellModal(){
+  var bd = document.getElementById('upsellBackdrop');
+  bd.classList.remove('show');
+  bd.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+  if(prevFocus && prevFocus.focus) prevFocus.focus();
+}
+
+// Multi-select dans la modale (n'écrit que dans staging)
 function toggleUpsell(el){
   var v = el.getAttribute('data-v');
   var p = parseFloat(el.getAttribute('data-p'));
-  var idx = R.extras.findIndex(function(x){return x.v===v;});
+  var idx = stagingExtras.findIndex(function(x){return x.v===v;});
   if(idx>=0){
-    R.extras.splice(idx,1);
+    stagingExtras.splice(idx,1);
     el.classList.remove('on');
+    el.setAttribute('aria-pressed','false');
   } else {
-    R.extras.push({v:v,p:p});
+    stagingExtras.push({v:v,p:p});
     el.classList.add('on');
+    el.setAttribute('aria-pressed','true');
   }
-  updRecap();
+  updateModalTotal();
 }
+
+function updateModalTotal(){
+  var total = stagingExtras.reduce(function(a,e){return a+parseFloat(e.p);},0);
+  document.getElementById('upsellTotal').textContent = total + '€';
+  var lbl = document.getElementById('upsellYesLabel');
+  if(stagingExtras.length === 0){
+    lbl.textContent = 'Continuer sans extra';
+  } else if(stagingExtras.length === 1){
+    lbl.textContent = 'Ajouter ' + stagingExtras[0].v;
+  } else {
+    lbl.textContent = 'Ajouter ' + stagingExtras.length + ' extras';
+  }
+}
+
+function declineUpsell(){
+  stagingExtras = [];
+  R.extras = [];
+  syncExtrasSummary();
+  updRecap();
+  closeUpsellModal();
+}
+
+function confirmUpsell(){
+  R.extras = stagingExtras.slice();
+  syncExtrasSummary();
+  updRecap();
+  closeUpsellModal();
+}
+
+function syncExtrasSummary(){
+  var box = document.getElementById('extrasSummary');
+  var val = document.getElementById('extrasSummaryVal');
+  if(R.s){
+    box.style.display = 'flex';
+  }
+  if(R.extras.length === 0){
+    val.textContent = 'Aucun extra';
+    val.classList.add('empty');
+  } else {
+    val.textContent = R.extras.map(function(e){return e.v+' (+'+e.p+'€)';}).join(' · ');
+    val.classList.remove('empty');
+  }
+}
+
+// Fermer modale: ESC ou clic backdrop
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape' && document.getElementById('upsellBackdrop').classList.contains('show')){
+    closeUpsellModal();
+  }
+});
+document.getElementById('upsellBackdrop').addEventListener('click', function(e){
+  if(e.target === this) closeUpsellModal();
+});
 function selS(el){
+  var prev = R.s;
   document.querySelectorAll('.srv-chip').forEach(function(e){e.classList.remove('on');});
   el.classList.add('on'); R.s=el.getAttribute('data-v'); R.p=el.getAttribute('data-p'); updRecap();
+  // Ouvre la modale upsell uniquement à la 1ère sélection burger (ou changement)
+  if(prev !== R.s){
+    setTimeout(function(){ openUpsellModal(false); }, 280);
+  }
 }
 function selB(el){
   // Sélecteur scope-restreint au step "Mode" uniquement (II)

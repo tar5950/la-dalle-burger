@@ -1019,6 +1019,63 @@ section{padding:90px 4%;position:relative;z-index:2;}
 .f-inp:focus::placeholder{opacity:0.4;}
 .f-inp::before{content:'→';}
 
+/* === Badge certification AVS (trust signal) === */
+.avs-badge{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:8px 14px 8px 10px;
+  background:rgba(239,229,207,0.95);
+  border:1.5px solid rgba(26,20,16,0.15);
+  border-radius:6px;
+  text-decoration:none;
+}
+.avs-badge img{
+  width:34px;height:34px;object-fit:contain;display:block;
+  flex-shrink:0;
+}
+.avs-badge-text{
+  display:flex;flex-direction:column;line-height:1.15;
+}
+.avs-badge-line1{
+  font-family:'Bowlby One',sans-serif;font-size:11px;letter-spacing:0;
+  color:var(--ink);
+}
+.avs-badge-line2{
+  font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--ink-3);margin-top:2px;
+}
+
+/* Bandeau certification halal (above ticker) */
+.halal-strip{
+  background:var(--paper-2);
+  border-bottom:1.5px solid var(--ink);
+  padding:14px 5%;
+  display:flex;align-items:center;justify-content:center;gap:24px;
+  flex-wrap:wrap;
+}
+.halal-strip-text{
+  font-family:'Fraunces',serif;font-style:italic;
+  font-variation-settings:"opsz" 36,"WONK" 1;
+  font-size:14px;color:var(--ink-2);line-height:1.4;
+  max-width:380px;
+}
+.halal-strip-text strong{font-style:normal;font-family:'Bowlby One',sans-serif;font-weight:400;color:var(--ink);}
+@media(max-width:600px){
+  .halal-strip{padding:12px 5%;gap:14px;}
+  .halal-strip-text{font-size:12px;text-align:center;}
+}
+
+/* Footer halal trust */
+.ft-trust{
+  margin-top:22px;padding-top:22px;
+  border-top:1px dashed var(--line);
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.ft-trust-text{
+  font-family:'Fraunces',serif;font-style:italic;font-size:13px;color:var(--ink-2);
+  font-variation-settings:"opsz" 36,"WONK" 1;line-height:1.4;
+}
+
 /* === Bouton appel direct mobile === */
 .nav-call{
   display:none;
@@ -2567,9 +2624,9 @@ footer{
 
 
   <div class="stamp hero-stamp">
-    <span class="stamp-top">★ Certifié</span>
+    <span class="stamp-top">★ AVS</span>
     <span class="stamp-big">HALAL</span>
-    <span class="stamp-bot">100% · Fait main</span>
+    <span class="stamp-bot">100% · Certifié</span>
   </div>
 
   <div class="hero-l">
@@ -2599,6 +2656,20 @@ footer{
     </div>
   </div>
 </section>
+
+<!-- BANDEAU CERTIFICATION HALAL AVS -->
+<div class="halal-strip">
+  <a href="https://avs.fr" target="_blank" rel="noopener" class="avs-badge" aria-label="Certification halal AVS">
+    <img src="images/avs-logo.png" alt="Logo AVS — Association de Vigilance Sanitaire" width="34" height="34">
+    <span class="avs-badge-text">
+      <span class="avs-badge-line1">Certifié AVS</span>
+      <span class="avs-badge-line2">Halal contrôlé</span>
+    </span>
+  </a>
+  <p class="halal-strip-text">
+    Toute notre viande est <strong>certifiée halal AVS</strong>, fournie par notre boucher partenaire à Douai. Contrôle quotidien, traçabilité complète.
+  </p>
+</div>
 
 <!-- TICKER -->
 <div class="ticker">
@@ -3006,6 +3077,18 @@ footer{
           <a href="#" class="btn-secondary" style="font-size:11px;padding:10px 16px;">★ Laisser un avis</a>
         </div>
       </div>
+    </div>
+    <div class="ft-trust">
+      <a href="https://avs.fr" target="_blank" rel="noopener" class="avs-badge">
+        <img src="images/avs-logo.png" alt="Logo AVS — Halal certifié" width="40" height="40">
+        <span class="avs-badge-text">
+          <span class="avs-badge-line1">Halal certifié AVS</span>
+          <span class="avs-badge-line2">Contrôle quotidien</span>
+        </span>
+      </a>
+      <p class="ft-trust-text">
+        Notre viande est certifiée par l'<strong style="font-style:normal;font-family:'Bowlby One',sans-serif;font-weight:400;color:var(--ink);">AVS</strong> (Association de Vigilance Sanitaire), l'un des organismes de certification halal les plus stricts en France.
+      </p>
     </div>
     <div class="ft-bottom">
       <span>© 2025 La Dalle Burger — Édition Nº 01</span>

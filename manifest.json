@@ -1,0 +1,42 @@
+{
+  "name": "La Dalle Burger",
+  "short_name": "La Dalle",
+  "description": "Burgers halal faits maison à Douai. Commande WhatsApp en 30 secondes.",
+  "start_url": "/la-dalle-burger/",
+  "scope": "/la-dalle-burger/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#efe5cf",
+  "theme_color": "#0a0806",
+  "lang": "fr",
+  "dir": "ltr",
+  "categories": ["food", "lifestyle"],
+  "icons": [
+    {
+      "src": "https://res.cloudinary.com/dzh5vllay/image/upload/q_auto,w_192,h_192,c_fill/v1776027285/un_burger_%C3%A9clat%C3%A9_ok_ehmmyc.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "https://res.cloudinary.com/dzh5vllay/image/upload/q_auto,w_512,h_512,c_fill/v1776027285/un_burger_%C3%A9clat%C3%A9_ok_ehmmyc.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Commander",
+      "short_name": "Commander",
+      "description": "Passer commande sur WhatsApp",
+      "url": "/la-dalle-burger/#commande"
+    },
+    {
+      "name": "Voir le menu",
+      "short_name": "Menu",
+      "description": "Voir tous les burgers",
+      "url": "/la-dalle-burger/#menu"
+    }
+  ]
+}

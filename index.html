@@ -1162,55 +1162,250 @@ section{padding:90px 4%;position:relative;z-index:2;}
   .film-stats{margin-left:auto;margin-right:auto;max-width:420px;}
 }
 
-/* === FIDÉLITÉ === */
-.loyalty-widget{
-  position:fixed;right:18px;bottom:18px;z-index:55;
-  background:var(--paper);border:2px solid var(--ink);
-  box-shadow:4px 4px 0 var(--mustard);
-  padding:12px 14px;min-width:220px;max-width:280px;
-  transform:translateY(140%);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
-  display:none;
-}
-.loyalty-widget.show{transform:translateY(0);}
-.loyalty-top{
-  display:flex;align-items:center;gap:8px;
+/* === FIDÉLITÉ — Carte numérique style Wallet === */
+
+/* Bouton "Ma carte" dans la nav */
+.loyalty-trigger{
+  display:inline-flex;align-items:center;gap:8px;
   font-family:'JetBrains Mono',monospace;
-  font-size:9px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;
-  color:var(--blood);margin-bottom:8px;
-}
-.loyalty-top::before{content:'★';color:var(--mustard);font-size:12px;}
-.loyalty-progress{
-  display:flex;gap:4px;margin-bottom:8px;
-}
-.loyalty-stamp{
-  flex:1;aspect-ratio:1;
-  border:1.5px solid var(--ink);background:var(--paper-2);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Bowlby One',sans-serif;font-size:13px;
-  color:var(--ink-3);
+  font-size:11px !important;font-weight:700 !important;
+  letter-spacing:0.16em !important;text-transform:uppercase !important;
+  color:var(--ink) !important;
+  padding:8px 12px !important;
+  background:transparent;
+  border:1.5px solid var(--ink);
+  cursor:pointer;
+  transition:all 0.18s;
   position:relative;
+}
+.loyalty-trigger:hover{background:var(--ink);color:var(--paper) !important;}
+.loyalty-trigger::after{display:none !important;}
+.loyalty-trigger .lt-star{color:var(--mustard);font-size:13px;line-height:1;}
+.loyalty-trigger:hover .lt-star{color:var(--mustard);}
+.loyalty-trigger .lt-count{
+  font-family:'Bowlby One',sans-serif;font-size:13px;letter-spacing:0;
+  color:var(--blood);
+}
+.loyalty-trigger:hover .lt-count{color:var(--mustard);}
+.loyalty-trigger.unlocked{
+  background:var(--mustard);border-color:var(--ink);
+  animation:lt-shine 2.4s ease-in-out infinite;
+}
+@keyframes lt-shine{
+  0%,100%{box-shadow:0 0 0 0 rgba(217,154,31,0);}
+  50%{box-shadow:0 0 0 4px rgba(217,154,31,0.4);}
+}
+@media(max-width:760px){
+  .loyalty-trigger{font-size:10px !important;padding:7px 10px !important;letter-spacing:0.12em !important;}
+  .loyalty-trigger .lt-label{display:none;}
+}
+
+/* Modal carte fidélité */
+.loyalty-modal-bg{
+  position:fixed;inset:0;z-index:220;
+  background:rgba(10,8,6,0.85);backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.3s ease-out;
+}
+.loyalty-modal-bg.show{opacity:1;pointer-events:auto;}
+
+.loyalty-card-wrap{
+  max-width:420px;width:100%;
+  transform:scale(0.92) translateY(20px);
+  transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+.loyalty-modal-bg.show .loyalty-card-wrap{transform:scale(1) translateY(0);}
+
+/* La carte elle-même — style premium */
+.loyalty-card{
+  background:linear-gradient(155deg,#1a1410 0%,#3b2e26 50%,#1a1410 100%);
+  color:var(--paper);
+  border:2px solid var(--mustard);
+  border-radius:22px;
+  padding:28px 26px 24px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(217,154,31,0.3) inset,
+    0 0 80px rgba(217,154,31,0.08) inset;
+}
+/* Reflet léger */
+.loyalty-card::before{
+  content:'';position:absolute;top:-50%;left:-50%;
+  width:200%;height:200%;
+  background:linear-gradient(45deg,transparent 45%,rgba(217,154,31,0.06) 50%,transparent 55%);
+  pointer-events:none;
+  animation:card-shine 6s ease-in-out infinite;
+}
+@keyframes card-shine{
+  0%,100%{transform:translate(-30%,-30%);}
+  50%{transform:translate(-25%,-25%);}
+}
+/* Numéro pattern décoratif fond */
+.loyalty-card::after{
+  content:'★';position:absolute;
+  font-family:'Bowlby One',sans-serif;font-size:280px;line-height:1;
+  color:rgba(217,154,31,0.05);
+  bottom:-40px;right:-40px;pointer-events:none;
+}
+
+.lc-header{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  margin-bottom:24px;position:relative;z-index:2;
+}
+.lc-brand{
+  font-family:'Bowlby One',sans-serif;
+  font-size:22px;letter-spacing:-0.01em;color:var(--paper);
+  display:flex;align-items:baseline;gap:6px;
+  line-height:1;
+}
+.lc-brand .dot{
+  width:8px;height:8px;background:var(--blood-3);border-radius:50%;display:inline-block;
+}
+.lc-brand-sub{
+  font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--mustard);margin-top:5px;
+}
+.lc-close{
+  background:rgba(239,229,207,0.1);border:1px solid rgba(239,229,207,0.3);
+  color:var(--paper);
+  width:30px;height:30px;border-radius:50%;
+  font-family:'Bowlby One',sans-serif;font-size:16px;line-height:1;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all 0.18s;position:relative;z-index:3;
+}
+.lc-close:hover{background:var(--blood);border-color:var(--paper);transform:rotate(90deg);}
+
+.lc-eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;
+  color:var(--mustard);margin-bottom:6px;
+  position:relative;z-index:2;
+}
+.lc-title{
+  font-family:'Bowlby One',sans-serif;font-size:28px;letter-spacing:-0.02em;
+  color:var(--paper);margin-bottom:4px;line-height:1;position:relative;z-index:2;
+}
+.lc-title .accent{color:var(--mustard);}
+.lc-tagline{
+  font-family:'Fraunces',serif;font-style:italic;
+  font-variation-settings:"opsz" 144,"WONK" 1;
+  font-size:14px;color:rgba(239,229,207,0.7);margin-bottom:24px;
+  position:relative;z-index:2;
+}
+
+/* Tampons grand format */
+.lc-stamps{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:8px;
+  padding:18px 0;
+  border-top:1px dashed rgba(239,229,207,0.25);
+  border-bottom:1px dashed rgba(239,229,207,0.25);
+  position:relative;z-index:2;
+}
+.lc-stamp{
+  aspect-ratio:1;
+  border:2px dashed rgba(239,229,207,0.35);
   border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bowlby One',sans-serif;font-size:18px;
+  color:rgba(239,229,207,0.4);
+  background:rgba(239,229,207,0.04);
+  transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);
 }
-.loyalty-stamp.filled{
-  background:var(--blood);color:var(--paper);
-  transform:rotate(-6deg);border-color:var(--ink);
+.lc-stamp.filled{
+  background:var(--blood);
+  border:2px solid var(--mustard);
+  border-style:solid;
+  color:transparent;
+  transform:rotate(-8deg) scale(1.04);
+  box-shadow:0 4px 12px rgba(168,40,31,0.4);
+  position:relative;
 }
-.loyalty-stamp.filled::after{
-  content:'★';font-family:'Bowlby One',sans-serif;font-size:14px;color:var(--mustard);
+.lc-stamp.filled::after{
+  content:'★';color:var(--mustard);font-size:20px;
+  position:absolute;
 }
-.loyalty-stamp.filled .stamp-num{display:none;}
-.loyalty-msg{
+.lc-stamp:nth-child(2).filled{transform:rotate(6deg) scale(1.04);}
+.lc-stamp:nth-child(3).filled{transform:rotate(-3deg) scale(1.04);}
+.lc-stamp:nth-child(4).filled{transform:rotate(8deg) scale(1.04);}
+.lc-stamp:nth-child(5).filled{transform:rotate(-5deg) scale(1.04);}
+
+.lc-status{
+  text-align:center;padding:18px 0 10px;
+  position:relative;z-index:2;
+}
+.lc-progress-text{
+  font-family:'Bowlby One',sans-serif;font-size:18px;letter-spacing:-0.01em;
+  color:var(--paper);line-height:1.2;
+}
+.lc-progress-text .accent{color:var(--mustard);}
+.lc-progress-text.unlocked{font-size:22px;color:var(--mustard);}
+
+.lc-code-block{
+  background:var(--ink);
+  border:2px dashed var(--mustard);
+  padding:14px 16px;margin-top:12px;
+  display:none;
+  position:relative;z-index:2;
+}
+.lc-code-block.show{display:block;}
+.lc-code-block-label{
+  font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;
+  letter-spacing:0.28em;text-transform:uppercase;
+  color:rgba(239,229,207,0.6);margin-bottom:6px;
+}
+.lc-code-block-val{
+  font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;
+  letter-spacing:0.16em;color:var(--mustard);
+  text-align:center;
+}
+
+/* Footer carte */
+.lc-footer{
+  margin-top:18px;padding-top:14px;
+  border-top:1px solid rgba(239,229,207,0.15);
+  display:flex;justify-content:space-between;align-items:flex-end;gap:12px;
+  position:relative;z-index:2;
+}
+.lc-id{
+  font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:rgba(239,229,207,0.5);line-height:1.5;
+}
+.lc-id strong{color:var(--paper);}
+/* "Code-barres" décoratif */
+.lc-barcode{
+  width:100px;height:24px;
+  background-image:repeating-linear-gradient(90deg,
+    rgba(239,229,207,0.85) 0 1px,transparent 1px 3px,
+    rgba(239,229,207,0.85) 3px 5px,transparent 5px 6px,
+    rgba(239,229,207,0.85) 6px 7px,transparent 7px 10px,
+    rgba(239,229,207,0.85) 10px 12px,transparent 12px 13px);
+}
+
+/* Hint sous la carte */
+.lc-hint{
+  margin-top:18px;padding:14px 18px;
+  background:var(--paper);border:1.5px dashed rgba(239,229,207,0.4);
   font-family:'Fraunces',serif;font-style:italic;
   font-variation-settings:"opsz" 36,"WONK" 1;
-  font-size:12px;line-height:1.35;color:var(--ink-2);
+  font-size:13px;line-height:1.45;color:var(--ink-2);
+  text-align:center;
+  border-radius:8px;
 }
-.loyalty-msg strong{color:var(--blood);font-weight:600;}
-.loyalty-close{
-  position:absolute;top:6px;right:8px;
-  background:none;border:none;cursor:pointer;
-  font-size:14px;color:var(--ink-3);line-height:1;padding:2px 4px;
+.lc-hint strong{color:var(--blood);font-weight:600;}
+
+@media(max-width:600px){
+  .loyalty-card{padding:22px 20px 20px;border-radius:18px;}
+  .lc-title{font-size:24px;}
+  .lc-stamp{font-size:14px;}
+  .lc-progress-text{font-size:16px;}
+  .lc-progress-text.unlocked{font-size:18px;}
+  .lc-hint{font-size:12px;}
 }
-.loyalty-close:hover{color:var(--blood);}
 
 /* Fidélité — modal celebration au 5/5 */
 .loyalty-celebrate{
@@ -2108,6 +2303,11 @@ footer{
     <a href="#film">Le film</a>
     <a href="#concept">L'atelier</a>
     <a href="#avis">Témoins</a>
+    <button type="button" class="loyalty-trigger" id="loyaltyTrigger" onclick="openLoyaltyCard()" aria-label="Ma carte de fidélité numérique">
+      <span class="lt-star" aria-hidden="true">★</span>
+      <span class="lt-label">Ma carte</span>
+      <span class="lt-count" id="ltCount">0/5</span>
+    </button>
     <a href="#commande" class="nav-cta">Commander</a>
   </div>
 </nav>
@@ -2589,18 +2789,49 @@ footer{
   </div>
 </div>
 
-<!-- WIDGET FIDÉLITÉ — bottom right -->
-<div class="loyalty-widget" id="loyaltyWidget" role="complementary" aria-label="Programme fidélité La Dalle">
-  <button type="button" class="loyalty-close" onclick="document.getElementById('loyaltyWidget').classList.remove('show');" aria-label="Fermer">×</button>
-  <div class="loyalty-top">★ Carte fidélité La Dalle</div>
-  <div class="loyalty-progress" id="loyaltyProgress">
-    <div class="loyalty-stamp"><span class="stamp-num">1</span></div>
-    <div class="loyalty-stamp"><span class="stamp-num">2</span></div>
-    <div class="loyalty-stamp"><span class="stamp-num">3</span></div>
-    <div class="loyalty-stamp"><span class="stamp-num">4</span></div>
-    <div class="loyalty-stamp"><span class="stamp-num">5</span></div>
+<!-- CARTE FIDÉLITÉ NUMÉRIQUE — Modal Wallet-style -->
+<div class="loyalty-modal-bg" id="loyaltyModal" role="dialog" aria-modal="true" aria-labelledby="lcTitle" aria-hidden="true">
+  <div class="loyalty-card-wrap">
+    <div class="loyalty-card">
+      <div class="lc-header">
+        <div>
+          <div class="lc-brand"><span class="dot"></span>La Dalle</div>
+          <div class="lc-brand-sub">Burger · Halal</div>
+        </div>
+        <button type="button" class="lc-close" onclick="closeLoyaltyCard()" aria-label="Fermer la carte">×</button>
+      </div>
+
+      <div class="lc-eyebrow">★ Carte fidélité numérique ★</div>
+      <h3 class="lc-title" id="lcTitle">5 burgers, le <span class="accent">6e offert.</span></h3>
+      <p class="lc-tagline">— Aucune app à installer. Tout est ici, sur ton téléphone.</p>
+
+      <div class="lc-stamps" id="lcStamps" aria-label="Tampons de fidélité">
+        <div class="lc-stamp">1</div>
+        <div class="lc-stamp">2</div>
+        <div class="lc-stamp">3</div>
+        <div class="lc-stamp">4</div>
+        <div class="lc-stamp">5</div>
+      </div>
+
+      <div class="lc-status">
+        <div class="lc-progress-text" id="lcProgressText">Plus que <span class="accent">5 burgers</span> avant le 6<sup>e</sup> offert</div>
+      </div>
+
+      <div class="lc-code-block" id="lcCodeBlock">
+        <div class="lc-code-block-label">Ton code à utiliser</div>
+        <div class="lc-code-block-val" id="lcCodeVal">DALLE-XXXX</div>
+      </div>
+
+      <div class="lc-footer">
+        <div class="lc-id">Membre<br><strong id="lcMemberId">Nº DLB-0000</strong></div>
+        <div class="lc-barcode" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="lc-hint">
+      Le compteur s'incrémente <strong>automatiquement</strong> à chaque commande envoyée sur WhatsApp. Le code est <strong>injecté dans ton message</strong> dès que tu débloques le 6<sup>e</sup> burger.
+    </div>
   </div>
-  <p class="loyalty-msg" id="loyaltyMsg">Plus que <strong>5 burgers</strong> avant le 6e offert.</p>
 </div>
 
 <!-- MODAL CÉLÉBRATION FIDÉLITÉ 5/5 -->
@@ -3145,36 +3376,93 @@ function genLoyaltyCode(){
   for(var i=0;i<4;i++) c += s[Math.floor(Math.random()*s.length)];
   return 'DALLE-'+c;
 }
+function loadOrCreateMemberId(){
+  var d = loadLoyalty();
+  if(!d.memberId){
+    d.memberId = 'DLB-' + String(Math.floor(Math.random()*9000)+1000);
+    saveLoyalty(d);
+  }
+  return d.memberId;
+}
 function renderLoyalty(){
   var d = loadLoyalty();
-  var stamps = document.querySelectorAll('.loyalty-stamp');
-  var msg = document.getElementById('loyaltyMsg');
   var n = Math.min(d.count, 5);
+
+  // 1. Bouton nav : update count + état "unlocked"
+  var trigger = document.getElementById('loyaltyTrigger');
+  var ltCount = document.getElementById('ltCount');
+  if(ltCount) ltCount.textContent = (d.code && !d.claimed) ? '🎁' : (n+'/5');
+  if(trigger) trigger.classList.toggle('unlocked', !!(d.code && !d.claimed));
+
+  // 2. Carte modale : tampons
+  var stamps = document.querySelectorAll('.lc-stamp');
   stamps.forEach(function(el,i){ el.classList.toggle('filled', i<n); });
-  if(d.count===0){
-    msg.innerHTML = 'Achète <strong>5 burgers</strong>, le 6<sup>e</sup> est offert.';
-  } else if(d.count<5){
-    var rest = 5-d.count;
-    msg.innerHTML = 'Plus que <strong>'+rest+' burger'+(rest>1?'s':'')+'</strong> avant le 6<sup>e</sup> offert.';
-  } else if(!d.claimed){
-    msg.innerHTML = '🎉 <strong>Burger offert</strong> débloqué&nbsp;! Code : <strong>'+(d.code||'')+'</strong>';
-  } else {
-    msg.innerHTML = 'Carte remise à zéro. <strong>5 nouveaux burgers</strong> pour le prochain.';
+
+  // 3. Message status
+  var pt = document.getElementById('lcProgressText');
+  if(pt){
+    pt.classList.remove('unlocked');
+    if(d.count===0){
+      pt.innerHTML = 'Achète <span class="accent">5 burgers</span>, le 6<sup>e</sup> est offert';
+    } else if(d.count<5){
+      var rest = 5-d.count;
+      pt.innerHTML = 'Plus que <span class="accent">'+rest+' burger'+(rest>1?'s':'')+'</span> avant le 6<sup>e</sup> offert';
+    } else if(!d.claimed){
+      pt.classList.add('unlocked');
+      pt.innerHTML = '🎉 Ton 6<sup>e</sup> burger est OFFERT&nbsp;!';
+    } else {
+      pt.innerHTML = 'Nouveau cycle ouvert · <span class="accent">5 burgers</span> à valider';
+    }
+  }
+
+  // 4. Code block
+  var codeBlock = document.getElementById('lcCodeBlock');
+  var codeVal = document.getElementById('lcCodeVal');
+  if(codeBlock && codeVal){
+    if(d.code && !d.claimed){
+      codeBlock.classList.add('show');
+      codeVal.textContent = d.code;
+    } else {
+      codeBlock.classList.remove('show');
+    }
+  }
+
+  // 5. Member ID
+  var memberId = document.getElementById('lcMemberId');
+  if(memberId) memberId.textContent = 'Nº ' + loadOrCreateMemberId();
+}
+
+function openLoyaltyCard(){
+  renderLoyalty();
+  var bg = document.getElementById('loyaltyModal');
+  if(bg){
+    bg.classList.add('show');
+    bg.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
   }
 }
-function showLoyaltyWidget(){
-  renderLoyalty();
-  var w = document.getElementById('loyaltyWidget');
-  if(w) w.classList.add('show');
+function closeLoyaltyCard(){
+  var bg = document.getElementById('loyaltyModal');
+  if(bg){
+    bg.classList.remove('show');
+    bg.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
 }
 function closeLoyaltyCelebrate(){
   document.getElementById('loyaltyCelebrate').classList.remove('show');
 }
-// Affiche le widget après 8s au premier visit, sinon immédiat si compteur > 0
+
+// Init : crée memberId + render bouton nav dès chargement
+loadOrCreateMemberId();
+renderLoyalty();
+
+// Click backdrop = close
 (function(){
-  var d = loadLoyalty();
-  var delay = d.count > 0 ? 1500 : 8000;
-  setTimeout(showLoyaltyWidget, delay);
+  var bg = document.getElementById('loyaltyModal');
+  if(bg){
+    bg.addEventListener('click', function(e){ if(e.target === bg) closeLoyaltyCard(); });
+  }
 })();
 
 // ============================================================
@@ -3335,16 +3623,29 @@ sendWA = function(){
   }
 
   // Lance le tracking après 1.8s (laisse le temps à WhatsApp de s'ouvrir)
-  setTimeout(function(){ startOrderTracking(orderData); renderLoyalty(); showLoyaltyWidget(); }, 1800);
+  setTimeout(function(){ startOrderTracking(orderData); renderLoyalty(); }, 1800);
 };
 
-// ESC ferme order tracking + loyalty celebrate
+// ESC ferme order tracking + loyalty celebrate + carte fidélité
 document.addEventListener('keydown', function(e){
   if(e.key==='Escape'){
     if(document.getElementById('orderTracking').classList.contains('show')) closeOrderTracking();
     if(document.getElementById('loyaltyCelebrate').classList.contains('show')) closeLoyaltyCelebrate();
+    if(document.getElementById('loyaltyModal').classList.contains('show')) closeLoyaltyCard();
   }
 });
+
+// Au déblocage du 6e burger, ouvre auto la carte (avec un peu de délai après celebration)
+(function(){
+  var d = loadLoyalty();
+  if(d.code && !d.claimed){
+    // L'utilisateur a un code actif → l'invite à voir sa carte au prochain visit
+    setTimeout(function(){
+      var trigger = document.getElementById('loyaltyTrigger');
+      if(trigger) trigger.classList.add('unlocked');
+    }, 500);
+  }
+})();
 </script>
 </body>
 </html>

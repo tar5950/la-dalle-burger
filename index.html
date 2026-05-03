@@ -2308,12 +2308,12 @@ footer{
 
 /* === RESPONSIVE — mobile === */
 @media(max-width:600px){
-  section{padding:54px 5%;}
-  .edition-bar{font-size:9px;letter-spacing:0.14em;padding:6px 5%;}
-  .edition-bar span:nth-child(2){display:none;}
-  .nav-cta{font-size:11px !important;padding:9px 13px !important;box-shadow:2px 2px 0 var(--ink) !important;}
-  .brand{font-size:18px;}
+  section{padding:48px 5%;}
+  .nav{padding:10px 4% !important;}
+  .nav-cta{font-size:11px !important;padding:10px 14px !important;box-shadow:2px 2px 0 var(--ink) !important;min-height:44px;}
+  .brand{font-size:17px;}
   .brand .small{display:none;}
+  .loyalty-trigger{min-height:44px;}
   .hero{padding:64px 5% 48px;min-height:64vh;}
   .hero-title{letter-spacing:-0.03em;}
   .hero-title .l2::before{left:4px;top:4px;}
@@ -2371,6 +2371,41 @@ footer{
   .ft-grid{gap:24px;padding:24px 0;}
   .notif{left:10px;right:10px;bottom:10px;min-width:0;max-width:none;}
   .stamp{box-shadow:0 0 0 3px rgba(239,229,207,0.96),0 0 0 4.5px var(--blood);}
+}
+
+/* === MOBILE-FIRST POLISH (90% du trafic) === */
+@media(max-width:760px){
+  /* Tap targets minimum 44×44 (Apple HIG / WCAG) */
+  .btn-primary,.btn-secondary,.btn-wa,.nav-cta,.loyalty-trigger,
+  .upsell-chip,.upsell-btn-yes,.upsell-btn-no,.upsell-close,
+  .extras-summary-btn,.lc-close,.cart-bar-cta,.fcp-tap,
+  .srv-chip,.chip,.cal-chip,.hr-chip{min-height:44px;}
+  .upsell-chip{min-height:auto;}
+
+  /* Anti-zoom iOS sur focus input (font-size 16px obligatoire) */
+  .f-inp{font-size:16px !important;}
+
+  /* Ergonomie pouce : CTAs principaux dans la moitié basse de l'écran */
+  .hero-btns{margin-bottom:0;}
+
+  /* Désactive les hover transforms sur touch (parasites) */
+  @media (hover:none){
+    .btn-primary:hover,.btn-secondary:hover,.btn-wa:hover,
+    .upsell-chip:hover,.menu-card:hover,.fidelity-card-preview:hover{
+      transform:none;
+    }
+  }
+
+  /* Carte fidélité preview centrée + tape réflexe */
+  .fidelity-card-preview{cursor:pointer;-webkit-tap-highlight-color:transparent;}
+
+  /* Réduit les ombres décoratives lourdes (perf mobile) */
+  .commande-form{box-shadow:4px 4px 0 var(--blood) !important;}
+  .upsell-modal{box-shadow:4px 4px 0 var(--blood) !important;}
+  .loyalty-card{box-shadow:0 16px 40px rgba(0,0,0,0.4),0 0 0 1px rgba(217,154,31,0.3) inset !important;}
+
+  /* Viewport units fix iOS Safari (vh inclut la barre URL) */
+  .hero{min-height:60vh;min-height:60svh;}
 }
 
 /* === RESPONSIVE — petit mobile === */

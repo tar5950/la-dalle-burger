@@ -1019,6 +1019,112 @@ section{padding:90px 4%;position:relative;z-index:2;}
 .f-inp:focus::placeholder{opacity:0.4;}
 .f-inp::before{content:'→';}
 
+/* === Bouton appel direct mobile === */
+.nav-call{
+  display:none;
+  width:42px;height:42px;
+  background:var(--blood);color:var(--paper) !important;
+  border:1.5px solid var(--ink);
+  align-items:center;justify-content:center;
+  font-size:18px;line-height:1;
+  text-decoration:none !important;
+  margin-right:6px;
+  transition:transform 0.15s;
+  box-shadow:2px 2px 0 var(--ink);
+}
+.nav-call:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink);}
+.nav-call::after{display:none !important;}
+@media(max-width:760px){
+  .nav-call{display:inline-flex !important;}
+}
+
+/* === BADGE "Le plus commandé" === */
+.menu-card.bestseller{
+  position:relative;
+  outline:2.5px solid var(--blood);outline-offset:-2.5px;
+}
+.menu-card-badge{
+  position:absolute;top:-12px;left:18px;z-index:5;
+  background:var(--blood);color:var(--paper);
+  font-family:'Bowlby One',sans-serif;font-size:11px;letter-spacing:0.04em;
+  text-transform:uppercase;padding:5px 10px;
+  border:2px solid var(--ink);
+  box-shadow:2px 2px 0 var(--ink);
+  transform:rotate(-2deg);
+  white-space:nowrap;
+}
+
+/* === Hero CTA subtitle === */
+.hero-cta-promise{
+  display:flex;align-items:center;gap:10px;margin-top:14px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;
+  color:rgba(239,229,207,0.78);
+  flex-wrap:wrap;
+}
+.hero-cta-promise span{display:inline-flex;align-items:center;gap:6px;}
+.hero-cta-promise span::before{content:'✓';color:var(--mustard);font-size:14px;}
+
+/* === Code postal validation step === */
+.zip-check{
+  margin-top:10px;
+  padding:14px 16px;
+  background:var(--paper-2);
+  border:1.5px dashed var(--ink);
+  display:none;
+}
+.zip-check.show{display:block;animation:zip-in 0.3s ease-out;}
+@keyframes zip-in{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+.zip-check label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--ink-3);display:block;margin-bottom:8px;
+}
+.zip-input-wrap{display:flex;gap:8px;align-items:stretch;}
+.zip-input{
+  flex:1;
+  font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;
+  letter-spacing:0.12em;text-align:center;
+  padding:12px 8px;
+  background:var(--paper);
+  border:1.5px solid var(--ink);
+  outline:none;
+  transition:border-color 0.18s;
+  min-height:44px;
+}
+.zip-input:focus{border-color:var(--blood);border-width:2px;padding:11.5px 7.5px;}
+.zip-input::placeholder{color:var(--ink-3);font-weight:400;letter-spacing:0.08em;}
+.zip-result{
+  margin-top:10px;
+  padding:10px 12px;
+  font-family:'Fraunces',serif;font-size:14px;line-height:1.4;
+  display:none;
+}
+.zip-result.show{display:block;}
+.zip-result.ok{background:rgba(26,138,74,0.12);border-left:3px solid #1a8a4a;color:var(--ink);}
+.zip-result.bad{background:rgba(168,40,31,0.10);border-left:3px solid var(--blood);color:var(--ink);}
+.zip-result strong{font-family:'Bowlby One',sans-serif;font-style:normal;}
+.zip-result .price{color:var(--blood);font-weight:700;}
+.zip-result .eta{color:#1a8a4a;font-weight:700;}
+
+/* === Micro-copy réassurance sous WhatsApp button === */
+.wa-reassurance{
+  margin-top:14px;padding:14px;
+  background:var(--paper-2);
+  border:1px dashed var(--line);
+  display:flex;flex-direction:column;gap:6px;
+}
+.wa-reassurance-line{
+  display:flex;align-items:flex-start;gap:8px;
+  font-family:'Fraunces',serif;font-size:13px;line-height:1.4;
+  color:var(--ink-2);
+}
+.wa-reassurance-line::before{
+  content:'✓';color:#1a8a4a;font-family:'Bowlby One',sans-serif;font-size:14px;
+  flex-shrink:0;margin-top:1px;
+}
+.wa-reassurance-line strong{color:var(--ink);font-weight:600;}
+
 /* === SECTION FIDÉLITÉ — Carte exposée sur la homepage === */
 .fidelity-section{
   background:var(--paper-2);
@@ -2445,6 +2551,7 @@ footer{
       <span class="lt-label">Ma carte</span>
       <span class="lt-count" id="ltCount">0/5</span>
     </button>
+    <a href="tel:+33600000000" class="nav-call" aria-label="Appeler La Dalle Burger">📞</a>
     <a href="#commande" class="nav-cta">Commander</a>
   </div>
 </nav>
@@ -2479,6 +2586,11 @@ footer{
     <div class="hero-btns">
       <a href="#commande" class="btn-primary">→ Commander maintenant</a>
       <a href="#menu" class="btn-secondary">Voir le menu</a>
+    </div>
+    <div class="hero-cta-promise" aria-hidden="true">
+      <span>Prêt en 15 min</span>
+      <span>Livré en 35 min</span>
+      <span>Paiement à la livraison</span>
     </div>
     <div class="hero-stats">
       <div class="hstat"><div class="hstat-v">4.9<span class="star">★</span></div><div class="hstat-l">Note Google</div></div>
@@ -2519,6 +2631,7 @@ footer{
     </div>
     <div class="menu-card fade-up" onclick="pickSrv('Le Smash','10')">
       <div class="menu-card-num">Nº <strong>02</strong></div>
+      <span class="menu-card-badge">★ Le plus commandé</span>
       <div class="menu-card-name">Le Smash</div>
       <div class="menu-card-desc">Double smash patty écrasée minute, double cheddar, pickles maison, sauce spéciale du chef.</div>
       <div class="menu-card-rule"></div>
@@ -2779,8 +2892,17 @@ footer{
 
         <div class="step-lbl"><span class="step-num">II</span>Mode<span class="step-hint">— livraison ou à emporter</span></div>
         <div class="g2">
-          <div class="chip" data-v="Livraison" onclick="selB(this)" tabindex="0" role="button" aria-label="Livraison"><div class="chip-n">🛵 Livraison</div></div>
-          <div class="chip" data-v="À emporter" onclick="selB(this)" tabindex="0" role="button" aria-label="À emporter"><div class="chip-n">🏃 À emporter</div></div>
+          <div class="chip" data-v="Livraison" onclick="selB(this)" tabindex="0" role="button" aria-label="Livraison à partir de 2,50 euros, gratuite dès 25 euros"><div class="chip-n">🛵 Livraison<br><span style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:0.12em;color:var(--ink-3);text-transform:uppercase;">dès 2,50 € · gratuite ≥ 25 €</span></div></div>
+          <div class="chip" data-v="À emporter" onclick="selB(this)" tabindex="0" role="button" aria-label="À emporter, gratuit"><div class="chip-n">🏃 À emporter<br><span style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:0.12em;color:var(--ink-3);text-transform:uppercase;">gratuit · prêt en 15 min</span></div></div>
+        </div>
+
+        <!-- Code postal validation (apparaît si Livraison) -->
+        <div class="zip-check" id="zipCheck">
+          <label for="zipInput">📍 Code postal — on vérifie qu'on livre chez toi</label>
+          <div class="zip-input-wrap">
+            <input type="text" id="zipInput" class="zip-input" placeholder="59500" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" autocomplete="postal-code">
+          </div>
+          <div class="zip-result" id="zipResult"></div>
         </div>
 
         <div class="step-lbl"><span class="step-num">III</span>Pour quand<span class="step-hint">— maintenant ou heure précise</span></div>
@@ -2794,8 +2916,8 @@ footer{
         </div>
 
         <div class="step-lbl"><span class="step-num">IV</span>Tes infos<span class="step-hint">— pour qu'on te trouve</span></div>
-        <input class="f-inp" type="text" id="c-name" placeholder="Ton prénom" autocomplete="given-name">
-        <input class="f-inp" type="tel" id="c-tel" placeholder="Ton numéro WhatsApp" autocomplete="tel" inputmode="tel">
+        <input class="f-inp" type="text" id="c-name" placeholder="Ton prénom" autocomplete="given-name" autocapitalize="words">
+        <input class="f-inp" type="tel" id="c-tel" placeholder="Ton numéro WhatsApp" autocomplete="tel" inputmode="numeric" pattern="[0-9 +]{10,}">
         <input class="f-inp" type="text" id="c-adresse" placeholder="Ton adresse (si livraison)" autocomplete="street-address">
 
         <div class="recap" id="recap">
@@ -2810,7 +2932,13 @@ footer{
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
           Envoyer sur WhatsApp
         </button>
-        <p class="form-note">Confirmation sous 5 minutes · livraison 30–45 min</p>
+
+        <!-- Réassurance sous le CTA (anxiety LIFT) -->
+        <div class="wa-reassurance">
+          <div class="wa-reassurance-line"><span><strong>Aucun engagement</strong> avant qu'on confirme ton créneau sur WhatsApp.</span></div>
+          <div class="wa-reassurance-line"><span><strong>Paiement à la livraison</strong> — CB ou espèces, à toi de choisir.</span></div>
+          <div class="wa-reassurance-line"><span><strong>Confirmation sous 5 minutes</strong> · livraison 30 à 45 min après.</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -3206,12 +3334,39 @@ document.querySelectorAll('.srv-chip,.chip,.cal-chip,.hr-chip,.upsell-chip').for
 });
 
 // COMMANDE STATE
-var R = { s:'', b:'', p:0, d:'', t:'', extras:[] };
+var R = { s:'', b:'', p:0, d:'', t:'', extras:[], zip:'', zipFee:0, zipLabel:'' };
+
+// === ZONES DE LIVRAISON (Douai + alentours) ===
+var DELIVERY_ZONES = {
+  '59500': {label:'Douai centre',          fee:2.5, eta:'25-35 min'},
+  '59450': {label:'Sin-le-Noble',           fee:3.5, eta:'30-40 min'},
+  '59119': {label:'Waziers',                fee:3.5, eta:'30-40 min'},
+  '59128': {label:'Flers-en-Escrebieux',    fee:3.5, eta:'30-40 min'},
+  '59287': {label:'Lewarde',                fee:4,   eta:'35-45 min'},
+  '59552': {label:'Lambres-lez-Douai',      fee:4,   eta:'35-45 min'},
+  '59553': {label:'Cuincy',                 fee:4,   eta:'35-45 min'},
+  '59283': {label:'Raimbeaucourt',          fee:4,   eta:'35-45 min'},
+  '59226': {label:'Lecluse',                fee:4,   eta:'35-45 min'},
+  '59169': {label:'Cantin',                 fee:4,   eta:'35-45 min'},
+  '59225': {label:'Erre',                   fee:4,   eta:'35-45 min'},
+  '59410': {label:'Anzin',                  fee:5,   eta:'40-50 min'},
+  '59135': {label:'Wallers',                fee:4.5, eta:'40-50 min'},
+  '59247': {label:'Arleux',                 fee:4.5, eta:'40-50 min'}
+};
+var FREE_DELIVERY_THRESHOLD = 25; // gratuit dès 25€
 
 function totalPrice(){
   var base = parseFloat(R.p)||0;
   var extrasSum = R.extras.reduce(function(a,e){return a+parseFloat(e.p);},0);
-  return base + extrasSum;
+  var sub = base + extrasSum;
+  // Frais de livraison : gratuits dès 25€
+  var fee = (R.b === 'Livraison' && R.zip) ? (sub >= FREE_DELIVERY_THRESHOLD ? 0 : R.zipFee) : 0;
+  // Recalcule R.zipFee dynamiquement aussi (en cas de changement extras qui passe le seuil)
+  if(R.b === 'Livraison' && R.zip){
+    R.zipFee = sub >= FREE_DELIVERY_THRESHOLD ? 0 : (DELIVERY_ZONES[R.zip] ? DELIVERY_ZONES[R.zip].fee : 0);
+    fee = R.zipFee;
+  }
+  return sub + fee;
 }
 
 function updBar() {
@@ -3219,7 +3374,9 @@ function updBar() {
   for(var i=0;i<4;i++) document.getElementById('ps'+(i+1)).classList.toggle('done',!!v[i]);
 }
 function updRecap() {
-  var ok=R.s&&R.b&&R.d&&R.t;
+  // Si livraison sans zip valide → on bloque la complétion
+  var zipOk = R.b !== 'Livraison' || (R.b === 'Livraison' && R.zip);
+  var ok=R.s&&R.b&&R.d&&R.t&&zipOk;
   document.getElementById('recap').classList.toggle('show',ok);
   if(ok){
     var burgerLine = R.s;
@@ -3227,10 +3384,15 @@ function updRecap() {
       burgerLine += ' + ' + R.extras.map(function(e){return e.v;}).join(' + ');
     }
     document.getElementById('rc-s').textContent=burgerLine;
-    document.getElementById('rc-b').textContent=R.b;
+    var modeText = R.b;
+    if(R.b === 'Livraison' && R.zip){
+      var feeStr = R.zipFee>0 ? ' (+'+R.zipFee.toFixed(2).replace('.',',')+'€)' : ' (gratuite)';
+      modeText = 'Livraison ' + R.zipLabel + feeStr;
+    }
+    document.getElementById('rc-b').textContent=modeText;
     document.getElementById('rc-d').textContent=R.d;
     document.getElementById('rc-t').textContent=R.t;
-    document.getElementById('rc-p').textContent=totalPrice()+'€';
+    document.getElementById('rc-p').textContent=totalPrice().toFixed(2).replace('.',',')+'€';
   }
   updBar();
   updCartBar();
@@ -3336,6 +3498,7 @@ function confirmUpsell(){
   syncExtrasSummary();
   updRecap();
   closeUpsellModal();
+  setTimeout(function(){ autoScrollToStep(2); }, 320);
 }
 
 function syncExtrasSummary(){
@@ -3371,11 +3534,88 @@ function selS(el){
     setTimeout(function(){ openUpsellModal(false); }, 280);
   }
 }
+
+// Listener input code postal (debounced naturellement par 5 chars)
+document.addEventListener('DOMContentLoaded', function(){
+  var zi = document.getElementById('zipInput');
+  if(zi) zi.addEventListener('input', validateZip);
+});
+// Au cas où le DOM est déjà ready
+(function(){
+  var zi = document.getElementById('zipInput');
+  if(zi) zi.addEventListener('input', validateZip);
+})();
 function selB(el){
-  // Sélecteur scope-restreint au step "Mode" uniquement (II)
   var parent=el.parentNode;
   parent.querySelectorAll('.chip').forEach(function(e){e.classList.remove('on');});
-  el.classList.add('on'); R.b=el.getAttribute('data-v'); updRecap();
+  el.classList.add('on'); R.b=el.getAttribute('data-v');
+  // Affiche/masque la validation zip selon le mode choisi
+  var zipBox = document.getElementById('zipCheck');
+  if(R.b === 'Livraison'){
+    zipBox.classList.add('show');
+    setTimeout(function(){
+      var zi = document.getElementById('zipInput');
+      if(zi && !zi.value) zi.focus();
+    }, 200);
+  } else {
+    zipBox.classList.remove('show');
+    R.zip=''; R.zipFee=0; R.zipLabel='';
+    document.getElementById('zipResult').classList.remove('show','ok','bad');
+    // Si emporter, on scrolle direct vers étape III
+    autoScrollToStep(3);
+  }
+  updRecap();
+}
+
+// Validation code postal en temps réel
+function validateZip(){
+  var input = document.getElementById('zipInput');
+  var result = document.getElementById('zipResult');
+  var z = input.value.replace(/\D/g,'').slice(0,5);
+  input.value = z;
+  if(z.length < 5){
+    result.classList.remove('show','ok','bad');
+    R.zip=''; R.zipFee=0; R.zipLabel='';
+    updRecap();
+    return;
+  }
+  var zone = DELIVERY_ZONES[z];
+  if(zone){
+    var freeNote = '';
+    var caBase = (parseFloat(R.p)||0) + R.extras.reduce(function(a,e){return a+parseFloat(e.p);},0);
+    var feeApplied = caBase >= FREE_DELIVERY_THRESHOLD ? 0 : zone.fee;
+    if(feeApplied === 0) freeNote = ' <strong style="color:#1a8a4a;">Gratuite</strong> (commande ≥ 25 €)';
+    else freeNote = ' Frais : <span class="price">'+zone.fee.toFixed(2).replace('.',',')+' €</span> · <em style="color:var(--ink-3);font-size:12px;">gratuite dès 25 €</em>';
+    result.innerHTML = '✅ <strong>On livre chez toi</strong> · '+zone.label+'<br>ETA <span class="eta">'+zone.eta+'</span>·'+freeNote;
+    result.className='zip-result show ok';
+    R.zip = z; R.zipFee = feeApplied; R.zipLabel = zone.label;
+    autoScrollToStep(3);
+  } else {
+    result.innerHTML = '❌ <strong>Hors zone de livraison.</strong><br>Mais tu peux <a href="javascript:switchToPickup()" style="color:var(--blood);text-decoration:underline;">passer en click &amp; collect</a> — on te garde le burger chaud, tu viens le chercher.';
+    result.className='zip-result show bad';
+    R.zip=''; R.zipFee=0; R.zipLabel='';
+  }
+  updRecap();
+}
+function switchToPickup(){
+  var pickupChip = document.querySelector('.chip[data-v="À emporter"]');
+  if(pickupChip) selB(pickupChip);
+}
+
+// Auto-scroll vers l'étape suivante (mobile-first UX)
+function autoScrollToStep(stepNum){
+  var stepLabels = document.querySelectorAll('.step-lbl');
+  var target = stepLabels[stepNum-1];
+  if(!target) return;
+  // Vérifie si déjà en vue (économise scroll inutile)
+  var rect = target.getBoundingClientRect();
+  var inView = rect.top >= 60 && rect.bottom <= window.innerHeight - 100;
+  if(inView) return;
+  setTimeout(function(){
+    target.scrollIntoView({behavior:'smooth', block:'start'});
+    // Compense le sticky nav (~70px) et le time-banner (~36px)
+    setTimeout(function(){ window.scrollBy({top:-110, behavior:'smooth'}); }, 350);
+  }, 250);
 }
 function pickSrv(name,price){
   document.querySelectorAll('.srv-chip').forEach(function(el){if(el.getAttribute('data-v')===name)selS(el);});
@@ -3384,16 +3624,19 @@ function pickSrv(name,price){
 
 // TIMING — "ASAP" ou "Heure précise"
 function selT(el){
-  // Désélectionne le toggle "Heure précise" et toutes les heures
   var parent=el.parentNode;
   parent.querySelectorAll('.chip').forEach(function(e){e.classList.remove('on');});
   document.querySelectorAll('.hr-chip').forEach(function(x){x.classList.remove('on');});
   document.getElementById('hrs-wrap').style.display='none';
   el.classList.add('on');
-  // Date par défaut = aujourd'hui (sandwicherie : commande pour le jour même)
   R.d='Aujourd\'hui';
   R.t='Le plus tôt possible (15-30 min)';
   updRecap();
+  setTimeout(function(){
+    autoScrollToStep(4);
+    var firstField = document.getElementById('c-name');
+    if(firstField) firstField.focus({preventScroll:true});
+  }, 320);
 }
 function toggleHrs(el){
   var parent=el.parentNode;
@@ -3428,6 +3671,11 @@ function buildHrs(){
       el.addEventListener('click',(function(e,time){return function(){
         document.querySelectorAll('.hr-chip').forEach(function(x){x.classList.remove('on');});
         e.classList.add('on'); R.t=time; updRecap();
+        setTimeout(function(){
+          autoScrollToStep(4);
+          var firstField = document.getElementById('c-name');
+          if(firstField) firstField.focus({preventScroll:true});
+        }, 280);
       };})(el,t));
     }
     grid.appendChild(el);
@@ -3776,6 +4024,7 @@ sendWA = function(){
   var tel=document.getElementById('c-tel').value.trim();
   var adresse=document.getElementById('c-adresse').value.trim();
   if(!R.s||!R.b||!R.t){alert('Merci de compléter toutes les étapes.');return;}
+  if(R.b === 'Livraison' && !R.zip){alert('Merci de saisir un code postal valide pour la livraison.');return;}
 
   // Fidélité — incrémente + génère code si 5e
   var loyalty = loadLoyalty();
@@ -3797,7 +4046,13 @@ sendWA = function(){
   // Génère ID commande + ETA selon mode
   var orderId = 'A-'+String(Math.floor(Math.random()*9000)+1000);
   var extrasTxt = R.extras.length ? '\nExtras : '+R.extras.map(function(e){return e.v+' (+'+e.p+'€)';}).join(' + ') : '';
-  var msg='Salam, je veux commander 🍔\n\nCommande Nº '+orderId+'\nBurger : '+R.s+extrasTxt+'\nMode : '+R.b+'\nPour : '+R.t+'\nTotal : '+totalPrice()+'€\nPrénom : '+prenom+(tel?'\nNuméro : '+tel:'')+(adresse?'\nAdresse : '+adresse:'')+loyaltyMsg+'\n\nMerci !';
+  var modeTxt = R.b;
+  if(R.b === 'Livraison' && R.zip){
+    var feeStr = R.zipFee>0 ? ' — frais livraison '+R.zipFee.toFixed(2).replace('.',',')+'€' : ' — frais livraison GRATUITS';
+    modeTxt = 'Livraison · '+R.zipLabel+' ('+R.zip+')'+feeStr;
+  }
+  var totalStr = totalPrice().toFixed(2).replace('.',',')+'€';
+  var msg='Salam, je veux commander 🍔\n\nCommande Nº '+orderId+'\nBurger : '+R.s+extrasTxt+'\nMode : '+modeTxt+'\nPour : '+R.t+'\n💰 Total : '+totalStr+'\n\nPrénom : '+prenom+(tel?'\nNuméro : '+tel:'')+(adresse?'\nAdresse : '+adresse:'')+loyaltyMsg+'\n\nMerci !';
   window.open('https://wa.me/33600000000?text='+encodeURIComponent(msg),'_blank');
 
   // Sauvegarde commande pour tracking

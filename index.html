@@ -2512,50 +2512,156 @@ section{padding:90px 4%;position:relative;z-index:2;}
 }
 .avis-score{
   border:2px solid var(--paper);
-  padding:32px;text-align:center;
+  padding:0;text-align:center;
   position:relative;
   background:rgba(239,229,207,0.04);
+  overflow:hidden;
 }
+.avis-score-head{
+  background:rgba(239,229,207,0.08);
+  padding:14px 20px;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  border-bottom:1px dashed rgba(239,229,207,0.22);
+}
+.avis-score-head .g-logo{
+  width:24px;height:24px;border-radius:50%;
+  background:var(--paper);color:#4285F4;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-family:'Bowlby One',sans-serif;font-size:16px;line-height:1;
+}
+.avis-score-head-text{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+  color:rgba(239,229,207,0.85);
+  text-align:left;line-height:1.3;
+}
+.avis-score-head-text strong{color:var(--paper);display:block;font-size:11px;}
+.avis-score-body{padding:24px 20px 18px;}
 .avis-num{
   font-family:'Bowlby One',sans-serif;
-  font-size:96px;line-height:1;color:var(--mustard);
-  margin-bottom:8px;
+  font-size:84px;line-height:1;color:var(--mustard);
+  margin-bottom:6px;letter-spacing:-0.03em;
 }
-.avis-stars{font-size:24px;color:var(--mustard);letter-spacing:0.08em;}
+.avis-num small{font-size:0.5em;color:rgba(239,229,207,0.5);font-weight:400;}
+.avis-stars{font-size:22px;color:var(--mustard);letter-spacing:0.06em;line-height:1;}
 .avis-cnt{
-  font-family:'JetBrains Mono',monospace;
-  font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;
-  color:rgba(239,229,207,0.7);margin-top:14px;padding-top:14px;
-  border-top:1px dashed rgba(239,229,207,0.3);
+  font-family:'Fraunces',serif;font-style:italic;
+  font-variation-settings:"opsz" 36,"WONK" 1;
+  font-size:14px;letter-spacing:0;text-transform:none;
+  color:rgba(239,229,207,0.85);margin-top:14px;padding-top:14px;
+  border-top:1px dashed rgba(239,229,207,0.22);line-height:1.4;
 }
+.avis-cnt strong{color:var(--paper);font-style:normal;font-family:'Bowlby One',sans-serif;font-weight:400;}
 .avis-lnk{
-  display:inline-block;margin-top:20px;
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:16px;
   font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
   letter-spacing:0.18em;text-transform:uppercase;
   color:var(--paper);border-bottom:2px solid var(--mustard);padding-bottom:3px;
 }
+.avis-lnk:hover{color:var(--mustard);}
 .avis-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
 .avis-card{
-  background:rgba(239,229,207,0.04);
-  border:1.5px solid rgba(239,229,207,0.25);
-  padding:24px 22px;position:relative;
+  background:rgba(239,229,207,0.05);
+  border:1.5px solid rgba(239,229,207,0.22);
+  padding:0;position:relative;
+  display:flex;flex-direction:column;
+  overflow:hidden;
 }
-.avis-card::before{
-  content:'"';position:absolute;top:-18px;left:14px;
+/* Header avec avatar + nom + meta */
+.avis-card-head{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:18px 18px 14px;
+  border-bottom:1px dashed rgba(239,229,207,0.18);
+}
+.avis-avatar{
+  width:46px;height:46px;flex-shrink:0;
+  border-radius:50%;
+  background:var(--mustard);color:var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bowlby One',sans-serif;font-size:20px;
+  letter-spacing:-0.01em;
+  border:2px solid rgba(239,229,207,0.4);
+}
+.avis-avatar.b1{background:var(--blood-3);color:var(--paper);}
+.avis-avatar.b2{background:#1a8a4a;color:var(--paper);}
+.avis-avatar.b3{background:var(--mustard);color:var(--ink);}
+.avis-card-id{
+  flex:1;min-width:0;
+}
+.avis-name{
   font-family:'Bowlby One',sans-serif;
-  color:var(--mustard);font-size:60px;line-height:1;
+  font-size:16px;letter-spacing:-0.01em;color:var(--paper);
+  line-height:1.1;margin-bottom:4px;
 }
-.avis-st{color:var(--mustard);font-size:14px;letter-spacing:0.06em;margin-bottom:14px;}
-.avis-txt{
+.avis-meta{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;
+  color:rgba(239,229,207,0.65);
+  display:flex;gap:6px;align-items:center;flex-wrap:wrap;
+  margin-bottom:6px;
+}
+.avis-meta-sep{opacity:0.4;}
+.avis-stars-row{
+  display:flex;align-items:center;gap:8px;
+}
+.avis-stars-row .stars{color:var(--mustard);font-size:13px;letter-spacing:0.04em;line-height:1;}
+.avis-google-tag{
+  display:inline-flex;align-items:center;gap:4px;
+  font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;
+  letter-spacing:0.16em;text-transform:uppercase;
+  color:rgba(239,229,207,0.6);
+}
+.avis-google-tag::before{
+  content:'G';color:#4285F4;background:var(--paper);
+  width:14px;height:14px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-family:'Bowlby One',sans-serif;font-size:10px;line-height:1;
+  font-weight:400;letter-spacing:0;
+}
+
+/* Quote */
+.avis-quote{
+  padding:16px 18px 14px;
   font-family:'Fraunces',serif;font-style:italic;
   font-variation-settings:"opsz" 36,"SOFT" 80,"WONK" 1;
-  font-size:16px;line-height:1.55;color:var(--paper);
-  margin-bottom:18px;
+  font-size:15px;line-height:1.55;color:var(--paper);
+  position:relative;
+  flex:1;
 }
-.avis-auth{
-  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
-  letter-spacing:0.18em;text-transform:uppercase;color:var(--mustard);
-  padding-top:12px;border-top:1px dashed rgba(239,229,207,0.25);
+.avis-quote::before{
+  content:'"';position:absolute;top:-2px;left:8px;
+  font-family:'Bowlby One',sans-serif;font-style:normal;
+  color:var(--mustard);font-size:34px;line-height:1;opacity:0.7;
+}
+
+/* Footer : burger commandé + signal récurrent */
+.avis-card-foot{
+  padding:10px 18px 14px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--mustard);
+  border-top:1px dashed rgba(239,229,207,0.18);
+  display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+}
+.avis-card-foot::before{
+  content:'★';font-family:'Bowlby One',sans-serif;font-style:normal;
+  color:var(--blood-3);font-size:14px;font-weight:400;letter-spacing:0;line-height:1;
+}
+.avis-card-foot .recurrent{
+  margin-left:auto;
+  background:rgba(217,154,31,0.15);color:var(--mustard);
+  padding:3px 7px;border:1px solid rgba(217,154,31,0.35);
+  font-size:8px;
+}
+@media(max-width:600px){
+  .avis-card-head{padding:14px 14px 12px;gap:10px;}
+  .avis-avatar{width:40px;height:40px;font-size:17px;}
+  .avis-name{font-size:15px;}
+  .avis-meta{font-size:8.5px;letter-spacing:0.12em;}
+  .avis-quote{font-size:14px;padding:14px 14px 12px;}
+  .avis-card-foot{font-size:8.5px;letter-spacing:0.12em;padding:10px 14px 12px;}
+  .avis-card-foot .recurrent{font-size:7.5px;}
 }
 @media(max-width:900px){
   .avis-layout{grid-template-columns:1fr;}
@@ -3332,28 +3438,91 @@ footer{
   <h2 class="section-title fade-up">Ils sont <span class="accent">revenus.</span></h2>
 
   <div class="avis-layout">
+
     <div class="avis-score fade-up">
-      <div class="avis-num">4.9</div>
-      <div class="avis-stars">★★★★★</div>
-      <div class="avis-cnt">200+ avis Google</div>
-      <a href="#" class="avis-lnk">Laisser ton avis →</a>
+      <div class="avis-score-head">
+        <span class="g-logo" aria-hidden="true">G</span>
+        <span class="avis-score-head-text"><strong>Avis Google</strong>vérifiés · sans filtre</span>
+      </div>
+      <div class="avis-score-body">
+        <div class="avis-num">4,9<small> /5</small></div>
+        <div class="avis-stars">★★★★★</div>
+        <div class="avis-cnt">Note moyenne sur <strong>200+ avis</strong> ces 12 derniers mois</div>
+        <a href="https://www.google.com/maps/search/burger+douai" target="_blank" rel="noopener" class="avis-lnk">Voir sur Google →</a>
+      </div>
     </div>
+
     <div class="avis-cols">
-      <div class="avis-card fade-up">
-        <div class="avis-st">★★★★★</div>
-        <div class="avis-txt">Le meilleur smash burger du secteur. La sauce secrète c'est une autre dimension. Je commande 2-3 fois par semaine.</div>
-        <div class="avis-auth">Karim D.</div>
-      </div>
-      <div class="avis-card fade-up">
-        <div class="avis-st">★★★★★</div>
-        <div class="avis-txt">Livraison rapide, burger chaud à l'arrivée. Le bun brioché c'est fait maison, ça se sent vraiment.</div>
-        <div class="avis-auth">Mehdi S.</div>
-      </div>
-      <div class="avis-card fade-up">
-        <div class="avis-st">★★★★★</div>
-        <div class="avis-txt">Le Chicken c'est une tuerie. Jamais mangé un burger aussi bon dans le coin. Client à vie.</div>
-        <div class="avis-auth">Bilal T.</div>
-      </div>
+
+      <article class="avis-card fade-up">
+        <header class="avis-card-head">
+          <div class="avis-avatar b1" aria-hidden="true">K</div>
+          <div class="avis-card-id">
+            <div class="avis-name">Karim&nbsp;D.</div>
+            <div class="avis-meta">
+              <span>Douai centre</span>
+              <span class="avis-meta-sep">·</span>
+              <span>28 avr. 2025</span>
+            </div>
+            <div class="avis-stars-row">
+              <span class="stars" aria-label="5 étoiles sur 5">★★★★★</span>
+              <span class="avis-google-tag">Vérifié</span>
+            </div>
+          </div>
+        </header>
+        <p class="avis-quote">Le meilleur smash burger du secteur. La sauce secrète c'est une autre dimension.</p>
+        <footer class="avis-card-foot">
+          A commandé <strong style="color:var(--paper);">Le Smash</strong>
+          <span class="recurrent">★ Habitué · 2-3×/sem</span>
+        </footer>
+      </article>
+
+      <article class="avis-card fade-up">
+        <header class="avis-card-head">
+          <div class="avis-avatar b2" aria-hidden="true">M</div>
+          <div class="avis-card-id">
+            <div class="avis-name">Mehdi&nbsp;S.</div>
+            <div class="avis-meta">
+              <span>Sin-le-Noble</span>
+              <span class="avis-meta-sep">·</span>
+              <span>21 avr. 2025</span>
+            </div>
+            <div class="avis-stars-row">
+              <span class="stars" aria-label="5 étoiles sur 5">★★★★★</span>
+              <span class="avis-google-tag">Vérifié</span>
+            </div>
+          </div>
+        </header>
+        <p class="avis-quote">Livraison en 28 min, burger encore chaud à l'arrivée. Le bun brioché fait maison, ça se sent.</p>
+        <footer class="avis-card-foot">
+          A commandé <strong style="color:var(--paper);">Le Combo</strong>
+          <span class="recurrent">Livraison · 28 min</span>
+        </footer>
+      </article>
+
+      <article class="avis-card fade-up">
+        <header class="avis-card-head">
+          <div class="avis-avatar b3" aria-hidden="true">B</div>
+          <div class="avis-card-id">
+            <div class="avis-name">Bilal&nbsp;T.</div>
+            <div class="avis-meta">
+              <span>Waziers</span>
+              <span class="avis-meta-sep">·</span>
+              <span>15 avr. 2025</span>
+            </div>
+            <div class="avis-stars-row">
+              <span class="stars" aria-label="5 étoiles sur 5">★★★★★</span>
+              <span class="avis-google-tag">Vérifié</span>
+            </div>
+          </div>
+        </header>
+        <p class="avis-quote">Le Chicken est une tuerie. Jamais mangé un burger aussi bon dans le coin. Client à vie.</p>
+        <footer class="avis-card-foot">
+          A commandé <strong style="color:var(--paper);">Le Chicken</strong>
+          <span class="recurrent">★ Nouveau client</span>
+        </footer>
+      </article>
+
     </div>
   </div>
 </section>

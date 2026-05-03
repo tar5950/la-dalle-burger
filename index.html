@@ -148,8 +148,8 @@ nav.scrolled{background:rgba(239,229,207,0.96);backdrop-filter:blur(8px);}
 .hero-bg-vid::after{
   content:'';position:absolute;inset:0;z-index:1;
   background:
-    linear-gradient(180deg,rgba(10,8,6,0.315) 0%,rgba(10,8,6,0.105) 35%,rgba(10,8,6,0.616) 100%),
-    radial-gradient(ellipse at center,transparent 30%,rgba(10,8,6,0.315) 100%);
+    linear-gradient(180deg,rgba(10,8,6,0.252) 0%,rgba(10,8,6,0.084) 35%,rgba(10,8,6,0.493) 100%),
+    radial-gradient(ellipse at center,transparent 30%,rgba(10,8,6,0.252) 100%);
 }
 .hero-bg-vid::before{
   content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
@@ -1265,7 +1265,7 @@ footer{
   .nav-cta{font-size:11px !important;padding:9px 13px !important;box-shadow:2px 2px 0 var(--ink) !important;}
   .brand{font-size:18px;}
   .brand .small{display:none;}
-  .hero{padding:80px 5% 60px;min-height:100vh;}
+  .hero{padding:64px 5% 48px;min-height:64vh;}
   .hero-title{letter-spacing:-0.03em;}
   .hero-title .l2::before{left:4px;top:4px;}
   .hero-kicker{font-size:16px;gap:10px;margin:18px 0 18px;}
@@ -1326,7 +1326,7 @@ footer{
 
 /* === RESPONSIVE — petit mobile === */
 @media(max-width:380px){
-  .hero{padding:70px 5% 50px;}
+  .hero{padding:56px 5% 40px;min-height:60vh;}
   .hero-title{font-size:54px;}
   .hero-stats{grid-template-columns:1fr 1fr;}
   .hstat:nth-child(3){display:none;}

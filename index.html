@@ -2142,6 +2142,73 @@ section{padding:90px 4%;position:relative;z-index:2;}
   .order-tracking-body{padding:30px 5% 40px;}
 }
 
+/* === BANNIÈRE FIDÉLITÉ — Notification 6e burger offert === */
+.loyalty-alert{
+  position:relative;z-index:42;
+  background:linear-gradient(95deg,var(--mustard) 0%,#f0c14b 50%,var(--mustard) 100%);
+  background-size:200% 100%;
+  color:var(--ink);
+  padding:14px 5%;
+  display:none;align-items:center;justify-content:center;gap:14px;
+  border-bottom:2px solid var(--ink);
+  text-align:center;flex-wrap:wrap;
+  animation:loyalty-shimmer 4s linear infinite;
+  font-family:'Bowlby One',sans-serif;
+  font-size:14px;letter-spacing:0;
+}
+.loyalty-alert.show{display:flex;}
+@keyframes loyalty-shimmer{
+  0%,100%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+}
+.loyalty-alert-icon{
+  font-size:22px;animation:gift-bounce 1.6s ease-in-out infinite;
+}
+@keyframes gift-bounce{
+  0%,100%{transform:translateY(0) rotate(-3deg);}
+  50%{transform:translateY(-3px) rotate(3deg);}
+}
+.loyalty-alert-text{flex:1;text-align:left;line-height:1.3;min-width:0;}
+.loyalty-alert-text small{
+  display:block;
+  font-family:'Caveat',cursive;font-weight:500;font-size:15px;
+  color:var(--ink-2);margin-top:1px;letter-spacing:0;
+}
+.loyalty-alert-code{
+  background:var(--ink);color:var(--mustard);
+  font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;
+  letter-spacing:0.16em;padding:5px 10px;
+  border:1.5px solid var(--ink);
+  white-space:nowrap;
+}
+.loyalty-alert-cta{
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--ink);background:var(--paper);
+  border:1.5px solid var(--ink);border-radius:8px;
+  padding:8px 14px;cursor:pointer;
+  transition:transform 0.15s;
+  text-decoration:none;
+  display:inline-block;
+}
+.loyalty-alert-cta:hover{transform:translateY(-1px);}
+.loyalty-alert-close{
+  background:transparent;border:none;cursor:pointer;
+  font-family:'Bowlby One',sans-serif;font-size:16px;
+  color:var(--ink-2);padding:4px 8px;line-height:1;
+  margin-left:auto;
+}
+.loyalty-alert-close:hover{color:var(--blood);}
+
+@media(max-width:600px){
+  .loyalty-alert{font-size:12px;padding:12px 4%;gap:10px;}
+  .loyalty-alert-icon{font-size:20px;}
+  .loyalty-alert-text{font-size:11px;}
+  .loyalty-alert-text small{font-size:13px;}
+  .loyalty-alert-code{font-size:10px;padding:4px 8px;letter-spacing:0.12em;}
+  .loyalty-alert-cta{font-size:10px;padding:7px 11px;letter-spacing:0.14em;}
+}
+
 /* === BANNIÈRE TIME-AWARE === */
 .time-banner{
   position:relative;z-index:40;
@@ -3003,6 +3070,18 @@ footer{
 </style>
 </head>
 <body>
+
+<!-- BANNIÈRE FIDÉLITÉ — apparaît si 6e burger offert disponible -->
+<div class="loyalty-alert" id="loyaltyAlert" role="status" aria-live="polite">
+  <span class="loyalty-alert-icon" aria-hidden="true">🎁</span>
+  <div class="loyalty-alert-text">
+    <span id="loyaltyAlertName">Salam, ton 6<sup>e</sup> burger est OFFERT&nbsp;!</span>
+    <small id="loyaltyAlertSub">Le code est appliqué automatiquement à ta prochaine commande.</small>
+  </div>
+  <span class="loyalty-alert-code" id="loyaltyAlertCode">DALLE-XXXX</span>
+  <a href="#commande" class="loyalty-alert-cta">Commander →</a>
+  <button type="button" class="loyalty-alert-close" onclick="dismissLoyaltyAlert()" aria-label="Fermer la notification">×</button>
+</div>
 
 <!-- BANNIÈRE TIME-AWARE (status temps réel) -->
 <div class="time-banner" id="timeBanner" role="status" aria-live="polite">
@@ -4581,9 +4660,15 @@ function renderLoyalty(){
     }
   }
 
-  // 5. Member ID
+  // 5. Member ID + nom
   var memberId = document.getElementById('lcMemberId');
-  if(memberId) memberId.textContent = 'Nº ' + loadOrCreateMemberId();
+  if(memberId){
+    if(d.name){
+      memberId.innerHTML = d.name+'<br><span style="opacity:0.6;font-size:0.85em;">Nº '+loadOrCreateMemberId()+'</span>';
+    } else {
+      memberId.textContent = 'Nº ' + loadOrCreateMemberId();
+    }
+  }
 
   // 6. Carte preview homepage (sync identique)
   var fcpStamps = document.querySelectorAll('.fcp-stamp');
@@ -4602,7 +4687,13 @@ function renderLoyalty(){
     }
   }
   var fcpMember = document.getElementById('fcpMemberId');
-  if(fcpMember) fcpMember.textContent = 'Nº ' + loadOrCreateMemberId();
+  if(fcpMember){
+    if(d.name){
+      fcpMember.innerHTML = d.name+'<br><span style="opacity:0.6;font-size:0.85em;">Nº '+loadOrCreateMemberId()+'</span>';
+    } else {
+      fcpMember.textContent = 'Nº ' + loadOrCreateMemberId();
+    }
+  }
 }
 
 function openLoyaltyCard(){
@@ -4629,6 +4720,40 @@ function closeLoyaltyCelebrate(){
 // Init : crée memberId + render bouton nav dès chargement
 loadOrCreateMemberId();
 renderLoyalty();
+
+// Pré-remplit le prénom si déjà connu (visite récurrente)
+(function(){
+  var d = loadLoyalty();
+  if(d.name){
+    var c = document.getElementById('c-name');
+    if(c && !c.value) c.value = d.name;
+  }
+})();
+
+// Affiche la bannière si 6e burger offert disponible
+function showLoyaltyAlert(){
+  var d = loadLoyalty();
+  if(!d.code || d.claimed) return;
+  // Respecte un dismiss volontaire (par session uniquement)
+  if(sessionStorage.getItem('dalle_alert_dismissed')) return;
+
+  var bar = document.getElementById('loyaltyAlert');
+  if(!bar) return;
+  document.getElementById('loyaltyAlertCode').textContent = d.code;
+
+  var nameEl = document.getElementById('loyaltyAlertName');
+  if(d.name){
+    nameEl.innerHTML = 'Salam <strong>'+d.name+'</strong>, ton 6<sup>e</sup> burger est OFFERT&nbsp;!';
+  } else {
+    nameEl.innerHTML = 'Ton 6<sup>e</sup> burger est OFFERT&nbsp;!';
+  }
+  bar.classList.add('show');
+}
+function dismissLoyaltyAlert(){
+  document.getElementById('loyaltyAlert').classList.remove('show');
+  sessionStorage.setItem('dalle_alert_dismissed','1');
+}
+showLoyaltyAlert();
 
 // Click backdrop = close
 (function(){
@@ -4753,22 +4878,34 @@ sendWA = function(){
   if(!R.s||!R.b||!R.t){alert('Merci de compléter toutes les étapes.');return;}
   if(R.b === 'Livraison' && !R.zip){alert('Merci de saisir un code postal valide pour la livraison.');return;}
 
-  // Fidélité — incrémente + génère code si 5e
+  // Fidélité — automatique : incrémente + sauve nom + génère code au 5e
   var loyalty = loadLoyalty();
+  // Sauvegarde le nom pour les prochaines visites + carte nominale
+  if(prenom && prenom !== 'Client') loyalty.name = prenom;
   loyalty.count = (loyalty.count||0) + 1;
+  loyalty.lastOrder = Date.now();
   var loyaltyMsg = '';
   if(loyalty.count >= 5 && !loyalty.code){
     loyalty.code = genLoyaltyCode();
-    loyaltyMsg = '\n\n🎁 Code fidélité débloqué : '+loyalty.code+' (1 burger offert sur la prochaine commande)';
+    loyaltyMsg = '\n\n🎁 Bravo ! Tu viens de débloquer 1 BURGER OFFERT.\n   Code : '+loyalty.code+' (à utiliser à ta prochaine commande)';
   } else if(loyalty.code && !loyalty.claimed){
-    loyaltyMsg = '\n\n🎁 J\'utilise mon code fidélité : '+loyalty.code;
+    loyaltyMsg = '\n\n🎁 J\'utilise mon code fidélité : '+loyalty.code+' (6e burger offert)';
     loyalty.claimed = true;
     loyalty.count = 0; // reset pour nouveau cycle après usage
+    // Reset claimed après 1 cycle pour permettre re-déblocage
+    setTimeout(function(){
+      var d = loadLoyalty();
+      d.claimed = false;
+      d.code = null;
+      saveLoyalty(d);
+    }, 5000);
   } else {
     var rest = 5 - loyalty.count;
-    if(rest>0) loyaltyMsg = '\n\n★ Carte fidélité : '+loyalty.count+'/5 burgers';
+    if(rest>0) loyaltyMsg = '\n\n★ Carte fidélité '+loyalty.count+'/5 — plus que '+rest+' avant le 6e offert';
   }
   saveLoyalty(loyalty);
+  // Clear dismiss flag pour que la bannière s'affiche après refresh
+  sessionStorage.removeItem('dalle_alert_dismissed');
 
   // Génère ID commande + ETA selon mode
   var orderId = 'A-'+String(Math.floor(Math.random()*9000)+1000);

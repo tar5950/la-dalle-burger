@@ -1510,43 +1510,55 @@ section{padding:90px 4%;position:relative;z-index:2;}
   margin-top:24px;
   position:relative;z-index:2;
 }
-.fidelity-info h2{margin-bottom:14px;}
-.fidelity-info p{
-  font-family:'Fraunces',serif;font-size:17px;line-height:1.6;
-  color:var(--ink-2);margin-bottom:14px;
-  font-variation-settings:"opsz" 14;max-width:480px;
+.fidelity-info h2{margin-bottom:18px;}
+.fidelity-tagline{
+  font-family:'Caveat',cursive;font-weight:500;
+  font-size:24px;color:var(--blood);line-height:1.1;
+  margin-bottom:24px;
+  display:inline-block;
+  transform:rotate(-1deg);
 }
-.fidelity-info p strong{color:var(--ink);font-weight:600;}
+.fidelity-tagline::before{content:'— ';color:var(--ink-3);}
 .fidelity-steps{
-  margin-top:28px;display:flex;flex-direction:column;gap:0;
-  border-top:1.5px solid var(--ink);
+  margin-top:0;display:flex;flex-direction:column;gap:0;
+  border-top:2px solid var(--ink);
 }
 .fidelity-step{
-  display:flex;gap:16px;align-items:flex-start;
-  padding:16px 0;border-bottom:1px dashed var(--line);
+  display:flex;gap:16px;align-items:center;
+  padding:18px 0;border-bottom:1px dashed var(--line);
 }
-.fidelity-step:last-child{border-bottom:1.5px solid var(--ink);}
+.fidelity-step:last-child{border-bottom:2px solid var(--ink);}
 .fidelity-step-num{
   flex-shrink:0;
-  width:36px;height:36px;
+  width:44px;height:44px;
   background:var(--blood);color:var(--paper);
   border:2px solid var(--ink);
   display:flex;align-items:center;justify-content:center;
-  font-family:'Bowlby One',sans-serif;font-size:16px;
+  font-family:'Bowlby One',sans-serif;font-size:18px;
   border-radius:50%;
-  transform:rotate(-3deg);
+  transform:rotate(-4deg);
+  box-shadow:2px 2px 0 var(--ink);
 }
-.fidelity-step-body{padding-top:4px;}
+.fidelity-step:nth-child(2) .fidelity-step-num{background:var(--ink);transform:rotate(2deg);}
+.fidelity-step:nth-child(3) .fidelity-step-num{background:var(--mustard);color:var(--ink);transform:rotate(-3deg);}
+.fidelity-step-body{padding-top:0;flex:1;min-width:0;}
 .fidelity-step-title{
   font-family:'Bowlby One',sans-serif;
-  font-size:15px;letter-spacing:-0.01em;color:var(--ink);
-  margin-bottom:3px;
+  font-size:17px;letter-spacing:-0.01em;color:var(--ink);
+  margin-bottom:2px;line-height:1.1;
 }
 .fidelity-step-desc{
-  font-family:'Fraunces',serif;font-size:14px;color:var(--ink-2);line-height:1.45;
+  font-family:'Caveat',cursive;font-weight:500;
+  font-size:18px;color:var(--ink-2);line-height:1.2;
 }
 .fidelity-cta{
-  margin-top:30px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;
+  margin-top:30px;
+}
+@media(max-width:600px){
+  .fidelity-tagline{font-size:20px;}
+  .fidelity-step-num{width:38px;height:38px;font-size:16px;}
+  .fidelity-step-title{font-size:15px;}
+  .fidelity-step-desc{font-size:16px;}
 }
 
 /* Carte preview à droite — version réduite cliquable */
@@ -3280,42 +3292,40 @@ footer{
 <!-- SECTION FIDÉLITÉ — Carte numérique exposée -->
 <section id="fidelite" class="fidelity-section">
   <div class="section-meta fade-up">
-    <span><strong>§ Nº 03</strong> — Le programme fidélité</span>
-    <span>Carte numérique · Aucune app · Aucune inscription</span>
+    <span><strong>§ Nº 03</strong> — Programme fidélité</span>
+    <span>Tout est automatique · 0 app · 0 compte</span>
   </div>
   <div class="fidelity-grid">
     <div class="fidelity-info fade-up">
-      <h2 class="section-title">5 burgers, le <span class="accent">6<sup>e</sup></span><br><span class="it">est offert.</span></h2>
-      <p>On a fait <strong>la carte fidélité la plus simple du monde.</strong> Pas d'app à installer. Pas de compte à créer. Pas de mot de passe oublié.</p>
-      <p>Tu commandes, tu cumules, tu débloques. Tout est <strong>dans ton navigateur</strong>, géré automatiquement.</p>
+      <h2 class="section-title">Ton 6<sup>e</sup> burger&nbsp;? <span class="accent">Offert.</span></h2>
+      <span class="fidelity-tagline">on compte tes burgers · pas toi.</span>
 
       <div class="fidelity-steps">
         <div class="fidelity-step">
           <div class="fidelity-step-num">1</div>
           <div class="fidelity-step-body">
             <div class="fidelity-step-title">Tu commandes sur WhatsApp</div>
-            <div class="fidelity-step-desc">Comme d'habitude. Le tampon s'ajoute automatiquement à ta carte numérique.</div>
+            <div class="fidelity-step-desc">comme d'habitude. ton tampon s'ajoute tout seul.</div>
           </div>
         </div>
         <div class="fidelity-step">
           <div class="fidelity-step-num">2</div>
           <div class="fidelity-step-body">
             <div class="fidelity-step-title">Tu cumules 5 tampons</div>
-            <div class="fidelity-step-desc">Visible à tout moment dans le bouton "★ Ma carte" en haut. Aucune action de ta part.</div>
+            <div class="fidelity-step-desc">visible en haut · "★ Ma carte". rien à faire.</div>
           </div>
         </div>
         <div class="fidelity-step">
           <div class="fidelity-step-num">3</div>
           <div class="fidelity-step-body">
             <div class="fidelity-step-title">Le 6<sup>e</sup> est offert</div>
-            <div class="fidelity-step-desc">On te génère un code unique. Il est <strong>injecté automatiquement</strong> dans ton prochain message WhatsApp.</div>
+            <div class="fidelity-step-desc">code injecté auto dans ton prochain message.</div>
           </div>
         </div>
       </div>
 
       <div class="fidelity-cta">
         <button type="button" class="btn-primary" onclick="openLoyaltyCard()">Voir ma carte →</button>
-        <span style="font-family:'Fraunces',serif;font-style:italic;font-size:13px;color:var(--ink-3);font-variation-settings:'opsz' 36,'WONK' 1;">— ou clique sur la carte ▷</span>
       </div>
     </div>
 
@@ -3323,13 +3333,11 @@ footer{
       <div class="fcp-header">
         <div>
           <div class="fcp-brand"><span class="dot"></span>La Dalle</div>
-          <div class="fcp-brand-sub">Burger · Halal</div>
+          <div class="fcp-brand-sub">Carte fidélité · Halal AVS</div>
         </div>
-        <span class="fcp-tap">▷ Tap</span>
       </div>
-      <div class="fcp-eyebrow">★ Carte numérique ★</div>
-      <h3 class="fcp-title">5 burgers,<br>le 6<sup>e</sup> <span class="accent">offert.</span></h3>
-      <div class="fcp-stamps" id="fcpStamps">
+      <h3 class="fcp-title">Le 6<sup>e</sup> <span class="accent">offert.</span></h3>
+      <div class="fcp-stamps" id="fcpStamps" aria-hidden="true">
         <div class="fcp-stamp">1</div>
         <div class="fcp-stamp">2</div>
         <div class="fcp-stamp">3</div>
@@ -3338,7 +3346,7 @@ footer{
       </div>
       <div class="fcp-status" id="fcpStatus">Plus que <span class="accent">5 burgers</span> avant le 6<sup>e</sup></div>
       <div class="fcp-footer">
-        <div class="fcp-id">Membre<br><strong id="fcpMemberId">Nº DLB-0000</strong></div>
+        <div class="fcp-id"><strong id="fcpMemberId">Nº DLB-0000</strong></div>
         <div class="fcp-barcode" aria-hidden="true"></div>
       </div>
     </div>

@@ -568,11 +568,30 @@ section{padding:90px 4%;position:relative;z-index:2;}
 }
 .menu-card{
   position:relative;
-  padding:38px 32px;
+  padding:0 0 32px;
   border-right:1.5px solid var(--ink);
   border-bottom:1.5px solid var(--ink);
   transition:background 0.2s;
   cursor:pointer;
+  overflow:hidden;
+}
+.menu-card-img-wrap{
+  width:100%;
+  aspect-ratio:4/3;
+  background:#1a1410;
+  overflow:hidden;
+  position:relative;
+  border-bottom:1.5px solid var(--ink);
+}
+.menu-card-img-wrap img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  filter:saturate(1.1) contrast(1.05);
+  transition:transform 0.5s ease-out;
+}
+.menu-card:hover .menu-card-img-wrap img{transform:scale(1.05);}
+.menu-card-content{padding:28px 32px 0;}
+@media(max-width:600px){
+  .menu-card-content{padding:22px 22px 0;}
 }
 .menu-card:nth-child(2n){border-right:none;}
 .menu-card:nth-last-child(-n+2){border-bottom:none;}
@@ -2801,7 +2820,7 @@ footer{
   <div class="hero-l">
     <h1 class="hero-title">
       <span class="l1">LE SMASH</span>
-      <span class="l2" data-text="DE TON QUARTIER">DE TON QUARTIER</span>
+      <span class="l2" data-text="DU QUARTIER">DU QUARTIER</span>
     </h1>
     <p class="hero-sub">Halal AVS · Fait main · <strong>À partir de 8&nbsp;€</strong></p>
     <div class="hero-btns">
@@ -2848,49 +2867,61 @@ footer{
 
   <div class="menu-wrap">
     <div class="menu-card fade-up" onclick="pickSrv('Le Classic','8')">
-      <div class="menu-card-num">Nº <strong>01</strong></div>
-      <div class="menu-card-name">Le Classic</div>
-      <div class="menu-card-desc">Steak haché du matin, cheddar fondu, salade fraîche, tomate, oignons rouges, sauce maison.</div>
-      <div class="menu-card-rule"></div>
-      <div class="menu-card-row">
-        <div class="menu-card-price">8<span class="euro">€</span></div>
-        <div class="menu-card-time"><strong>15 min</strong>de prep'</div>
+      <div class="menu-card-img-wrap"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&h=450&fit=crop&q=85" alt="Le Classic — burger gourmet halal" loading="lazy" width="600" height="450"></div>
+      <div class="menu-card-content">
+        <div class="menu-card-num">Nº <strong>01</strong></div>
+        <div class="menu-card-name">Le Classic</div>
+        <div class="menu-card-desc">Steak haché du matin, cheddar fondu, salade fraîche, tomate, oignons rouges, sauce maison.</div>
+        <div class="menu-card-rule"></div>
+        <div class="menu-card-row">
+          <div class="menu-card-price">8<span class="euro">€</span></div>
+          <div class="menu-card-time"><strong>15 min</strong>de prep'</div>
+        </div>
+        <span class="menu-card-cta">Commander →</span>
       </div>
-      <span class="menu-card-cta">Commander →</span>
     </div>
     <div class="menu-card fade-up" onclick="pickSrv('Le Smash','10')">
-      <div class="menu-card-num">Nº <strong>02</strong></div>
       <span class="menu-card-badge">★ Le plus commandé</span>
-      <div class="menu-card-name">Le Smash</div>
-      <div class="menu-card-desc">Double smash patty écrasée minute, double cheddar, pickles maison, sauce spéciale du chef.</div>
-      <div class="menu-card-rule"></div>
-      <div class="menu-card-row">
-        <div class="menu-card-price">10<span class="euro">€</span></div>
-        <div class="menu-card-time"><strong>15 min</strong>de prep'</div>
+      <div class="menu-card-img-wrap"><img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=600&h=450&fit=crop&q=85" alt="Le Smash — double smash burger halal" loading="lazy" width="600" height="450"></div>
+      <div class="menu-card-content">
+        <div class="menu-card-num">Nº <strong>02</strong></div>
+        <div class="menu-card-name">Le Smash</div>
+        <div class="menu-card-desc">Double smash patty écrasée minute, double cheddar, pickles maison, sauce spéciale du chef.</div>
+        <div class="menu-card-rule"></div>
+        <div class="menu-card-row">
+          <div class="menu-card-price">10<span class="euro">€</span></div>
+          <div class="menu-card-time"><strong>15 min</strong>de prep'</div>
+        </div>
+        <span class="menu-card-cta">Commander →</span>
       </div>
-      <span class="menu-card-cta">Commander →</span>
     </div>
     <div class="menu-card fade-up" onclick="pickSrv('Le Chicken','9')">
-      <div class="menu-card-num">Nº <strong>03</strong></div>
-      <div class="menu-card-name">Le Chicken</div>
-      <div class="menu-card-desc">Filet de poulet pané croustillant, coleslaw maison, choix sauce buffalo ou ranch ailé.</div>
-      <div class="menu-card-rule"></div>
-      <div class="menu-card-row">
-        <div class="menu-card-price">9<span class="euro">€</span></div>
-        <div class="menu-card-time"><strong>15 min</strong>de prep'</div>
+      <div class="menu-card-img-wrap"><img src="https://images.unsplash.com/photo-1606756790138-261d2b21cd75?w=600&h=450&fit=crop&q=85" alt="Le Chicken — burger poulet pané halal" loading="lazy" width="600" height="450"></div>
+      <div class="menu-card-content">
+        <div class="menu-card-num">Nº <strong>03</strong></div>
+        <div class="menu-card-name">Le Chicken</div>
+        <div class="menu-card-desc">Filet de poulet pané croustillant, coleslaw maison, choix sauce buffalo ou ranch ailé.</div>
+        <div class="menu-card-rule"></div>
+        <div class="menu-card-row">
+          <div class="menu-card-price">9<span class="euro">€</span></div>
+          <div class="menu-card-time"><strong>15 min</strong>de prep'</div>
+        </div>
+        <span class="menu-card-cta">Commander →</span>
       </div>
-      <span class="menu-card-cta">Commander →</span>
     </div>
     <div class="menu-card fade-up" onclick="pickSrv('Le Combo','14')">
-      <div class="menu-card-num">Nº <strong>04</strong></div>
-      <div class="menu-card-name">Le Combo</div>
-      <div class="menu-card-desc">Le burger de ton choix + frites maison taillées au couteau + boisson fraîche. La totale.</div>
-      <div class="menu-card-rule"></div>
-      <div class="menu-card-row">
-        <div class="menu-card-price">14<span class="euro">€</span></div>
-        <div class="menu-card-time"><strong>15 min</strong>de prep'</div>
+      <div class="menu-card-img-wrap"><img src="https://images.unsplash.com/photo-1551782450-17144efb9c50?w=600&h=450&fit=crop&q=85" alt="Le Combo — burger frites boisson" loading="lazy" width="600" height="450"></div>
+      <div class="menu-card-content">
+        <div class="menu-card-num">Nº <strong>04</strong></div>
+        <div class="menu-card-name">Le Combo</div>
+        <div class="menu-card-desc">Le burger de ton choix + frites maison taillées au couteau + boisson fraîche. La totale.</div>
+        <div class="menu-card-rule"></div>
+        <div class="menu-card-row">
+          <div class="menu-card-price">14<span class="euro">€</span></div>
+          <div class="menu-card-time"><strong>15 min</strong>de prep'</div>
+        </div>
+        <span class="menu-card-cta">Commander →</span>
       </div>
-      <span class="menu-card-cta">Commander →</span>
     </div>
   </div>
 </section>
@@ -3114,8 +3145,8 @@ footer{
           </button>
           <div class="srv-picker-list" role="listbox" aria-label="Liste des burgers">
 
-            <button type="button" class="srv-picker-item" role="option" data-v="Le Classic" data-p="8" data-img="https://images.unsplash.com/photo-1550317138-10000687a72b?w=200&h=200&fit=crop&q=80" data-desc="Steak haché, cheddar fondu, salade fraîche, tomate, oignons rouges, sauce maison." onclick="pickSrvPicker(this)">
-              <span class="srv-picker-item-img" style="background-image:url('https://images.unsplash.com/photo-1550317138-10000687a72b?w=200&h=200&fit=crop&q=80');"></span>
+            <button type="button" class="srv-picker-item" role="option" data-v="Le Classic" data-p="8" data-img="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=200&h=200&fit=crop&q=85" data-desc="Steak haché, cheddar fondu, salade fraîche, tomate, oignons rouges, sauce maison." onclick="pickSrvPicker(this)">
+              <span class="srv-picker-item-img" style="background-image:url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=200&h=200&fit=crop&q=85');"></span>
               <span class="srv-picker-item-body">
                 <span class="srv-picker-item-name">Le Classic</span>
                 <span class="srv-picker-item-desc">Steak haché, cheddar fondu, salade, tomate, oignons rouges, sauce maison.</span>
@@ -3123,8 +3154,8 @@ footer{
               <span class="srv-picker-item-price">8&nbsp;€</span>
             </button>
 
-            <button type="button" class="srv-picker-item" role="option" data-v="Le Smash" data-p="10" data-img="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=200&h=200&fit=crop&q=80" data-desc="Double smash patty écrasée minute, double cheddar, pickles maison, sauce spéciale du chef." onclick="pickSrvPicker(this)">
-              <span class="srv-picker-item-img" style="background-image:url('https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=200&h=200&fit=crop&q=80');"></span>
+            <button type="button" class="srv-picker-item" role="option" data-v="Le Smash" data-p="10" data-img="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=200&h=200&fit=crop&q=85" data-desc="Double smash patty écrasée minute, double cheddar, pickles maison, sauce spéciale du chef." onclick="pickSrvPicker(this)">
+              <span class="srv-picker-item-img" style="background-image:url('https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=200&h=200&fit=crop&q=85');"></span>
               <span class="srv-picker-item-body">
                 <span class="srv-picker-item-name">Le Smash <span class="srv-picker-item-bestseller">★ Le plus commandé</span></span>
                 <span class="srv-picker-item-desc">Double smash patty écrasée minute, double cheddar, pickles maison, sauce spéciale du chef.</span>
@@ -3132,8 +3163,8 @@ footer{
               <span class="srv-picker-item-price">10&nbsp;€</span>
             </button>
 
-            <button type="button" class="srv-picker-item" role="option" data-v="Le Chicken" data-p="9" data-img="https://images.unsplash.com/photo-1562802378-063ec186a863?w=200&h=200&fit=crop&q=80" data-desc="Filet de poulet pané croustillant, coleslaw maison, choix sauce buffalo ou ranch ailé." onclick="pickSrvPicker(this)">
-              <span class="srv-picker-item-img" style="background-image:url('https://images.unsplash.com/photo-1562802378-063ec186a863?w=200&h=200&fit=crop&q=80');"></span>
+            <button type="button" class="srv-picker-item" role="option" data-v="Le Chicken" data-p="9" data-img="https://images.unsplash.com/photo-1606756790138-261d2b21cd75?w=200&h=200&fit=crop&q=85" data-desc="Filet de poulet pané croustillant, coleslaw maison, choix sauce buffalo ou ranch ailé." onclick="pickSrvPicker(this)">
+              <span class="srv-picker-item-img" style="background-image:url('https://images.unsplash.com/photo-1606756790138-261d2b21cd75?w=200&h=200&fit=crop&q=85');"></span>
               <span class="srv-picker-item-body">
                 <span class="srv-picker-item-name">Le Chicken</span>
                 <span class="srv-picker-item-desc">Filet de poulet pané, coleslaw maison, sauce buffalo ou ranch ailé au choix.</span>
@@ -3141,8 +3172,8 @@ footer{
               <span class="srv-picker-item-price">9&nbsp;€</span>
             </button>
 
-            <button type="button" class="srv-picker-item" role="option" data-v="Le Combo" data-p="14" data-img="https://images.unsplash.com/photo-1630431341973-02e1b662ec35?w=200&h=200&fit=crop&q=80" data-desc="Le burger de ton choix + frites maison taillées au couteau + boisson fraîche. La totale." onclick="pickSrvPicker(this)">
-              <span class="srv-picker-item-img" style="background-image:url('https://images.unsplash.com/photo-1630431341973-02e1b662ec35?w=200&h=200&fit=crop&q=80');"></span>
+            <button type="button" class="srv-picker-item" role="option" data-v="Le Combo" data-p="14" data-img="https://images.unsplash.com/photo-1551782450-17144efb9c50?w=200&h=200&fit=crop&q=85" data-desc="Le burger de ton choix + frites maison taillées au couteau + boisson fraîche. La totale." onclick="pickSrvPicker(this)">
+              <span class="srv-picker-item-img" style="background-image:url('https://images.unsplash.com/photo-1551782450-17144efb9c50?w=200&h=200&fit=crop&q=85');"></span>
               <span class="srv-picker-item-body">
                 <span class="srv-picker-item-name">Le Combo</span>
                 <span class="srv-picker-item-desc">Burger au choix + frites maison taillées au couteau + boisson fraîche. La totale.</span>

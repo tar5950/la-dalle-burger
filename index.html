@@ -129,41 +129,57 @@ nav.scrolled{background:rgba(239,229,207,0.96);backdrop-filter:blur(8px);}
 }
 @keyframes blink{0%,50%{opacity:1;}51%,100%{opacity:0.2;}}
 
-/* === HERO === */
+/* === HERO — Vidéo burger explosé plein écran === */
 .hero{
   position:relative;
   min-height:calc(100vh - 56px);
-  padding:20px 4% 50px;
-  display:grid;
-  grid-template-columns:1.15fr 0.85fr;
-  gap:40px;
-  align-items:start;
+  padding:80px 5% 90px;
+  display:flex;flex-direction:column;justify-content:flex-end;
   overflow:hidden;
+  background:#0a0806;
+  isolation:isolate;
+}
+.hero-bg-vid{position:absolute;inset:0;z-index:0;overflow:hidden;}
+.hero-bg-vid video{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transform:scale(1.04);
+  filter:saturate(1.08) contrast(1.05);
+}
+.hero-bg-vid::after{
+  content:'';position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(180deg,rgba(10,8,6,0.45) 0%,rgba(10,8,6,0.15) 35%,rgba(10,8,6,0.88) 100%),
+    radial-gradient(ellipse at center,transparent 30%,rgba(10,8,6,0.45) 100%);
+}
+.hero-bg-vid::before{
+  content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:repeating-linear-gradient(180deg,transparent 0,transparent 3px,rgba(0,0,0,0.10) 3px,rgba(0,0,0,0.10) 4px);
 }
 .hero-meta{
+  position:absolute;top:18px;left:5%;right:5%;z-index:3;
   font-family:'JetBrains Mono',monospace;
   font-size:11px;font-weight:500;
   letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--ink-3);
+  color:rgba(239,229,207,0.78);
   display:flex;justify-content:space-between;align-items:baseline;
-  border-bottom:1.5px solid var(--ink);padding-bottom:8px;margin-bottom:24px;
-  grid-column:1/-1;
+  border-bottom:1.5px solid rgba(239,229,207,0.25);padding-bottom:10px;
 }
-.hero-meta strong{color:var(--ink);font-weight:700;}
+.hero-meta strong{color:var(--paper);font-weight:700;}
 
 .hero-l{
-  position:relative;
+  position:relative;z-index:3;max-width:920px;
 }
 .hero-tag{
   display:inline-flex;align-items:center;gap:8px;
   font-family:'JetBrains Mono',monospace;
   font-size:11px;font-weight:700;
   letter-spacing:0.18em;text-transform:uppercase;
-  color:var(--blood);
-  margin-bottom:18px;
-  padding:6px 12px;
-  border:1.5px solid var(--blood);
-  background:rgba(168,40,31,0.06);
+  color:var(--mustard);
+  margin-bottom:22px;
+  padding:7px 14px;
+  border:1.5px solid var(--mustard);
+  background:rgba(217,154,31,0.10);
+  backdrop-filter:blur(6px);
 }
 .hero-tag::before{content:'★';font-size:10px;}
 
@@ -171,43 +187,46 @@ nav.scrolled{background:rgba(239,229,207,0.96);backdrop-filter:blur(8px);}
   font-family:'Bowlby One',sans-serif;
   font-size:clamp(74px,14vw,196px);
   line-height:0.84;letter-spacing:-0.025em;
-  color:var(--ink);
+  color:var(--paper);
   margin-bottom:6px;
   position:relative;
+  text-shadow:0 4px 30px rgba(0,0,0,0.5);
 }
 .hero-title .l1{display:block;}
-.hero-title .l2{display:block;color:var(--blood);position:relative;}
+.hero-title .l2{display:block;color:var(--blood-3);position:relative;}
 .hero-title .l2::before{
-  /* effet décalage off-register */
   content:'BURGER';
-  position:absolute;left:6px;top:6px;color:var(--mustard);
-  z-index:-1;mix-blend-mode:multiply;opacity:0.6;
+  position:absolute;left:8px;top:6px;color:var(--mustard);
+  z-index:-1;opacity:0.55;
+  text-shadow:none;
 }
 .hero-kicker{
-  display:flex;align-items:center;gap:14px;margin:18px 0 22px;
+  display:flex;align-items:center;gap:14px;margin:22px 0 24px;
   font-family:'Fraunces',serif;
   font-style:italic;font-variation-settings:"opsz" 144,"SOFT" 100,"WONK" 1;
   font-size:clamp(18px,2.4vw,26px);font-weight:400;
-  color:var(--ink-2);
+  color:rgba(239,229,207,0.92);
   line-height:1.25;
+  text-shadow:0 2px 10px rgba(0,0,0,0.6);
 }
 .hero-kicker .kicker-num{
   flex-shrink:0;
   font-family:'Bowlby One',sans-serif;
   font-style:normal;
   font-size:1.5em;
-  color:var(--blood);
+  color:var(--mustard);
   line-height:1;
 }
 
 .hero-sub{
   font-family:'Fraunces',serif;
   font-size:17px;line-height:1.6;
-  color:var(--ink-2);
-  max-width:480px;margin-bottom:30px;
+  color:rgba(239,229,207,0.86);
+  max-width:540px;margin-bottom:32px;
   font-variation-settings:"opsz" 14;
+  text-shadow:0 1px 6px rgba(0,0,0,0.6);
 }
-.hero-sub strong{color:var(--ink);font-weight:600;background:linear-gradient(180deg,transparent 60%,rgba(217,154,31,0.45) 60%);padding:0 2px;}
+.hero-sub strong{color:var(--paper);font-weight:600;background:linear-gradient(180deg,transparent 60%,rgba(217,154,31,0.55) 60%);padding:0 3px;}
 
 .hero-btns{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
 .btn-primary{
@@ -227,37 +246,39 @@ nav.scrolled{background:rgba(239,229,207,0.96);backdrop-filter:blur(8px);}
   font-family:'JetBrains Mono',monospace;
   font-size:13px;font-weight:700;
   letter-spacing:0.18em;text-transform:uppercase;
-  color:var(--ink);
+  color:var(--paper);
   padding:18px 24px;
-  border:2px solid var(--ink);background:transparent;
+  border:2px solid var(--paper);background:transparent;
   transition:background 0.18s,color 0.18s;
 }
-.btn-secondary:hover{background:var(--ink);color:var(--paper);}
+.btn-secondary:hover{background:var(--paper);color:var(--ink);}
 
-/* Hero stats — chiffres éditoriaux */
+/* Hero stats — chiffres éditoriaux sur fond sombre */
 .hero-stats{
-  margin-top:42px;
+  margin-top:46px;max-width:760px;
   display:grid;grid-template-columns:repeat(3,1fr);gap:0;
-  border-top:1.5px solid var(--ink);
-  border-bottom:1.5px solid var(--ink);
+  border-top:1.5px solid rgba(239,229,207,0.4);
+  border-bottom:1.5px solid rgba(239,229,207,0.4);
+  background:rgba(10,8,6,0.35);
+  backdrop-filter:blur(6px);
 }
 .hstat{
-  padding:18px 14px 16px;
-  border-right:1px dashed var(--line);
+  padding:20px 14px 18px;
+  border-right:1px dashed rgba(239,229,207,0.22);
   position:relative;
 }
 .hstat:last-child{border-right:none;}
 .hstat-v{
   font-family:'Bowlby One',sans-serif;
   font-size:34px;line-height:1;
-  color:var(--ink);
+  color:var(--paper);
 }
 .hstat-v .star{color:var(--mustard);font-size:0.9em;}
 .hstat-l{
   font-family:'JetBrains Mono',monospace;
   font-size:10px;font-weight:500;
   letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--ink-3);margin-top:6px;
+  color:rgba(239,229,207,0.65);margin-top:6px;
 }
 
 /* Hero visuel droit */
@@ -311,13 +332,36 @@ nav.scrolled{background:rgba(239,229,207,0.96);backdrop-filter:blur(8px);}
 .stamp .stamp-top{font-size:11px;letter-spacing:0.15em;margin-bottom:4px;}
 .stamp .stamp-big{font-size:30px;line-height:0.9;}
 .stamp .stamp-bot{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:8px;letter-spacing:0.18em;margin-top:5px;}
-.hero-stamp{top:16px;right:-22px;z-index:5;}
+.hero-stamp{
+  top:90px;right:5%;z-index:4;
+  background:rgba(239,229,207,0.96);
+  animation:stamp-tilt 6s ease-in-out infinite;
+}
+@keyframes stamp-tilt{
+  0%,100%{transform:rotate(-12deg);}
+  50%{transform:rotate(-9deg) scale(1.02);}
+}
+
+/* Indicateur live "REC" en haut */
+.hero-rec{
+  position:absolute;top:64px;left:5%;z-index:3;
+  display:flex;align-items:center;gap:8px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--paper);
+}
+.hero-rec .rec-dot{
+  width:9px;height:9px;background:var(--blood-3);border-radius:50%;
+  animation:blink 1.4s infinite;
+  box-shadow:0 0 12px rgba(198,58,46,0.7);
+}
 
 @media(max-width:900px){
-  .hero{grid-template-columns:1fr;gap:24px;padding-bottom:30px;}
-  .hero-r{order:-1;max-width:340px;margin:0 auto;}
-  .hero-stamp{width:110px;height:110px;right:-10px;top:-8px;}
-  .hero-stamp .stamp-big{font-size:24px;}
+  .hero{padding:80px 5% 60px;min-height:calc(100vh - 56px);}
+  .hero-stamp{width:100px;height:100px;right:5%;top:64px;}
+  .hero-stamp .stamp-big{font-size:22px;}
+  .hero-rec{display:none;}
+  .hero-meta{font-size:9px;}
 }
 
 /* === MARQUEE TICKER === */
@@ -1144,11 +1188,26 @@ footer{
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- HERO — Vidéo plein écran burger explosé en boucle -->
 <section class="hero" id="hero">
+  <div class="hero-bg-vid">
+    <video id="heroVid" autoplay muted loop playsinline preload="auto" webkit-playsinline>
+      <source src="https://res.cloudinary.com/dzh5vllay/video/upload/q_auto,w_720/v1776027285/un_burger_%C3%A9clat%C3%A9_ok_ehmmyc.mp4" type="video/mp4" media="(max-width:600px)">
+      <source src="https://res.cloudinary.com/dzh5vllay/video/upload/v1776027285/un_burger_%C3%A9clat%C3%A9_ok_ehmmyc.mp4" type="video/mp4">
+    </video>
+  </div>
+
   <div class="hero-meta">
     <span><strong>Nº 01</strong> — Le journal du burger</span>
     <span>Édition du jour · Halal · Sans surgelé</span>
+  </div>
+
+  <div class="hero-rec"><span class="rec-dot"></span>En direct de l'atelier</div>
+
+  <div class="stamp hero-stamp">
+    <span class="stamp-top">★ Certifié</span>
+    <span class="stamp-big">HALAL</span>
+    <span class="stamp-bot">100% · Fait main</span>
   </div>
 
   <div class="hero-l">
@@ -1159,7 +1218,7 @@ footer{
     </h1>
     <div class="hero-kicker">
       <span class="kicker-num">↳</span>
-      <span><span class="italic">Street food</span> faite <strong style="font-style:normal;font-family:'Bowlby One',sans-serif;color:var(--blood);">à la main</strong>, pas à la chaîne.</span>
+      <span><span class="italic">Street food</span> faite <strong style="font-style:normal;font-family:'Bowlby One',sans-serif;color:var(--mustard);">à la main</strong>, pas à la chaîne.</span>
     </div>
     <p class="hero-sub">Bun brioché <strong>fabriqué chaque matin</strong>. Viande fraîche du jour, jamais surgelée. Sauces secrètes. Tu commandes <strong>directement sur WhatsApp</strong>, en 30 secondes.</p>
     <div class="hero-btns">
@@ -1168,26 +1227,8 @@ footer{
     </div>
     <div class="hero-stats">
       <div class="hstat"><div class="hstat-v">4.9<span class="star">★</span></div><div class="hstat-l">Note Google</div></div>
-      <div class="hstat"><div class="hstat-v">200<span style="color:var(--blood);font-size:0.7em;">+</span></div><div class="hstat-l">Avis vérifiés</div></div>
+      <div class="hstat"><div class="hstat-v">200<span style="color:var(--blood-3);font-size:0.7em;">+</span></div><div class="hstat-l">Avis vérifiés</div></div>
       <div class="hstat"><div class="hstat-v">7<span style="color:var(--mustard);font-size:0.7em;">/7</span></div><div class="hstat-l">11h — 23h</div></div>
-    </div>
-  </div>
-
-  <div class="hero-r">
-    <div class="hero-vid-frame">
-      <video id="heroVid" autoplay muted loop playsinline preload="auto" webkit-playsinline>
-        <source src="https://res.cloudinary.com/dzh5vllay/video/upload/q_auto,w_720/v1776027285/un_burger_%C3%A9clat%C3%A9_ok_ehmmyc.mp4" type="video/mp4" media="(max-width:600px)">
-        <source src="https://res.cloudinary.com/dzh5vllay/video/upload/v1776027285/un_burger_%C3%A9clat%C3%A9_ok_ehmmyc.mp4" type="video/mp4">
-      </video>
-      <div class="hero-vid-cap">
-        <span><span class="rec">●</span> Atelier · 06:42</span>
-        <span>Bun · J0</span>
-      </div>
-    </div>
-    <div class="stamp hero-stamp">
-      <span class="stamp-top">★ Certifié</span>
-      <span class="stamp-big">HALAL</span>
-      <span class="stamp-bot">100% · Fait main</span>
     </div>
   </div>
 </section>

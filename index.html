@@ -1033,6 +1033,21 @@ img.mode-icon-3d{
 }
 .mode-chip:hover img.mode-icon-3d{transform:scale(1.08) rotate(-3deg);}
 .mode-chip.on img.mode-icon-3d{filter:drop-shadow(0 4px 8px rgba(0,0,0,0.35));}
+
+/* === EMOJI 3D — utilitaire global (inline ou block) === */
+img.emoji-3d{
+  display:inline-block;
+  width:1.15em;height:1.15em;
+  vertical-align:-0.22em;
+  object-fit:contain;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,0.18));
+  -webkit-user-drag:none;user-select:none;pointer-events:none;
+}
+img.emoji-3d.lg{width:1.5em;height:1.5em;vertical-align:-0.32em;}
+img.emoji-3d.xl{
+  width:2em;height:2em;vertical-align:-0.4em;
+  filter:drop-shadow(0 3px 5px rgba(0,0,0,0.22));
+}
 .mode-name{
   font-family:'Bowlby One',sans-serif;
   font-size:15px;letter-spacing:-0.01em;color:var(--ink);
@@ -3212,7 +3227,7 @@ footer{
 
 <!-- BANNIÈRE FIDÉLITÉ — apparaît si 6e burger offert disponible -->
 <div class="loyalty-alert" id="loyaltyAlert" role="status" aria-live="polite">
-  <span class="loyalty-alert-icon" aria-hidden="true">🎁</span>
+  <span class="loyalty-alert-icon" aria-hidden="true"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Wrapped%20gift/3D/wrapped_gift_3d.png" alt="" loading="lazy" decoding="async"></span>
   <div class="loyalty-alert-text">
     <span id="loyaltyAlertName">Salam, ton 6<sup>e</sup> burger est OFFERT&nbsp;!</span>
     <small id="loyaltyAlertSub">Le code est appliqué automatiquement à ta prochaine commande.</small>
@@ -3243,7 +3258,7 @@ footer{
       <span class="lt-label">Ma carte</span>
       <span class="lt-count" id="ltCount">0/5</span>
     </button>
-    <a href="tel:+33600000000" class="nav-call" aria-label="Appeler La Dalle Burger">📞</a>
+    <a href="tel:+33600000000" class="nav-call" aria-label="Appeler La Dalle Burger"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Telephone%20receiver/3D/telephone_receiver_3d.png" alt="" loading="lazy" decoding="async"></a>
     <a href="#commande" class="nav-cta">Commander</a>
   </div>
 </nav>
@@ -3335,7 +3350,7 @@ footer{
         <div class="menu-card-meta">
           <span class="menu-card-meta-chip halal"><strong>Halal AVS</strong></span>
           <span class="menu-card-meta-chip">⏱ <strong>15 min</strong></span>
-          <span class="menu-card-meta-chip">🍔 Petite faim</span>
+          <span class="menu-card-meta-chip"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Hamburger/3D/hamburger_3d.png" alt="" loading="lazy" decoding="async"> Petite faim</span>
         </div>
         <div class="menu-card-rule"></div>
         <div class="menu-card-row">
@@ -3350,7 +3365,7 @@ footer{
       <span class="menu-card-badge">★ Le plus commandé</span>
       <div class="menu-card-img-wrap">
         <div class="menu-card-floating">
-          <span class="mc-tag hot">🔥 87 cette semaine</span>
+          <span class="mc-tag hot"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Fire/3D/fire_3d.png" alt="" loading="lazy" decoding="async"> 87 cette semaine</span>
         </div>
         <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=600&h=450&fit=crop&q=85" alt="Le Smash — double smash burger halal" loading="lazy" width="600" height="450">
       </div>
@@ -3361,7 +3376,7 @@ footer{
         <div class="menu-card-meta">
           <span class="menu-card-meta-chip halal"><strong>Halal AVS</strong></span>
           <span class="menu-card-meta-chip">⏱ <strong>15 min</strong></span>
-          <span class="menu-card-meta-chip">🍔🍔 Grosse faim</span>
+          <span class="menu-card-meta-chip"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Hamburger/3D/hamburger_3d.png" alt="" loading="lazy" decoding="async"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Hamburger/3D/hamburger_3d.png" alt="" loading="lazy" decoding="async"> Grosse faim</span>
         </div>
         <div class="menu-card-rule"></div>
         <div class="menu-card-row">
@@ -3375,7 +3390,7 @@ footer{
     <div class="menu-card fade-up" onclick="pickSrv('Le Chicken','9')">
       <div class="menu-card-img-wrap">
         <div class="menu-card-floating">
-          <span class="mc-tag">🐔 Plus léger</span>
+          <span class="mc-tag"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Rooster/3D/rooster_3d.png" alt="" loading="lazy" decoding="async"> Plus léger</span>
         </div>
         <img src="https://images.unsplash.com/photo-1606756790138-261d2b21cd75?w=600&h=450&fit=crop&q=85" alt="Le Chicken — burger poulet pané halal" loading="lazy" width="600" height="450">
       </div>
@@ -3386,7 +3401,7 @@ footer{
         <div class="menu-card-meta">
           <span class="menu-card-meta-chip halal"><strong>Halal AVS</strong></span>
           <span class="menu-card-meta-chip">⏱ <strong>15 min</strong></span>
-          <span class="menu-card-meta-chip">🍔 Petite faim</span>
+          <span class="menu-card-meta-chip"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Hamburger/3D/hamburger_3d.png" alt="" loading="lazy" decoding="async"> Petite faim</span>
         </div>
         <div class="menu-card-rule"></div>
         <div class="menu-card-row">
@@ -3400,7 +3415,7 @@ footer{
     <div class="menu-card fade-up" onclick="pickSrv('Le Combo','14')">
       <div class="menu-card-img-wrap">
         <div class="menu-card-floating">
-          <span class="mc-tag deal">💰 Économise 1 €</span>
+          <span class="mc-tag deal"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Money%20bag/3D/money_bag_3d.png" alt="" loading="lazy" decoding="async"> Économise 1 €</span>
         </div>
         <img src="https://images.unsplash.com/photo-1551782450-17144efb9c50?w=600&h=450&fit=crop&q=85" alt="Le Combo — burger frites boisson" loading="lazy" width="600" height="450">
       </div>
@@ -3411,7 +3426,7 @@ footer{
         <div class="menu-card-meta">
           <span class="menu-card-meta-chip halal"><strong>Halal AVS</strong></span>
           <span class="menu-card-meta-chip">⏱ <strong>15 min</strong></span>
-          <span class="menu-card-meta-chip">🍔🍟🥤 La totale</span>
+          <span class="menu-card-meta-chip"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Hamburger/3D/hamburger_3d.png" alt="" loading="lazy" decoding="async"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/French%20fries/3D/french_fries_3d.png" alt="" loading="lazy" decoding="async"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Cup%20with%20straw/3D/cup_with_straw_3d.png" alt="" loading="lazy" decoding="async"> La totale</span>
         </div>
         <div class="menu-card-rule"></div>
         <div class="menu-card-row">
@@ -3576,21 +3591,21 @@ footer{
       <div class="info-block-title">L'atelier</div>
       <div class="info-block-sub">— où ça se passe</div>
       <div class="info-item">
-        <div class="info-icon">📍</div>
+        <div class="info-icon"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Round%20pushpin/3D/round_pushpin_3d.png" alt="" loading="lazy" decoding="async"></div>
         <div>
           <div class="info-lbl">Adresse</div>
           <div class="info-val">Notre adresse<br>Votre ville</div>
         </div>
       </div>
       <div class="info-item">
-        <div class="info-icon">📞</div>
+        <div class="info-icon"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Telephone%20receiver/3D/telephone_receiver_3d.png" alt="" loading="lazy" decoding="async"></div>
         <div>
           <div class="info-lbl">WhatsApp</div>
           <div class="info-val">06 00 00 00 00</div>
         </div>
       </div>
       <div class="info-item">
-        <div class="info-icon">🕐</div>
+        <div class="info-icon"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Mantelpiece%20clock/3D/mantelpiece_clock_3d.png" alt="" loading="lazy" decoding="async"></div>
         <div>
           <div class="info-lbl">Horaires</div>
           <div class="info-val">7j/7 · 11h — 23h</div>
@@ -3630,7 +3645,7 @@ footer{
         <div class="step-lbl"><span class="step-num">I</span>Ton burger<span class="step-hint">— tape pour ouvrir la liste</span></div>
         <div class="srv-picker empty" id="srvPicker">
           <button type="button" class="srv-picker-trigger" id="srvPickerTrigger" onclick="toggleSrvPicker()" aria-haspopup="listbox" aria-expanded="false" aria-label="Choisir un burger">
-            <span class="srv-picker-img empty" id="srvPickerImg" aria-hidden="true">🍔</span>
+            <span class="srv-picker-img empty" id="srvPickerImg" aria-hidden="true"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Hamburger/3D/hamburger_3d.png" alt="" loading="lazy" decoding="async"></span>
             <span class="srv-picker-info">
               <span class="srv-picker-name" id="srvPickerName">Choisis ton burger</span>
               <span class="srv-picker-meta" id="srvPickerMeta">4 spécialités · halal AVS</span>
@@ -3708,7 +3723,7 @@ footer{
 
         <!-- Code postal validation (apparaît si Livraison) -->
         <div class="zip-check" id="zipCheck">
-          <label for="zipInput">📍 Code postal — on vérifie qu'on livre chez toi</label>
+          <label for="zipInput"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Round%20pushpin/3D/round_pushpin_3d.png" alt="" loading="lazy" decoding="async"> Code postal — on vérifie qu'on livre chez toi</label>
           <div class="zip-input-wrap">
             <input type="text" id="zipInput" class="zip-input" placeholder="59500" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" autocomplete="postal-code">
           </div>
@@ -3718,7 +3733,7 @@ footer{
         <div class="step-lbl"><span class="step-num">III</span>Pour quand<span class="step-hint">— maintenant ou heure précise</span></div>
         <div class="g2" style="margin-bottom:10px;">
           <div class="chip" data-v="ASAP" onclick="selT(this)" tabindex="0" role="button" aria-label="Le plus tôt possible"><div class="chip-n">⚡ Le plus tôt possible</div></div>
-          <div class="chip" data-v="HOUR" onclick="toggleHrs(this)" tabindex="0" role="button" aria-label="Choisir une heure précise"><div class="chip-n">🕐 Heure précise</div></div>
+          <div class="chip" data-v="HOUR" onclick="toggleHrs(this)" tabindex="0" role="button" aria-label="Choisir une heure précise"><div class="chip-n"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Mantelpiece%20clock/3D/mantelpiece_clock_3d.png" alt="" loading="lazy" decoding="async"> Heure précise</div></div>
         </div>
         <div id="hrs-wrap" style="display:none;">
           <div class="g4" id="hrs-grid" role="radiogroup" aria-label="Heure de commande"></div>
@@ -3861,9 +3876,9 @@ footer{
     <div class="ft-grid">
       <div>
         <div class="ft-col-title">★ Contact</div>
-        <div class="ft-item">📍 <strong>Notre adresse · Votre ville</strong></div>
-        <div class="ft-item">📞 <strong>06 00 00 00 00</strong></div>
-        <div class="ft-item">🕐 <strong>7j/7 · 11h — 23h</strong></div>
+        <div class="ft-item"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Round%20pushpin/3D/round_pushpin_3d.png" alt="" loading="lazy" decoding="async"> <strong>Notre adresse · Votre ville</strong></div>
+        <div class="ft-item"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Telephone%20receiver/3D/telephone_receiver_3d.png" alt="" loading="lazy" decoding="async"> <strong>06 00 00 00 00</strong></div>
+        <div class="ft-item"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Mantelpiece%20clock/3D/mantelpiece_clock_3d.png" alt="" loading="lazy" decoding="async"> <strong>7j/7 · 11h — 23h</strong></div>
       </div>
       <div>
         <div class="ft-col-title">★ La carte</div>
@@ -4019,7 +4034,7 @@ footer{
 <!-- MODAL CÉLÉBRATION FIDÉLITÉ 5/5 -->
 <div class="loyalty-celebrate" id="loyaltyCelebrate" role="dialog" aria-modal="true">
   <div class="loyalty-celebrate-card">
-    <h2>🎉 Bravo !</h2>
+    <h2><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Party%20popper/3D/party_popper_3d.png" alt="" loading="lazy" decoding="async"> Bravo !</h2>
     <p>Tu as débloqué <strong>1 burger offert</strong>. Utilise ce code à ta prochaine commande sur WhatsApp&nbsp;:</p>
     <div class="loyalty-code" id="loyaltyCode">DALLE-XXXX</div>
     <p style="font-size:13px;font-style:italic;color:var(--ink-3);">Le code est ajouté automatiquement à ton message WhatsApp lors de ta prochaine commande.</p>
@@ -4049,7 +4064,7 @@ footer{
         </div>
       </li>
       <li class="order-step" data-step="2">
-        <div class="order-step-icon">📞</div>
+        <div class="order-step-icon"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Telephone%20receiver/3D/telephone_receiver_3d.png" alt="" loading="lazy" decoding="async"></div>
         <div class="order-step-body">
           <div class="order-step-title">Confirmée par le chef</div>
           <div class="order-step-time" id="orderTime2">en attente…</div>
@@ -4057,7 +4072,7 @@ footer{
         </div>
       </li>
       <li class="order-step" data-step="3">
-        <div class="order-step-icon">🔥</div>
+        <div class="order-step-icon"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Fire/3D/fire_3d.png" alt="" loading="lazy" decoding="async"></div>
         <div class="order-step-body">
           <div class="order-step-title">En cuisine</div>
           <div class="order-step-time" id="orderTime3">en attente…</div>
@@ -4073,7 +4088,7 @@ footer{
         </div>
       </li>
       <li class="order-step" data-step="5">
-        <div class="order-step-icon">📍</div>
+        <div class="order-step-icon"><img class="emoji-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Round%20pushpin/3D/round_pushpin_3d.png" alt="" loading="lazy" decoding="async"></div>
         <div class="order-step-body">
           <div class="order-step-title">Arrivée</div>
           <div class="order-step-time" id="orderTime5">en attente…</div>

@@ -922,67 +922,164 @@ section{padding:90px 4%;position:relative;z-index:2;}
   color:var(--ink);
 }
 
-/* === SELECT BURGER (simplifié) === */
-.srv-select-wrap{
+/* === CUSTOM BURGER PICKER === */
+.srv-picker{
   position:relative;
-  margin-bottom:6px;
+  margin-bottom:8px;
 }
-.srv-select{
+/* Trigger : la "carte" cliquable qui montre le choix actuel */
+.srv-picker-trigger{
   width:100%;
   background:var(--paper-2);
   border:2px solid var(--ink);
-  padding:18px 50px 16px 18px;
-  font-family:'Bowlby One',sans-serif;
-  font-size:18px;letter-spacing:-0.01em;
-  color:var(--ink);
+  padding:0;
   cursor:pointer;
-  outline:none;
-  appearance:none;-webkit-appearance:none;-moz-appearance:none;
-  background-image:none;
-  min-height:62px;
+  display:grid;
+  grid-template-columns:64px 1fr 32px;
+  align-items:center;
+  gap:12px;
+  text-align:left;
+  position:relative;
   transition:background 0.18s,border-color 0.18s;
+  font-family:inherit;
 }
-.srv-select:hover{background:var(--paper-3);}
-.srv-select:focus-visible{border-color:var(--blood);background:var(--paper);}
-.srv-select.has-value{
+.srv-picker-trigger:hover{background:var(--paper-3);}
+.srv-picker-trigger:focus-visible{outline:3px solid var(--mustard);outline-offset:2px;}
+.srv-picker.has-value .srv-picker-trigger{
   background:rgba(168,40,31,0.06);
   border-color:var(--blood);
   border-width:2.5px;
-  padding:17.5px 49.5px 15.5px 17.5px;
 }
-.srv-select-arrow{
-  position:absolute;right:18px;top:50%;
-  width:24px;height:24px;
-  transform:translateY(-50%);
-  pointer-events:none;
-  font-family:'Bowlby One',sans-serif;
-  font-size:18px;color:var(--blood);
+.srv-picker-img{
+  width:64px;height:64px;
+  background:var(--ink);
+  border-right:1.5px solid var(--ink);
+  background-size:cover;background-position:center;
+  flex-shrink:0;
+  position:relative;
+}
+.srv-picker-img.empty{
+  background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px);
   display:flex;align-items:center;justify-content:center;
-  background:var(--mustard);
-  border:2px solid var(--ink);
-  border-radius:50%;
-  transition:transform 0.18s;
+  font-family:'Bowlby One',sans-serif;font-size:24px;
+  color:var(--ink-3);
 }
-.srv-select-wrap:hover .srv-select-arrow{transform:translateY(-50%) rotate(180deg);}
-.srv-select option{
-  font-family:'DM Sans',sans-serif;
-  font-size:15px;
-  padding:10px;
-  background:var(--paper);
-  color:var(--ink);
+.srv-picker-info{
+  padding:10px 0;
+  display:flex;flex-direction:column;justify-content:center;
+  min-width:0;
 }
-/* Étiquette "Le plus commandé" sur le select quand Smash sélectionné */
-.srv-select-badge{
-  display:none;
-  position:absolute;top:-10px;right:54px;z-index:2;
+.srv-picker-name{
+  font-family:'Bowlby One',sans-serif;
+  font-size:17px;letter-spacing:-0.01em;
+  color:var(--ink);line-height:1;margin-bottom:3px;
+}
+.srv-picker.empty .srv-picker-name{color:var(--ink-3);font-style:normal;}
+.srv-picker-meta{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:700;
+  letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--ink-3);
+}
+.srv-picker-meta .price{
+  font-family:'Bowlby One',sans-serif;
+  font-size:14px;letter-spacing:0;
+  color:var(--blood);text-transform:none;
+  margin-right:6px;
+}
+.srv-picker-chevron{
+  width:32px;height:32px;
   background:var(--mustard);color:var(--ink);
-  font-family:'JetBrains Mono',monospace;font-size:9px;
-  font-weight:700;letter-spacing:0.18em;text-transform:uppercase;
-  padding:3px 9px;border:1.5px solid var(--ink);
-  transform:rotate(-2deg);
+  border:1.5px solid var(--ink);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bowlby One',sans-serif;font-size:14px;
+  margin-right:14px;
+  transition:transform 0.25s ease-out;
+}
+.srv-picker.open .srv-picker-chevron{transform:rotate(180deg);}
+
+/* Liste déroulante */
+.srv-picker-list{
+  position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:30;
+  background:var(--paper);
+  border:2px solid var(--ink);
+  box-shadow:6px 6px 0 var(--blood);
+  max-height:0;
+  overflow:hidden;
+  transition:max-height 0.3s ease-out, opacity 0.2s ease-out;
+  opacity:0;
   pointer-events:none;
 }
-.srv-select-wrap.is-bestseller .srv-select-badge{display:inline-block;}
+.srv-picker.open .srv-picker-list{
+  max-height:600px;
+  opacity:1;
+  pointer-events:auto;
+}
+.srv-picker-item{
+  width:100%;background:transparent;border:none;
+  padding:0;text-align:left;cursor:pointer;
+  display:grid;
+  grid-template-columns:80px 1fr auto;
+  gap:14px;align-items:stretch;
+  border-bottom:1px solid var(--line-soft);
+  transition:background 0.15s;
+  position:relative;
+  font-family:inherit;
+}
+.srv-picker-item:last-child{border-bottom:none;}
+.srv-picker-item:hover{background:var(--paper-2);}
+.srv-picker-item.selected{background:rgba(168,40,31,0.06);}
+.srv-picker-item:focus-visible{outline:3px solid var(--mustard);outline-offset:-3px;}
+.srv-picker-item-img{
+  width:80px;height:80px;
+  background-size:cover;background-position:center;
+  border-right:1px solid var(--line-soft);
+  flex-shrink:0;
+}
+.srv-picker-item-body{
+  padding:12px 0;
+  display:flex;flex-direction:column;justify-content:center;
+  min-width:0;
+}
+.srv-picker-item-name{
+  font-family:'Bowlby One',sans-serif;
+  font-size:17px;letter-spacing:-0.01em;
+  color:var(--ink);line-height:1.05;margin-bottom:4px;
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+}
+.srv-picker-item-bestseller{
+  font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;
+  letter-spacing:0.18em;text-transform:uppercase;
+  background:var(--mustard);color:var(--ink);
+  padding:2px 7px;border:1.5px solid var(--ink);
+  transform:rotate(-2deg);
+  display:inline-block;
+}
+.srv-picker-item-desc{
+  font-family:'Fraunces',serif;font-style:italic;
+  font-variation-settings:"opsz" 36,"WONK" 1;
+  font-size:13px;line-height:1.35;color:var(--ink-2);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.srv-picker-item-price{
+  padding:14px 18px 14px 8px;
+  font-family:'Bowlby One',sans-serif;
+  font-size:24px;color:var(--blood);
+  display:flex;align-items:center;line-height:1;
+  flex-shrink:0;
+}
+.srv-picker-item.selected .srv-picker-item-price::after{
+  content:'✓';color:#1a8a4a;font-size:22px;margin-left:8px;
+}
+@media(max-width:600px){
+  .srv-picker-item-img{width:64px;height:80px;}
+  .srv-picker-item{grid-template-columns:64px 1fr auto;}
+  .srv-picker-item-name{font-size:15px;}
+  .srv-picker-item-desc{font-size:12px;-webkit-line-clamp:2;}
+  .srv-picker-item-price{font-size:20px;padding:12px 14px 12px 6px;}
+}
 
 /* Burger chip — entrée bordereau */
 .srv-chip{
@@ -3005,17 +3102,55 @@ footer{
           <span>Burger</span><span>Mode</span><span>Jour</span><span>Heure</span>
         </div>
 
-        <div class="step-lbl"><span class="step-num">I</span>Ton burger<span class="step-hint">— choisis dans la liste</span></div>
-        <div class="srv-select-wrap" id="srvSelectWrap">
-          <span class="srv-select-badge" aria-hidden="true">★ Le plus commandé</span>
-          <select id="srvSelect" class="srv-select" onchange="selSFromDropdown(this)" aria-label="Choisis ton burger">
-            <option value="" data-p="0">— Choisis ton burger —</option>
-            <option value="Le Classic" data-p="8">Le Classic — 8 €</option>
-            <option value="Le Smash" data-p="10">★ Le Smash — 10 € (le plus commandé)</option>
-            <option value="Le Chicken" data-p="9">Le Chicken — 9 €</option>
-            <option value="Le Combo" data-p="14">Le Combo — 14 € (burger + frites + boisson)</option>
-          </select>
-          <span class="srv-select-arrow" aria-hidden="true">▾</span>
+        <div class="step-lbl"><span class="step-num">I</span>Ton burger<span class="step-hint">— tape pour ouvrir la liste</span></div>
+        <div class="srv-picker empty" id="srvPicker">
+          <button type="button" class="srv-picker-trigger" id="srvPickerTrigger" onclick="toggleSrvPicker()" aria-haspopup="listbox" aria-expanded="false" aria-label="Choisir un burger">
+            <span class="srv-picker-img empty" id="srvPickerImg" aria-hidden="true">🍔</span>
+            <span class="srv-picker-info">
+              <span class="srv-picker-name" id="srvPickerName">Choisis ton burger</span>
+              <span class="srv-picker-meta" id="srvPickerMeta">4 spécialités · halal AVS</span>
+            </span>
+            <span class="srv-picker-chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="srv-picker-list" role="listbox" aria-label="Liste des burgers">
+
+            <button type="button" class="srv-picker-item" role="option" data-v="Le Classic" data-p="8" data-img="https://images.unsplash.com/photo-1550317138-10000687a72b?w=200&h=200&fit=crop&q=80" data-desc="Steak haché, cheddar fondu, salade fraîche, tomate, oignons rouges, sauce maison." onclick="pickSrvPicker(this)">
+              <span class="srv-picker-item-img" style="background-image:url('https://images.unsplash.com/photo-1550317138-10000687a72b?w=200&h=200&fit=crop&q=80');"></span>
+              <span class="srv-picker-item-body">
+                <span class="srv-picker-item-name">Le Classic</span>
+                <span class="srv-picker-item-desc">Steak haché, cheddar fondu, salade, tomate, oignons rouges, sauce maison.</span>
+              </span>
+              <span class="srv-picker-item-price">8&nbsp;€</span>
+            </button>
+
+            <button type="button" class="srv-picker-item" role="option" data-v="Le Smash" data-p="10" data-img="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=200&h=200&fit=crop&q=80" data-desc="Double smash patty écrasée minute, double cheddar, pickles maison, sauce spéciale du chef." onclick="pickSrvPicker(this)">
+              <span class="srv-picker-item-img" style="background-image:url('https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=200&h=200&fit=crop&q=80');"></span>
+              <span class="srv-picker-item-body">
+                <span class="srv-picker-item-name">Le Smash <span class="srv-picker-item-bestseller">★ Le plus commandé</span></span>
+                <span class="srv-picker-item-desc">Double smash patty écrasée minute, double cheddar, pickles maison, sauce spéciale du chef.</span>
+              </span>
+              <span class="srv-picker-item-price">10&nbsp;€</span>
+            </button>
+
+            <button type="button" class="srv-picker-item" role="option" data-v="Le Chicken" data-p="9" data-img="https://images.unsplash.com/photo-1562802378-063ec186a863?w=200&h=200&fit=crop&q=80" data-desc="Filet de poulet pané croustillant, coleslaw maison, choix sauce buffalo ou ranch ailé." onclick="pickSrvPicker(this)">
+              <span class="srv-picker-item-img" style="background-image:url('https://images.unsplash.com/photo-1562802378-063ec186a863?w=200&h=200&fit=crop&q=80');"></span>
+              <span class="srv-picker-item-body">
+                <span class="srv-picker-item-name">Le Chicken</span>
+                <span class="srv-picker-item-desc">Filet de poulet pané, coleslaw maison, sauce buffalo ou ranch ailé au choix.</span>
+              </span>
+              <span class="srv-picker-item-price">9&nbsp;€</span>
+            </button>
+
+            <button type="button" class="srv-picker-item" role="option" data-v="Le Combo" data-p="14" data-img="https://images.unsplash.com/photo-1630431341973-02e1b662ec35?w=200&h=200&fit=crop&q=80" data-desc="Le burger de ton choix + frites maison taillées au couteau + boisson fraîche. La totale." onclick="pickSrvPicker(this)">
+              <span class="srv-picker-item-img" style="background-image:url('https://images.unsplash.com/photo-1630431341973-02e1b662ec35?w=200&h=200&fit=crop&q=80');"></span>
+              <span class="srv-picker-item-body">
+                <span class="srv-picker-item-name">Le Combo</span>
+                <span class="srv-picker-item-desc">Burger au choix + frites maison taillées au couteau + boisson fraîche. La totale.</span>
+              </span>
+              <span class="srv-picker-item-price">14&nbsp;€</span>
+            </button>
+
+          </div>
         </div>
 
         <!-- RÉSUMÉ EXTRAS (cliquable pour rouvrir la modale) -->
@@ -3674,30 +3809,68 @@ document.addEventListener('keydown', function(e){
 document.getElementById('upsellBackdrop').addEventListener('click', function(e){
   if(e.target === this) closeUpsellModal();
 });
-// === SÉLECTION BURGER (dropdown simplifié) ===
-function selSFromDropdown(sel){
+// === CUSTOM BURGER PICKER ===
+function toggleSrvPicker(){
+  var picker = document.getElementById('srvPicker');
+  var open = picker.classList.toggle('open');
+  document.getElementById('srvPickerTrigger').setAttribute('aria-expanded', open?'true':'false');
+}
+function closeSrvPicker(){
+  var picker = document.getElementById('srvPicker');
+  picker.classList.remove('open');
+  document.getElementById('srvPickerTrigger').setAttribute('aria-expanded','false');
+}
+function pickSrvPicker(item){
   var prev = R.s;
-  var opt = sel.options[sel.selectedIndex];
-  var v = opt.value;
-  var p = opt.getAttribute('data-p') || '0';
-  var wrap = document.getElementById('srvSelectWrap');
+  var v = item.getAttribute('data-v');
+  var p = item.getAttribute('data-p');
+  var img = item.getAttribute('data-img');
+  var desc = item.getAttribute('data-desc') || '';
 
-  if(!v){
-    R.s=''; R.p=0;
-    sel.classList.remove('has-value');
-    wrap.classList.remove('is-bestseller');
-    updRecap();
-    return;
-  }
+  // Update state
   R.s = v; R.p = p;
-  sel.classList.add('has-value');
-  wrap.classList.toggle('is-bestseller', v === 'Le Smash');
+
+  // Update trigger visual
+  var picker = document.getElementById('srvPicker');
+  picker.classList.remove('empty');
+  picker.classList.add('has-value');
+  var imgEl = document.getElementById('srvPickerImg');
+  imgEl.classList.remove('empty');
+  imgEl.style.backgroundImage = "url('"+img+"')";
+  imgEl.textContent = '';
+  document.getElementById('srvPickerName').textContent = v;
+  document.getElementById('srvPickerMeta').innerHTML = '<span class="price">'+p+'&nbsp;€</span>'+(v==='Le Smash'?'★ Le plus commandé':'Halal AVS · 15 min');
+
+  // Mark selected in list
+  document.querySelectorAll('.srv-picker-item').forEach(function(el){
+    el.classList.toggle('selected', el === item);
+  });
+
+  closeSrvPicker();
   updRecap();
-  // Ouvre la modale upsell uniquement au changement
+
+  // Ouvre l'upsell modale au 1er changement
   if(prev !== R.s){
-    setTimeout(function(){ openUpsellModal(false); }, 280);
+    setTimeout(function(){ openUpsellModal(false); }, 320);
   }
 }
+
+// Click outside → close picker
+document.addEventListener('click', function(e){
+  var picker = document.getElementById('srvPicker');
+  if(!picker || !picker.classList.contains('open')) return;
+  if(!picker.contains(e.target)) closeSrvPicker();
+});
+// ESC → close picker
+document.addEventListener('keydown', function(e){
+  if(e.key==='Escape'){
+    var p = document.getElementById('srvPicker');
+    if(p && p.classList.contains('open')) closeSrvPicker();
+  }
+});
+
+// Compatibilité ancienne fonction (au cas où d'anciens handlers persistent)
+function selSFromDropdown(){}
 
 // Conservée pour compatibilité (anciens clics .srv-chip si ré-injectés)
 function selS(el){
@@ -3792,12 +3965,9 @@ function autoScrollToStep(stepNum){
   }, 250);
 }
 function pickSrv(name,price){
-  // Sélection depuis le menu : on règle la valeur du dropdown puis on déclenche le handler
-  var sel = document.getElementById('srvSelect');
-  if(sel){
-    sel.value = name;
-    selSFromDropdown(sel);
-  }
+  // Sélection depuis le menu : trouve l'item du picker correspondant
+  var item = document.querySelector('.srv-picker-item[data-v="'+name+'"]');
+  if(item) pickSrvPicker(item);
   document.getElementById('commande').scrollIntoView({behavior:'smooth'});
 }
 

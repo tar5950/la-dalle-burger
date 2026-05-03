@@ -1019,6 +1019,116 @@ section{padding:90px 4%;position:relative;z-index:2;}
 .f-inp:focus::placeholder{opacity:0.4;}
 .f-inp::before{content:'→';}
 
+/* === SECTION FIDÉLITÉ — Carte exposée sur la homepage === */
+.fidelity-section{
+  background:var(--paper-2);
+  border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);
+  padding-top:80px;padding-bottom:80px;
+  position:relative;overflow:hidden;
+}
+.fidelity-section::before{
+  content:'★ ★ ★';position:absolute;
+  font-family:'Bowlby One',sans-serif;font-size:280px;line-height:1;
+  color:rgba(217,154,31,0.05);
+  bottom:-80px;right:-40px;letter-spacing:0.1em;
+  pointer-events:none;
+}
+.fidelity-grid{
+  display:grid;grid-template-columns:0.55fr 0.45fr;gap:50px;align-items:center;
+  margin-top:24px;
+  position:relative;z-index:2;
+}
+.fidelity-info h2{margin-bottom:14px;}
+.fidelity-info p{
+  font-family:'Fraunces',serif;font-size:17px;line-height:1.6;
+  color:var(--ink-2);margin-bottom:14px;
+  font-variation-settings:"opsz" 14;max-width:480px;
+}
+.fidelity-info p strong{color:var(--ink);font-weight:600;}
+.fidelity-steps{
+  margin-top:28px;display:flex;flex-direction:column;gap:0;
+  border-top:1.5px solid var(--ink);
+}
+.fidelity-step{
+  display:flex;gap:16px;align-items:flex-start;
+  padding:16px 0;border-bottom:1px dashed var(--line);
+}
+.fidelity-step:last-child{border-bottom:1.5px solid var(--ink);}
+.fidelity-step-num{
+  flex-shrink:0;
+  width:36px;height:36px;
+  background:var(--blood);color:var(--paper);
+  border:2px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bowlby One',sans-serif;font-size:16px;
+  border-radius:50%;
+  transform:rotate(-3deg);
+}
+.fidelity-step-body{padding-top:4px;}
+.fidelity-step-title{
+  font-family:'Bowlby One',sans-serif;
+  font-size:15px;letter-spacing:-0.01em;color:var(--ink);
+  margin-bottom:3px;
+}
+.fidelity-step-desc{
+  font-family:'Fraunces',serif;font-size:14px;color:var(--ink-2);line-height:1.45;
+}
+.fidelity-cta{
+  margin-top:30px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;
+}
+
+/* Carte preview à droite — version réduite cliquable */
+.fidelity-card-preview{
+  cursor:pointer;
+  background:linear-gradient(155deg,#1a1410 0%,#3b2e26 50%,#1a1410 100%);
+  color:var(--paper);
+  border:2px solid var(--mustard);
+  border-radius:22px;
+  padding:26px 24px 22px;
+  position:relative;overflow:hidden;
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.35),
+    0 0 0 1px rgba(217,154,31,0.3) inset;
+  max-width:380px;width:100%;margin:0 auto;
+  transform:rotate(-2deg);
+  transition:transform 0.3s,box-shadow 0.3s;
+}
+.fidelity-card-preview:hover{transform:rotate(0) translateY(-4px);box-shadow:0 40px 80px rgba(0,0,0,0.45),0 0 0 1px rgba(217,154,31,0.4) inset;}
+.fidelity-card-preview::after{
+  content:'★';position:absolute;
+  font-family:'Bowlby One',sans-serif;font-size:240px;line-height:1;
+  color:rgba(217,154,31,0.05);
+  bottom:-40px;right:-40px;pointer-events:none;
+}
+.fcp-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px;position:relative;z-index:2;}
+.fcp-brand{font-family:'Bowlby One',sans-serif;font-size:18px;color:var(--paper);display:flex;align-items:baseline;gap:6px;line-height:1;}
+.fcp-brand .dot{width:7px;height:7px;background:var(--blood-3);border-radius:50%;}
+.fcp-brand-sub{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--mustard);margin-top:4px;}
+.fcp-tap{
+  font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--mustard);background:rgba(217,154,31,0.12);
+  padding:5px 9px;border:1px solid rgba(217,154,31,0.4);
+}
+.fcp-eyebrow{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.26em;text-transform:uppercase;color:var(--mustard);margin-bottom:6px;position:relative;z-index:2;}
+.fcp-title{font-family:'Bowlby One',sans-serif;font-size:24px;letter-spacing:-0.02em;color:var(--paper);margin-bottom:18px;line-height:1;position:relative;z-index:2;}
+.fcp-title .accent{color:var(--mustard);}
+.fcp-stamps{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;padding:14px 0;border-top:1px dashed rgba(239,229,207,0.25);border-bottom:1px dashed rgba(239,229,207,0.25);position:relative;z-index:2;}
+.fcp-stamp{aspect-ratio:1;border:2px dashed rgba(239,229,207,0.35);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bowlby One',sans-serif;font-size:14px;color:rgba(239,229,207,0.4);background:rgba(239,229,207,0.04);}
+.fcp-stamp.filled{background:var(--blood);border:2px solid var(--mustard);color:transparent;transform:rotate(-6deg) scale(1.04);position:relative;}
+.fcp-stamp.filled::after{content:'★';color:var(--mustard);font-size:16px;position:absolute;}
+.fcp-status{text-align:center;padding:14px 0 6px;font-family:'Bowlby One',sans-serif;font-size:14px;color:var(--paper);position:relative;z-index:2;}
+.fcp-status .accent{color:var(--mustard);}
+.fcp-footer{margin-top:14px;padding-top:12px;border-top:1px solid rgba(239,229,207,0.15);display:flex;justify-content:space-between;align-items:flex-end;position:relative;z-index:2;}
+.fcp-id{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(239,229,207,0.5);line-height:1.4;}
+.fcp-id strong{color:var(--paper);}
+.fcp-barcode{width:78px;height:18px;background-image:repeating-linear-gradient(90deg,rgba(239,229,207,0.85) 0 1px,transparent 1px 3px,rgba(239,229,207,0.85) 3px 5px,transparent 5px 6px,rgba(239,229,207,0.85) 6px 7px,transparent 7px 10px);}
+
+@media(max-width:760px){
+  .fidelity-grid{grid-template-columns:1fr;gap:40px;}
+  .fidelity-card-preview{max-width:340px;}
+}
+
 /* === BRAND FILM 30s — Story stack façon Reels/TikTok === */
 .film-section{
   background:#0a0806;color:var(--paper);
@@ -2300,8 +2410,8 @@ footer{
   </a>
   <div class="nav-links">
     <a href="#menu">Le menu</a>
+    <a href="#fidelite">Fidélité</a>
     <a href="#film">Le film</a>
-    <a href="#concept">L'atelier</a>
     <a href="#avis">Témoins</a>
     <button type="button" class="loyalty-trigger" id="loyaltyTrigger" onclick="openLoyaltyCard()" aria-label="Ma carte de fidélité numérique">
       <span class="lt-star" aria-hidden="true">★</span>
@@ -2447,6 +2557,74 @@ footer{
         <div class="cstat"><div class="cstat-v">200+</div><div class="cstat-l">Avis clients</div></div>
         <div class="cstat"><div class="cstat-v">7/7</div><div class="cstat-l">11h — 23h</div></div>
         <div class="cstat"><div class="cstat-v acc">0%</div><div class="cstat-l">Surgelé</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION FIDÉLITÉ — Carte numérique exposée -->
+<section id="fidelite" class="fidelity-section">
+  <div class="section-meta fade-up">
+    <span><strong>§ Nº 04</strong> — Le programme fidélité</span>
+    <span>Carte numérique · Aucune app · Aucune inscription</span>
+  </div>
+  <div class="fidelity-grid">
+    <div class="fidelity-info fade-up">
+      <h2 class="section-title">5 burgers, le <span class="accent">6<sup>e</sup></span><br><span class="it">est offert.</span></h2>
+      <p>On a fait <strong>la carte fidélité la plus simple du monde.</strong> Pas d'app à installer. Pas de compte à créer. Pas de mot de passe oublié.</p>
+      <p>Tu commandes, tu cumules, tu débloques. Tout est <strong>dans ton navigateur</strong>, géré automatiquement.</p>
+
+      <div class="fidelity-steps">
+        <div class="fidelity-step">
+          <div class="fidelity-step-num">1</div>
+          <div class="fidelity-step-body">
+            <div class="fidelity-step-title">Tu commandes sur WhatsApp</div>
+            <div class="fidelity-step-desc">Comme d'habitude. Le tampon s'ajoute automatiquement à ta carte numérique.</div>
+          </div>
+        </div>
+        <div class="fidelity-step">
+          <div class="fidelity-step-num">2</div>
+          <div class="fidelity-step-body">
+            <div class="fidelity-step-title">Tu cumules 5 tampons</div>
+            <div class="fidelity-step-desc">Visible à tout moment dans le bouton "★ Ma carte" en haut. Aucune action de ta part.</div>
+          </div>
+        </div>
+        <div class="fidelity-step">
+          <div class="fidelity-step-num">3</div>
+          <div class="fidelity-step-body">
+            <div class="fidelity-step-title">Le 6<sup>e</sup> est offert</div>
+            <div class="fidelity-step-desc">On te génère un code unique. Il est <strong>injecté automatiquement</strong> dans ton prochain message WhatsApp.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fidelity-cta">
+        <button type="button" class="btn-primary" onclick="openLoyaltyCard()">Voir ma carte →</button>
+        <span style="font-family:'Fraunces',serif;font-style:italic;font-size:13px;color:var(--ink-3);font-variation-settings:'opsz' 36,'WONK' 1;">— ou clique sur la carte ▷</span>
+      </div>
+    </div>
+
+    <div class="fidelity-card-preview fade-up" onclick="openLoyaltyCard()" tabindex="0" role="button" aria-label="Ouvrir ma carte fidélité numérique" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLoyaltyCard();}">
+      <div class="fcp-header">
+        <div>
+          <div class="fcp-brand"><span class="dot"></span>La Dalle</div>
+          <div class="fcp-brand-sub">Burger · Halal</div>
+        </div>
+        <span class="fcp-tap">▷ Tap</span>
+      </div>
+      <div class="fcp-eyebrow">★ Carte numérique ★</div>
+      <h3 class="fcp-title">5 burgers,<br>le 6<sup>e</sup> <span class="accent">offert.</span></h3>
+      <div class="fcp-stamps" id="fcpStamps">
+        <div class="fcp-stamp">1</div>
+        <div class="fcp-stamp">2</div>
+        <div class="fcp-stamp">3</div>
+        <div class="fcp-stamp">4</div>
+        <div class="fcp-stamp">5</div>
+      </div>
+      <div class="fcp-status" id="fcpStatus">Plus que <span class="accent">5 burgers</span> avant le 6<sup>e</sup></div>
+      <div class="fcp-footer">
+        <div class="fcp-id">Membre<br><strong id="fcpMemberId">Nº DLB-0000</strong></div>
+        <div class="fcp-barcode" aria-hidden="true"></div>
       </div>
     </div>
   </div>
@@ -3430,6 +3608,25 @@ function renderLoyalty(){
   // 5. Member ID
   var memberId = document.getElementById('lcMemberId');
   if(memberId) memberId.textContent = 'Nº ' + loadOrCreateMemberId();
+
+  // 6. Carte preview homepage (sync identique)
+  var fcpStamps = document.querySelectorAll('.fcp-stamp');
+  fcpStamps.forEach(function(el,i){ el.classList.toggle('filled', i<n); });
+  var fcpStatus = document.getElementById('fcpStatus');
+  if(fcpStatus){
+    if(d.count===0){
+      fcpStatus.innerHTML = 'Plus que <span class="accent">5 burgers</span> avant le 6<sup>e</sup>';
+    } else if(d.count<5){
+      var rest2 = 5-d.count;
+      fcpStatus.innerHTML = 'Plus que <span class="accent">'+rest2+' burger'+(rest2>1?'s':'')+'</span> avant le 6<sup>e</sup>';
+    } else if(!d.claimed){
+      fcpStatus.innerHTML = '🎉 <span class="accent">6<sup>e</sup> burger débloqué&nbsp;!</span>';
+    } else {
+      fcpStatus.innerHTML = 'Nouveau cycle · <span class="accent">5 burgers</span>';
+    }
+  }
+  var fcpMember = document.getElementById('fcpMemberId');
+  if(fcpMember) fcpMember.textContent = 'Nº ' + loadOrCreateMemberId();
 }
 
 function openLoyaltyCard(){

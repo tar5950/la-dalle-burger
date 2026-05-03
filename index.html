@@ -1022,6 +1022,17 @@ section{padding:90px 4%;position:relative;z-index:2;}
   font-size:32px;line-height:1;display:block;margin-bottom:4px;
   filter:drop-shadow(0 2px 4px rgba(0,0,0,0.1));
 }
+/* Variante 3D (PNG Fluent Emoji) */
+img.mode-icon-3d{
+  width:48px;height:48px;
+  object-fit:contain;
+  display:block;margin:0 auto 6px;
+  filter:drop-shadow(0 4px 6px rgba(0,0,0,0.18));
+  transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  -webkit-user-drag:none;user-select:none;
+}
+.mode-chip:hover img.mode-icon-3d{transform:scale(1.08) rotate(-3deg);}
+.mode-chip.on img.mode-icon-3d{filter:drop-shadow(0 4px 8px rgba(0,0,0,0.35));}
 .mode-name{
   font-family:'Bowlby One',sans-serif;
   font-size:15px;letter-spacing:-0.01em;color:var(--ink);
@@ -1041,6 +1052,7 @@ section{padding:90px 4%;position:relative;z-index:2;}
     min-height:auto;padding:14px 16px;gap:14px;
   }
   .mode-chip .mode-icon{font-size:28px;margin-bottom:0;flex-shrink:0;}
+  .mode-chip img.mode-icon-3d{width:42px;height:42px;margin:0;flex-shrink:0;}
   .mode-chip-content{flex:1;}
   .mode-name{font-size:14px;}
   .mode-sub{font-size:13px;}
@@ -3678,17 +3690,17 @@ footer{
         <div class="step-lbl"><span class="step-num">II</span>Mode<span class="step-hint">— où tu manges&nbsp;?</span></div>
         <div class="mode-grid">
           <button type="button" class="chip mode-chip" data-v="Sur place" onclick="selB(this)" aria-label="Sur place, manger au restaurant">
-            <span class="mode-icon" aria-hidden="true">🍽️</span>
+            <img class="mode-icon-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Fork%20and%20knife%20with%20plate/3D/fork_and_knife_with_plate_3d.png" alt="" width="48" height="48" loading="lazy" decoding="async">
             <span class="mode-name">Sur place</span>
             <span class="mode-sub">Service au comptoir · 15 min</span>
           </button>
           <button type="button" class="chip mode-chip" data-v="À emporter" onclick="selB(this)" aria-label="À emporter, gratuit">
-            <span class="mode-icon" aria-hidden="true">🏃</span>
+            <img class="mode-icon-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Takeout%20box/3D/takeout_box_3d.png" alt="" width="48" height="48" loading="lazy" decoding="async">
             <span class="mode-name">À emporter</span>
             <span class="mode-sub">Gratuit · prêt en 15 min</span>
           </button>
           <button type="button" class="chip mode-chip" data-v="Livraison" onclick="selB(this)" aria-label="Livraison à partir de 2,50 euros, gratuite dès 25 euros">
-            <span class="mode-icon" aria-hidden="true">🛵</span>
+            <img class="mode-icon-3d" src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Motor%20scooter/3D/motor_scooter_3d.png" alt="" width="48" height="48" loading="lazy" decoding="async">
             <span class="mode-name">Livraison</span>
             <span class="mode-sub">Dès 2,50 € · gratuite ≥ 25 €</span>
           </button>

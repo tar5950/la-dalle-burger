@@ -128,7 +128,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Caveat:wght@500;700&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --paper:#efe5cf;
@@ -269,8 +269,8 @@ nav.scrolled{background:rgba(239,229,207,0.96);backdrop-filter:blur(8px);}
 .hero-bg-vid::after{
   content:'';position:absolute;inset:0;z-index:1;
   background:
-    linear-gradient(180deg,rgba(10,8,6,0.252) 0%,rgba(10,8,6,0.084) 35%,rgba(10,8,6,0.493) 100%),
-    radial-gradient(ellipse at center,transparent 30%,rgba(10,8,6,0.252) 100%);
+    linear-gradient(180deg,rgba(10,8,6,0.20) 0%,rgba(10,8,6,0.067) 35%,rgba(10,8,6,0.395) 100%),
+    radial-gradient(ellipse at center,transparent 30%,rgba(10,8,6,0.20) 100%);
 }
 .hero-bg-vid::before{
   content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
@@ -341,22 +341,32 @@ nav.scrolled{background:rgba(239,229,207,0.96);backdrop-filter:blur(8px);}
 }
 
 .hero-sub{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
   font-family:'JetBrains Mono',monospace;
   font-size:13px;font-weight:500;
   letter-spacing:0.16em;text-transform:uppercase;
-  color:rgba(239,229,207,0.92);
-  margin-bottom:26px;
-  text-shadow:0 1px 6px rgba(0,0,0,0.6);
+  color:rgba(239,229,207,0.94);
+  margin-bottom:28px;
+  text-shadow:0 1px 6px rgba(0,0,0,0.7);
+  line-height:1.3;
 }
 .hero-sub strong{
-  color:var(--paper);font-weight:700;
   font-family:'Bowlby One',sans-serif;
-  font-size:1.4em;letter-spacing:0;line-height:1;
+  font-size:18px;letter-spacing:0;line-height:1;font-weight:400;
+  background:var(--mustard);color:var(--ink) !important;
+  padding:8px 12px 6px;
   display:inline-block;
-  background:var(--mustard);color:var(--ink);
-  padding:2px 9px 0px;margin-left:4px;
   text-transform:none;
-  vertical-align:middle;
+  text-shadow:none;
+  border:1.5px solid var(--ink);
+  box-shadow:2px 2px 0 var(--ink);
+  transform:rotate(-1.5deg);
+  /* anti-flou WebKit */
+  -webkit-font-smoothing:antialiased;
+}
+@media(max-width:600px){
+  .hero-sub{font-size:11px;letter-spacing:0.12em;gap:8px;}
+  .hero-sub strong{font-size:16px;padding:7px 10px 5px;}
 }
 
 .hero-btns{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
@@ -366,10 +376,12 @@ nav.scrolled{background:rgba(239,229,207,0.96);backdrop-filter:blur(8px);}
   background:var(--blood);color:var(--paper);
   padding:18px 30px;
   border:2px solid var(--ink);
+  border-radius:12px;
   box-shadow:5px 5px 0 var(--ink);
   display:inline-flex;align-items:center;gap:10px;
   transition:transform 0.15s,box-shadow 0.15s;
   cursor:pointer;
+  text-decoration:none;
 }
 .btn-primary:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink);}
 .btn-primary:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink);}
@@ -379,8 +391,12 @@ nav.scrolled{background:rgba(239,229,207,0.96);backdrop-filter:blur(8px);}
   letter-spacing:0.18em;text-transform:uppercase;
   color:var(--paper);
   padding:18px 24px;
-  border:2px solid var(--paper);background:transparent;
+  border:2px solid var(--paper);
+  border-radius:12px;
+  background:transparent;
   transition:background 0.18s,color 0.18s;
+  text-decoration:none;
+  display:inline-block;
 }
 .btn-secondary:hover{background:var(--paper);color:var(--ink);}
 
@@ -800,17 +816,18 @@ section{padding:90px 4%;position:relative;z-index:2;}
 }
 .info-val{font-family:'Fraunces',serif;font-size:15px;line-height:1.4;color:var(--ink);font-weight:500;}
 
-/* === FORM — Vrai bon de boucherie carbone === */
+/* === FORM — Bon de boucherie carbone (refonte arrondie) === */
 .commande-form{
   background:#fdf6e3;
   background-image:
     repeating-linear-gradient(0deg,transparent 0,transparent 28px,rgba(26,20,16,0.04) 28px,rgba(26,20,16,0.04) 29px),
     radial-gradient(ellipse at top right,rgba(168,40,31,0.04),transparent 60%);
   border:2px solid var(--ink);
+  border-radius:18px;
   padding:0;
   position:relative;
   box-shadow:7px 7px 0 var(--blood),14px 14px 0 var(--mustard);
-  /* Perforations haut & bas */
+  overflow:hidden;
   --perf:radial-gradient(circle at 12px 0px,transparent 5px,var(--ink) 5px 5.5px,transparent 5.5px);
 }
 .commande-form::before,
@@ -916,39 +933,105 @@ section{padding:90px 4%;position:relative;z-index:2;}
   text-align:center;margin:6px 0 22px;
 }
 
-/* Step labels — comme étiquettes manuscrites */
+/* Step labels — étiquettes manuscrites (Caveat handwriting) */
 .step-lbl{
   font-family:'Bowlby One',sans-serif;
-  font-size:13px;letter-spacing:0.02em;text-transform:uppercase;
+  font-size:14px;letter-spacing:0.02em;text-transform:uppercase;
   color:var(--ink);
-  display:flex;align-items:baseline;gap:10px;
-  margin:24px 0 10px;padding-bottom:6px;
+  display:flex;align-items:center;gap:12px;
+  margin:30px 0 14px;padding-bottom:8px;
   border-bottom:1.5px solid var(--ink);
   position:relative;
+  flex-wrap:wrap;
 }
 .step-lbl .step-num{
   font-family:'Bowlby One',sans-serif;font-size:18px;color:var(--blood);
   letter-spacing:0;flex-shrink:0;
   background:var(--mustard);
-  padding:0 8px;line-height:1.4;
+  padding:2px 10px;line-height:1.4;
   border:1.5px solid var(--ink);
-  transform:rotate(-2deg);
+  border-radius:10px;
+  transform:rotate(-3deg);
+  box-shadow:1px 1px 0 var(--ink);
 }
 .step-lbl .step-hint{
   margin-left:auto;
-  font-family:'Fraunces',serif;font-style:italic;
-  font-variation-settings:"opsz" 36,"WONK" 1;
-  font-size:11px;font-weight:400;color:var(--ink-3);
+  font-family:'Caveat',cursive;font-weight:500;
+  font-size:18px;color:var(--ink-2);
   text-transform:none;letter-spacing:0;
+  line-height:1;
+}
+@media(max-width:600px){
+  .step-lbl{margin:24px 0 12px;font-size:12px;gap:10px;}
+  .step-lbl .step-hint{flex-basis:100%;margin-left:0;font-size:16px;margin-top:2px;}
 }
 
 /* Grids */
 .g2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
 
-/* Mode chip — case à cocher dessinée */
+/* === MODE CHIPS — refonte arrondie 3 options === */
+.mode-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+}
+.mode-chip{
+  background:var(--paper);
+  border:2px solid var(--ink);
+  border-radius:14px;
+  padding:18px 12px 16px;
+  text-align:center;cursor:pointer;
+  transition:transform 0.18s,box-shadow 0.18s,background 0.18s;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  position:relative;
+  font-family:inherit;
+  outline:none;
+  min-height:120px;
+}
+.mode-chip:hover{transform:translateY(-3px);box-shadow:3px 5px 0 var(--ink);background:var(--paper-2);}
+.mode-chip:focus-visible{box-shadow:0 0 0 3px var(--mustard);}
+.mode-chip.on{
+  background:var(--blood);
+  border-color:var(--ink);
+  box-shadow:3px 3px 0 var(--ink);
+  transform:rotate(-1deg);
+}
+.mode-chip.on .mode-name,
+.mode-chip.on .mode-sub{color:var(--paper);}
+.mode-chip.on .mode-sub{opacity:0.85;}
+.mode-chip::before{display:none;}
+
+.mode-icon{
+  font-size:32px;line-height:1;display:block;margin-bottom:4px;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+.mode-name{
+  font-family:'Bowlby One',sans-serif;
+  font-size:15px;letter-spacing:-0.01em;color:var(--ink);
+  line-height:1;
+}
+.mode-sub{
+  font-family:'Caveat',cursive;font-weight:500;
+  font-size:14px;color:var(--ink-3);
+  line-height:1.1;
+  margin-top:2px;
+}
+
+@media(max-width:600px){
+  .mode-grid{grid-template-columns:1fr;gap:8px;}
+  .mode-chip{
+    flex-direction:row;justify-content:flex-start;text-align:left;
+    min-height:auto;padding:14px 16px;gap:14px;
+  }
+  .mode-chip .mode-icon{font-size:28px;margin-bottom:0;flex-shrink:0;}
+  .mode-chip-content{flex:1;}
+  .mode-name{font-size:14px;}
+  .mode-sub{font-size:13px;}
+}
+
+/* Legacy chips (Sur place / Heure précise dans étape III) */
 .chip{
   background:transparent;border:1.5px solid var(--ink);
+  border-radius:8px;
   padding:14px 12px;text-align:left;cursor:pointer;
   transition:all 0.15s;
   display:flex;align-items:center;gap:10px;
@@ -958,9 +1041,8 @@ section{padding:90px 4%;position:relative;z-index:2;}
 .chip:focus-visible{outline:3px solid var(--mustard);outline-offset:2px;}
 .chip::before{
   content:'';width:18px;height:18px;flex-shrink:0;
-  border:1.5px solid var(--ink);
-  background:var(--paper);
-  display:inline-block;
+  border:1.5px solid var(--ink);background:var(--paper);
+  display:inline-block;border-radius:4px;
 }
 .chip.on::before{
   background:var(--blood);
@@ -984,17 +1066,20 @@ section{padding:90px 4%;position:relative;z-index:2;}
   width:100%;
   background:var(--paper-2);
   border:2px solid var(--ink);
+  border-radius:14px;
   padding:0;
   cursor:pointer;
   display:grid;
-  grid-template-columns:64px 1fr 32px;
+  grid-template-columns:64px 1fr 40px;
   align-items:center;
   gap:12px;
   text-align:left;
   position:relative;
-  transition:background 0.18s,border-color 0.18s;
+  transition:background 0.18s,border-color 0.18s,transform 0.15s;
   font-family:inherit;
+  overflow:hidden;
 }
+.srv-picker-trigger:hover{transform:translateY(-1px);}
 .srv-picker-trigger:hover{background:var(--paper-3);}
 .srv-picker-trigger:focus-visible{outline:3px solid var(--mustard);outline-offset:2px;}
 .srv-picker.has-value .srv-picker-trigger{
@@ -1005,7 +1090,6 @@ section{padding:90px 4%;position:relative;z-index:2;}
 .srv-picker-img{
   width:64px;height:64px;
   background:var(--ink);
-  border-right:1.5px solid var(--ink);
   background-size:cover;background-position:center;
   flex-shrink:0;
   position:relative;
@@ -1056,6 +1140,7 @@ section{padding:90px 4%;position:relative;z-index:2;}
   position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:30;
   background:var(--paper);
   border:2px solid var(--ink);
+  border-radius:14px;
   box-shadow:6px 6px 0 var(--blood);
   max-height:0;
   overflow:hidden;
@@ -1188,6 +1273,7 @@ section{padding:90px 4%;position:relative;z-index:2;}
 /* Calendrier — feuilles de timbre */
 .cal-chip{
   background:transparent;border:1.5px solid var(--ink);
+  border-radius:10px;
   padding:8px 4px 6px;text-align:center;cursor:pointer;
   transition:all 0.15s;position:relative;
 }
@@ -1210,10 +1296,12 @@ section{padding:90px 4%;position:relative;z-index:2;}
 /* Heures */
 .hr-chip{
   background:transparent;border:1.5px solid var(--ink);
-  padding:9px 4px;text-align:center;cursor:pointer;
+  border-radius:10px;
+  padding:11px 4px;text-align:center;cursor:pointer;
   font-family:'JetBrains Mono',monospace;
   font-size:13px;font-weight:700;color:var(--ink);
   transition:all 0.15s;
+  min-height:44px;
 }
 .hr-chip:hover{background:rgba(168,40,31,0.05);}
 .hr-chip:focus-visible{outline:3px solid var(--mustard);outline-offset:2px;}
@@ -2462,12 +2550,14 @@ section{padding:90px 4%;position:relative;z-index:2;}
   background:#1a8a4a;color:#fdf6e3;
   padding:20px;
   border:2px solid var(--ink);
+  border-radius:14px;
   box-shadow:5px 5px 0 var(--ink);
   display:flex;align-items:center;justify-content:center;gap:12px;
   cursor:pointer;
   text-transform:uppercase;
   position:relative;
   transition:transform 0.15s,box-shadow 0.15s;
+  min-height:64px;
 }
 .btn-wa::before{
   content:'';position:absolute;left:14px;top:50%;
@@ -3375,10 +3465,23 @@ footer{
           <button type="button" class="extras-summary-btn" onclick="openUpsellModal(true)">Modifier</button>
         </div>
 
-        <div class="step-lbl"><span class="step-num">II</span>Mode<span class="step-hint">— livraison ou à emporter</span></div>
-        <div class="g2">
-          <div class="chip" data-v="Livraison" onclick="selB(this)" tabindex="0" role="button" aria-label="Livraison à partir de 2,50 euros, gratuite dès 25 euros"><div class="chip-n">🛵 Livraison<br><span style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:0.12em;color:var(--ink-3);text-transform:uppercase;">dès 2,50 € · gratuite ≥ 25 €</span></div></div>
-          <div class="chip" data-v="À emporter" onclick="selB(this)" tabindex="0" role="button" aria-label="À emporter, gratuit"><div class="chip-n">🏃 À emporter<br><span style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:0.12em;color:var(--ink-3);text-transform:uppercase;">gratuit · prêt en 15 min</span></div></div>
+        <div class="step-lbl"><span class="step-num">II</span>Mode<span class="step-hint">— où tu manges&nbsp;?</span></div>
+        <div class="mode-grid">
+          <button type="button" class="chip mode-chip" data-v="Sur place" onclick="selB(this)" aria-label="Sur place, manger au restaurant">
+            <span class="mode-icon" aria-hidden="true">🍽️</span>
+            <span class="mode-name">Sur place</span>
+            <span class="mode-sub">Service au comptoir · 15 min</span>
+          </button>
+          <button type="button" class="chip mode-chip" data-v="À emporter" onclick="selB(this)" aria-label="À emporter, gratuit">
+            <span class="mode-icon" aria-hidden="true">🏃</span>
+            <span class="mode-name">À emporter</span>
+            <span class="mode-sub">Gratuit · prêt en 15 min</span>
+          </button>
+          <button type="button" class="chip mode-chip" data-v="Livraison" onclick="selB(this)" aria-label="Livraison à partir de 2,50 euros, gratuite dès 25 euros">
+            <span class="mode-icon" aria-hidden="true">🛵</span>
+            <span class="mode-name">Livraison</span>
+            <span class="mode-sub">Dès 2,50 € · gratuite ≥ 25 €</span>
+          </button>
         </div>
 
         <!-- Code postal validation (apparaît si Livraison) -->
@@ -4170,9 +4273,9 @@ document.addEventListener('DOMContentLoaded', function(){
 })();
 function selB(el){
   var parent=el.parentNode;
-  parent.querySelectorAll('.chip').forEach(function(e){e.classList.remove('on');});
+  // Désélectionne uniquement les frères du même groupe (Mode ou Heure précise)
+  parent.querySelectorAll('.chip,.mode-chip').forEach(function(e){e.classList.remove('on');});
   el.classList.add('on'); R.b=el.getAttribute('data-v');
-  // Affiche/masque la validation zip selon le mode choisi
   var zipBox = document.getElementById('zipCheck');
   if(R.b === 'Livraison'){
     zipBox.classList.add('show');
@@ -4184,7 +4287,6 @@ function selB(el){
     zipBox.classList.remove('show');
     R.zip=''; R.zipFee=0; R.zipLabel='';
     document.getElementById('zipResult').classList.remove('show','ok','bad');
-    // Si emporter, on scrolle direct vers étape III
     autoScrollToStep(3);
   }
   updRecap();

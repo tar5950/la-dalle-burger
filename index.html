@@ -1008,112 +1008,160 @@ section{padding:90px 4%;position:relative;z-index:2;}
 
 .upsell-modal-body{padding:28px 26px 22px;}
 
-/* Footer modal */
+/* Footer modal — pattern kiosque McDo : gros bouton qui contient le total */
 .upsell-modal-footer{
+  position:sticky;bottom:0;z-index:5;
   border-top:1.5px solid var(--ink);
-  padding:18px 26px;
-  display:flex;gap:14px;flex-wrap:wrap;
-  align-items:center;justify-content:space-between;
-  background:var(--paper-2);
+  padding:14px 18px;
+  display:flex;gap:10px;flex-direction:column;
+  background:var(--paper);
+  box-shadow:0 -4px 12px rgba(0,0,0,0.08);
 }
-.upsell-total{
-  font-family:'Bowlby One',sans-serif;
-  font-size:14px;letter-spacing:0;color:var(--ink);
-  display:flex;align-items:baseline;gap:8px;
-}
-.upsell-total strong{
-  font-family:'Bowlby One',sans-serif;
-  font-size:24px;color:var(--blood);
-}
-.upsell-total small{
-  font-family:'JetBrains Mono',monospace;
-  font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--ink-3);
-}
-.upsell-actions{display:flex;gap:10px;flex-wrap:wrap;}
-.upsell-btn-no{
-  font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;
-  letter-spacing:0.16em;text-transform:uppercase;
-  color:var(--ink-2);background:transparent;
-  border:1.5px solid var(--ink-2);
-  padding:14px 22px;cursor:pointer;
-  transition:all 0.18s;
-}
-.upsell-btn-no:hover{background:var(--ink);color:var(--paper);border-color:var(--ink);}
 .upsell-btn-yes{
-  font-family:'Bowlby One',sans-serif;font-size:15px;letter-spacing:0;
+  width:100%;
+  font-family:'Bowlby One',sans-serif;font-size:16px;letter-spacing:0.02em;
   background:var(--blood);color:var(--paper);
-  padding:14px 28px;
+  padding:18px 22px;
   border:2px solid var(--ink);
-  box-shadow:4px 4px 0 var(--ink);
   cursor:pointer;
-  transition:transform 0.15s,box-shadow 0.15s;
-  display:inline-flex;align-items:center;gap:8px;
+  transition:background 0.18s;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  text-transform:uppercase;
 }
-.upsell-btn-yes:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);}
-.upsell-btn-yes:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink);}
+.upsell-btn-yes:hover{background:#7a1c14;}
+.upsell-btn-yes-total{
+  background:rgba(0,0,0,0.22);
+  padding:6px 12px;
+  font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;
+  letter-spacing:0.04em;
+  border-radius:2px;
+}
+.upsell-btn-no{
+  width:100%;
+  font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--ink-3);background:transparent;
+  border:none;
+  padding:6px 0 0;
+  cursor:pointer;
+  text-decoration:underline;text-underline-offset:3px;
+  text-decoration-thickness:1px;
+}
+.upsell-btn-no:hover{color:var(--ink);}
 .upsell-btn-no:focus-visible,.upsell-btn-yes:focus-visible{outline:3px solid var(--mustard);outline-offset:2px;}
-.upsell-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+/* === CARTES PRODUIT — pattern McDo France / Five Guys app === */
+.upsell-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
 .upsell-chip{
   background:var(--paper);
   border:1.5px solid var(--ink);
-  padding:0 0 10px;
   text-align:center;cursor:pointer;
   position:relative;
-  transition:all 0.18s;
+  transition:transform 0.18s,box-shadow 0.18s;
   overflow:hidden;
+  display:flex;flex-direction:column;
+  outline:none;
 }
-.upsell-chip:hover{background:rgba(217,154,31,0.08);transform:translateY(-2px);}
-.upsell-chip:focus-visible{outline:3px solid var(--mustard);outline-offset:2px;}
+.upsell-chip:hover{transform:translateY(-3px);box-shadow:3px 5px 0 var(--ink);}
+.upsell-chip:focus-visible{box-shadow:0 0 0 3px var(--mustard);}
 .upsell-chip.on{
-  background:var(--mustard);
-  border-color:var(--ink);border-width:2.5px;
-  transform:rotate(-1deg);
+  background:#fff8e7;
+  border-color:var(--blood);
+  border-width:2.5px;
 }
-.upsell-chip.on::after{
-  content:'+';position:absolute;top:-10px;right:-8px;
-  width:28px;height:28px;border-radius:50%;
-  background:var(--blood);color:var(--paper);
-  font-family:'Bowlby One',sans-serif;font-size:20px;line-height:28px;
-  border:2px solid var(--ink);
-  z-index:3;
+.upsell-chip.on .upsell-chip-img-wrap::after{
+  content:'';position:absolute;inset:0;
+  border:3px solid var(--blood);
+  pointer-events:none;
 }
-.upsell-img{
+
+.upsell-chip-img-wrap{
   width:100%;
   aspect-ratio:1/1;
+  background:#f5efe0;
+  position:relative;
+  overflow:hidden;
+  border-bottom:1.5px solid var(--ink);
+}
+.upsell-img{
+  width:100%;height:100%;
   object-fit:cover;
   display:block;
-  border-bottom:1.5px solid var(--ink);
-  filter:saturate(0.95) contrast(1.05);
-  transition:filter 0.2s,transform 0.3s;
+  filter:saturate(1.05) contrast(1.04);
+  transition:transform 0.4s ease-out;
 }
-.upsell-chip:hover .upsell-img{transform:scale(1.04);filter:saturate(1.1) contrast(1.08);}
-.upsell-chip.on .upsell-img{filter:saturate(1.05);}
+.upsell-chip:hover .upsell-img{transform:scale(1.06);}
+
+/* Badge "+" en haut à droite quand sélectionné */
+.upsell-chip-badge{
+  position:absolute;top:8px;right:8px;z-index:2;
+  width:32px;height:32px;border-radius:50%;
+  background:var(--blood);color:var(--paper);
+  font-family:'Bowlby One',sans-serif;font-size:16px;
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid var(--paper);
+  box-shadow:0 2px 6px rgba(0,0,0,0.25);
+  opacity:0;transform:scale(0.6);
+  transition:opacity 0.2s,transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+}
+.upsell-chip.on .upsell-chip-badge{opacity:1;transform:scale(1);}
+
+/* Nom + prix */
+.upsell-chip-info{
+  padding:10px 8px 8px;
+  flex:1;display:flex;flex-direction:column;justify-content:center;
+}
 .upsell-name{
-  font-family:'Bowlby One',sans-serif;font-size:13px;letter-spacing:-0.01em;
+  font-family:'Bowlby One',sans-serif;
+  font-size:13px;letter-spacing:-0.01em;
   color:var(--ink);line-height:1.1;
-  margin-top:8px;
-  padding:0 4px;
 }
 .upsell-price{
   font-family:'JetBrains Mono',monospace;
-  font-size:11px;font-weight:700;color:var(--blood);
-  margin-top:4px;letter-spacing:0.04em;
+  font-size:14px;font-weight:700;color:var(--ink);
+  margin-top:4px;letter-spacing:0.02em;
 }
-.upsell-chip.on .upsell-price{color:var(--ink);}
+
+/* CTA "AJOUTER" / "AJOUTÉ" sur chaque carte */
+.upsell-chip-cta{
+  width:100%;
+  background:var(--ink);color:var(--paper);
+  border:none;
+  padding:11px 8px;
+  font-family:'Bowlby One',sans-serif;
+  font-size:11px;letter-spacing:0.06em;text-transform:uppercase;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  transition:background 0.18s;
+}
+.upsell-chip-cta::after{
+  content:'+';font-size:16px;line-height:1;
+}
+.upsell-chip:hover .upsell-chip-cta{background:var(--blood);}
+.upsell-chip.on .upsell-chip-cta{
+  background:#1a8a4a;color:#fdf6e3;
+}
+.upsell-chip.on .upsell-chip-cta::after{content:'✓';}
+.upsell-chip.on .upsell-chip-cta-label::before{content:'Ajouté';}
+.upsell-chip-cta-label::before{content:'Ajouter';}
 @media(max-width:680px){
-  .upsell-grid{grid-template-columns:repeat(2,1fr);}
+  .upsell-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
 }
 @media(max-width:600px){
-  .upsell-modal{box-shadow:5px 5px 0 var(--blood),10px 10px 0 var(--mustard);}
-  .upsell-modal-header{padding:18px 22px 22px;}
-  .upsell-modal-body{padding:22px 18px 16px;}
-  .upsell-modal-footer{padding:14px 18px;flex-direction:column;align-items:stretch;}
-  .upsell-actions{justify-content:space-between;}
-  .upsell-actions button{flex:1;}
-  .upsell-grid{gap:8px;}
-  .upsell-name{font-size:12px;margin-top:6px;}
-  .upsell-price{font-size:10px;}
+  .upsell-modal{
+    box-shadow:5px 5px 0 var(--blood),10px 10px 0 var(--mustard);
+    max-height:92vh;
+  }
+  .upsell-modal-header{padding:18px 20px 22px;}
+  .upsell-modal-title{font-size:24px;}
+  .upsell-modal-sub{font-size:14px;}
+  .upsell-modal-body{padding:20px 16px 16px;}
+  .upsell-modal-footer{padding:12px 16px;}
+  .upsell-btn-yes{font-size:14px;padding:15px 16px;}
+  .upsell-btn-yes-total{font-size:13px;padding:5px 10px;}
+  .upsell-grid{gap:10px;}
+  .upsell-name{font-size:12px;}
+  .upsell-price{font-size:13px;}
+  .upsell-chip-cta{font-size:10px;padding:10px 6px;}
   .extras-summary{flex-direction:column;align-items:stretch;}
   .extras-summary-btn{width:100%;}
 }
@@ -1843,48 +1891,74 @@ footer{
   </div>
 </footer>
 
-<!-- MODALE UPSELL — style kiosque fast-food -->
+<!-- MODALE UPSELL — pattern McDonald's France / Five Guys app -->
 <div class="upsell-backdrop" id="upsellBackdrop" role="dialog" aria-modal="true" aria-labelledby="upsellTitle" aria-hidden="true">
   <div class="upsell-modal">
     <div class="upsell-modal-header">
       <button type="button" class="upsell-close" onclick="closeUpsellModal()" aria-label="Fermer">×</button>
-      <div class="upsell-modal-eyebrow">★ Suggestion du chef ★</div>
-      <h2 class="upsell-modal-title" id="upsellTitle">On t'ajoute <span class="accent">quelque chose</span> ?</h2>
-      <p class="upsell-modal-sub">Ton burger c'est mieux avec des frites maison, une boisson fraîche, ou un dessert pour finir en beauté.</p>
+      <div class="upsell-modal-eyebrow">Complétez votre commande</div>
+      <h2 class="upsell-modal-title" id="upsellTitle">Souhaitez-vous <span class="accent">ajouter quelque chose</span>&nbsp;?</h2>
+      <p class="upsell-modal-sub">Frites maison, boisson fraîche, ou un dessert pour finir en beauté.</p>
     </div>
     <div class="upsell-modal-body">
       <div class="upsell-grid">
-        <div class="upsell-chip" data-v="Frites maison" data-p="3" onclick="toggleUpsell(this)" tabindex="0" role="button" aria-pressed="false" aria-label="Ajouter frites maison, 3 euros">
-          <img class="upsell-img" src="https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?w=400&h=400&fit=crop&q=80" alt="Frites maison croustillantes" loading="lazy" width="200" height="200">
-          <div class="upsell-name">Frites maison</div>
-          <div class="upsell-price">+3€</div>
-        </div>
-        <div class="upsell-chip" data-v="Boisson" data-p="2" onclick="toggleUpsell(this)" tabindex="0" role="button" aria-pressed="false" aria-label="Ajouter boisson 33 cl, 2 euros">
-          <img class="upsell-img" src="https://images.unsplash.com/photo-1437418747212-8d9709afab22?w=400&h=400&fit=crop&q=80" alt="Boisson fraîche" loading="lazy" width="200" height="200">
-          <div class="upsell-name">Boisson 33cl</div>
-          <div class="upsell-price">+2€</div>
-        </div>
-        <div class="upsell-chip" data-v="Cookie tiède" data-p="3" onclick="toggleUpsell(this)" tabindex="0" role="button" aria-pressed="false" aria-label="Ajouter cookie tiède, 3 euros">
-          <img class="upsell-img" src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400&h=400&fit=crop&q=80" alt="Cookie tiède au chocolat" loading="lazy" width="200" height="200">
-          <div class="upsell-name">Cookie tiède</div>
-          <div class="upsell-price">+3€</div>
-        </div>
-        <div class="upsell-chip" data-v="Tiramisu" data-p="4" onclick="toggleUpsell(this)" tabindex="0" role="button" aria-pressed="false" aria-label="Ajouter tiramisu, 4 euros">
-          <img class="upsell-img" src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400&h=400&fit=crop&q=80" alt="Tiramisu maison" loading="lazy" width="200" height="200">
-          <div class="upsell-name">Tiramisu</div>
-          <div class="upsell-price">+4€</div>
-        </div>
+
+        <button type="button" class="upsell-chip" data-v="Frites maison" data-p="3" onclick="toggleUpsell(this)" aria-pressed="false" aria-label="Ajouter frites maison, 3 euros">
+          <div class="upsell-chip-img-wrap">
+            <img class="upsell-img" src="https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?w=400&h=400&fit=crop&q=80" alt="Frites maison croustillantes" loading="lazy" width="200" height="200">
+            <span class="upsell-chip-badge" aria-hidden="true">✓</span>
+          </div>
+          <div class="upsell-chip-info">
+            <div class="upsell-name">Frites maison</div>
+            <div class="upsell-price">3,00&nbsp;€</div>
+          </div>
+          <span class="upsell-chip-cta"><span class="upsell-chip-cta-label"></span></span>
+        </button>
+
+        <button type="button" class="upsell-chip" data-v="Coca-Cola" data-p="2" onclick="toggleUpsell(this)" aria-pressed="false" aria-label="Ajouter Coca-Cola 33 cl, 2 euros">
+          <div class="upsell-chip-img-wrap">
+            <img class="upsell-img" src="https://images.unsplash.com/photo-1554866585-cd94860890b7?w=400&h=400&fit=crop&q=80" alt="Coca-Cola 33 cl" loading="lazy" width="200" height="200">
+            <span class="upsell-chip-badge" aria-hidden="true">✓</span>
+          </div>
+          <div class="upsell-chip-info">
+            <div class="upsell-name">Coca-Cola 33 cl</div>
+            <div class="upsell-price">2,00&nbsp;€</div>
+          </div>
+          <span class="upsell-chip-cta"><span class="upsell-chip-cta-label"></span></span>
+        </button>
+
+        <button type="button" class="upsell-chip" data-v="Cookie tiède" data-p="3" onclick="toggleUpsell(this)" aria-pressed="false" aria-label="Ajouter cookie tiède, 3 euros">
+          <div class="upsell-chip-img-wrap">
+            <img class="upsell-img" src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400&h=400&fit=crop&q=80" alt="Cookie tiède au chocolat" loading="lazy" width="200" height="200">
+            <span class="upsell-chip-badge" aria-hidden="true">✓</span>
+          </div>
+          <div class="upsell-chip-info">
+            <div class="upsell-name">Cookie tiède</div>
+            <div class="upsell-price">3,00&nbsp;€</div>
+          </div>
+          <span class="upsell-chip-cta"><span class="upsell-chip-cta-label"></span></span>
+        </button>
+
+        <button type="button" class="upsell-chip" data-v="Tiramisu" data-p="4" onclick="toggleUpsell(this)" aria-pressed="false" aria-label="Ajouter tiramisu, 4 euros">
+          <div class="upsell-chip-img-wrap">
+            <img class="upsell-img" src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400&h=400&fit=crop&q=80" alt="Tiramisu maison" loading="lazy" width="200" height="200">
+            <span class="upsell-chip-badge" aria-hidden="true">✓</span>
+          </div>
+          <div class="upsell-chip-info">
+            <div class="upsell-name">Tiramisu</div>
+            <div class="upsell-price">4,00&nbsp;€</div>
+          </div>
+          <span class="upsell-chip-cta"><span class="upsell-chip-cta-label"></span></span>
+        </button>
+
       </div>
     </div>
     <div class="upsell-modal-footer">
-      <div class="upsell-total">
-        <small>Extras</small>
-        <strong id="upsellTotal">0€</strong>
-      </div>
-      <div class="upsell-actions">
-        <button type="button" class="upsell-btn-no" onclick="declineUpsell()">Non merci</button>
-        <button type="button" class="upsell-btn-yes" onclick="confirmUpsell()"><span id="upsellYesLabel">Continuer</span> →</button>
-      </div>
+      <button type="button" class="upsell-btn-no" onclick="declineUpsell()">Non merci, passer</button>
+      <button type="button" class="upsell-btn-yes" onclick="confirmUpsell()">
+        <span class="upsell-btn-yes-label" id="upsellYesLabel">Continuer ma commande</span>
+        <span class="upsell-btn-yes-total" id="upsellTotal">0,00&nbsp;€</span>
+      </button>
     </div>
   </div>
 </div>
@@ -2032,14 +2106,16 @@ function toggleUpsell(el){
 
 function updateModalTotal(){
   var total = stagingExtras.reduce(function(a,e){return a+parseFloat(e.p);},0);
-  document.getElementById('upsellTotal').textContent = total + '€';
+  // Format français : "3,00 €" — espace insécable avant €
+  var fmt = total.toFixed(2).replace('.',',') + ' €';
+  document.getElementById('upsellTotal').textContent = fmt;
   var lbl = document.getElementById('upsellYesLabel');
   if(stagingExtras.length === 0){
     lbl.textContent = 'Continuer sans extra';
   } else if(stagingExtras.length === 1){
-    lbl.textContent = 'Ajouter ' + stagingExtras[0].v;
+    lbl.textContent = 'Continuer avec 1 extra';
   } else {
-    lbl.textContent = 'Ajouter ' + stagingExtras.length + ' extras';
+    lbl.textContent = 'Continuer avec ' + stagingExtras.length + ' extras';
   }
 }
 

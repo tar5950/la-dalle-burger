@@ -573,157 +573,370 @@ section{padding:90px 4%;position:relative;z-index:2;}
 }
 .info-val{font-family:'Fraunces',serif;font-size:15px;line-height:1.4;color:var(--ink);font-weight:500;}
 
-/* Form — ticket de boucherie */
+/* === FORM — Vrai bon de boucherie carbone === */
 .commande-form{
-  background:var(--paper);
+  background:#fdf6e3;
+  background-image:
+    repeating-linear-gradient(0deg,transparent 0,transparent 28px,rgba(26,20,16,0.04) 28px,rgba(26,20,16,0.04) 29px),
+    radial-gradient(ellipse at top right,rgba(168,40,31,0.04),transparent 60%);
   border:2px solid var(--ink);
   padding:0;
   position:relative;
-  box-shadow:6px 6px 0 var(--blood);
+  box-shadow:7px 7px 0 var(--blood),14px 14px 0 var(--mustard);
+  /* Perforations haut & bas */
+  --perf:radial-gradient(circle at 12px 0px,transparent 5px,var(--ink) 5px 5.5px,transparent 5.5px);
 }
+.commande-form::before,
+.commande-form::after{
+  content:'';position:absolute;left:0;right:0;height:14px;
+  background-image:radial-gradient(circle,var(--paper) 4px,transparent 4.5px);
+  background-size:18px 14px;background-repeat:repeat-x;
+  pointer-events:none;
+}
+.commande-form::before{top:-7px;}
+.commande-form::after{bottom:-7px;}
+
 .form-header{
-  background:var(--ink);color:var(--paper);
-  padding:18px 24px;
+  background:var(--ink);color:#fdf6e3;
+  padding:14px 22px 14px 22px;
   display:flex;justify-content:space-between;align-items:center;
+  position:relative;
+  border-bottom:3px double var(--mustard);
+}
+.form-header::after{
+  content:'';position:absolute;left:0;right:0;bottom:-9px;height:6px;
+  background-image:radial-gradient(circle,var(--ink) 2.5px,transparent 3px);
+  background-size:10px 6px;background-repeat:repeat-x;
 }
 .form-title{
-  font-family:'Bowlby One',sans-serif;font-size:22px;letter-spacing:-0.01em;
+  font-family:'Bowlby One',sans-serif;font-size:18px;letter-spacing:0.04em;
+  text-transform:uppercase;
+  display:flex;align-items:center;gap:10px;
+}
+.form-title::before{
+  content:'★';color:var(--mustard);font-size:14px;
 }
 .form-num{
   font-family:'JetBrains Mono',monospace;
-  font-size:10px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;
+  font-size:10px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;
   color:var(--mustard);
+  text-align:right;
 }
-.form-body{padding:28px 24px;}
+.form-num small{display:block;font-size:8px;color:rgba(253,246,227,0.55);letter-spacing:0.3em;font-weight:500;margin-top:2px;}
 
-.prog{display:flex;gap:6px;margin-bottom:26px;}
-.prog-step{
-  flex:1;height:6px;background:var(--paper-3);
-  border:1.5px solid var(--ink);
-  transition:background 0.3s;
+.form-body{padding:30px 26px 24px;}
+
+/* Cachet "ORIGINAL" rotated en haut à droite */
+.form-stamp-original{
+  position:absolute;top:78px;right:-14px;z-index:4;
+  transform:rotate(8deg);
+  border:2px solid var(--blood);
+  color:var(--blood);
+  font-family:'Bowlby One',sans-serif;
+  font-size:11px;letter-spacing:0.18em;
+  padding:5px 12px;
+  background:rgba(253,246,227,0.85);
+  text-transform:uppercase;
+  box-shadow:0 0 0 3px rgba(253,246,227,0.7);
+  pointer-events:none;
+  white-space:nowrap;
 }
-.prog-step.done{background:var(--blood);}
 
-.step-lbl{
+/* Date/serial bar */
+.form-meta-bar{
+  display:flex;justify-content:space-between;
+  border-top:1px dashed var(--line);border-bottom:1px dashed var(--line);
+  padding:8px 0;margin-bottom:24px;
   font-family:'JetBrains Mono',monospace;
-  font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--ink);
-  display:flex;align-items:center;gap:8px;
-  margin:22px 0 12px;
+  font-size:9px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--ink-3);
 }
-.step-lbl::before{
-  content:'';display:inline-block;width:14px;height:1.5px;background:var(--blood);
+.form-meta-bar strong{color:var(--ink);}
+
+/* Progression — étapes en chiffres romains, type tampon */
+.prog{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  margin-bottom:6px;
+  border:1.5px solid var(--ink);
+}
+.prog-step{
+  position:relative;
+  height:38px;
+  background:transparent;
+  border-right:1.5px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bowlby One',sans-serif;font-size:14px;
+  color:var(--ink-3);
+  transition:background 0.25s,color 0.25s,transform 0.25s;
+}
+.prog-step:last-child{border-right:none;}
+.prog-step::before{
+  content:attr(data-roman);
+  position:relative;z-index:2;
+}
+.prog-step.done{
+  background:var(--blood);color:var(--paper);
+}
+.prog-step.done::after{
+  content:'✓';position:absolute;right:6px;top:3px;
+  font-size:10px;color:var(--mustard);
+}
+.prog-cap{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  font-family:'JetBrains Mono',monospace;
+  font-size:8px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--ink-3);
+  text-align:center;margin:6px 0 22px;
 }
 
-.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+/* Step labels — comme étiquettes manuscrites */
+.step-lbl{
+  font-family:'Bowlby One',sans-serif;
+  font-size:13px;letter-spacing:0.02em;text-transform:uppercase;
+  color:var(--ink);
+  display:flex;align-items:baseline;gap:10px;
+  margin:24px 0 10px;padding-bottom:6px;
+  border-bottom:1.5px solid var(--ink);
+  position:relative;
+}
+.step-lbl .step-num{
+  font-family:'Bowlby One',sans-serif;font-size:18px;color:var(--blood);
+  letter-spacing:0;flex-shrink:0;
+  background:var(--mustard);
+  padding:0 8px;line-height:1.4;
+  border:1.5px solid var(--ink);
+  transform:rotate(-2deg);
+}
+.step-lbl .step-hint{
+  margin-left:auto;
+  font-family:'Fraunces',serif;font-style:italic;
+  font-variation-settings:"opsz" 36,"WONK" 1;
+  font-size:11px;font-weight:400;color:var(--ink-3);
+  text-transform:none;letter-spacing:0;
+}
+
+/* Grids */
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
 
+/* Mode chip — case à cocher dessinée */
 .chip{
-  background:var(--paper-2);border:1.5px solid var(--ink);
-  padding:14px 8px;text-align:center;cursor:pointer;
+  background:transparent;border:1.5px solid var(--ink);
+  padding:14px 12px;text-align:left;cursor:pointer;
   transition:all 0.15s;
+  display:flex;align-items:center;gap:10px;
+  position:relative;
 }
-.chip:hover{background:var(--paper-3);}
-.chip.on{background:var(--blood);color:var(--paper);}
+.chip:hover{background:rgba(168,40,31,0.05);}
+.chip:focus-visible{outline:3px solid var(--mustard);outline-offset:2px;}
+.chip::before{
+  content:'';width:18px;height:18px;flex-shrink:0;
+  border:1.5px solid var(--ink);
+  background:var(--paper);
+  display:inline-block;
+}
+.chip.on::before{
+  background:var(--blood);
+  background-image:linear-gradient(45deg,transparent 40%,var(--paper) 40% 60%,transparent 60%),
+                   linear-gradient(-45deg,transparent 40%,var(--paper) 40% 60%,transparent 60%);
+}
+.chip.on{background:rgba(168,40,31,0.08);}
 .chip-n{
   font-family:'Bowlby One',sans-serif;
-  font-size:13px;letter-spacing:-0.01em;
-  color:inherit;
+  font-size:13px;letter-spacing:0;
+  color:var(--ink);
 }
 
+/* Burger chip — entrée bordereau */
 .srv-chip{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:14px 16px;background:var(--paper-2);
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:14px;align-items:center;
+  padding:14px 16px;
+  background:transparent;
   border:1.5px solid var(--ink);
-  cursor:pointer;transition:all 0.15s;margin-bottom:6px;
+  cursor:pointer;transition:all 0.15s;
+  margin-bottom:6px;
+  position:relative;
 }
-.srv-chip:hover{background:var(--paper-3);}
-.srv-chip.on{background:var(--blood);color:var(--paper);}
+.srv-chip:hover{background:rgba(168,40,31,0.05);}
+.srv-chip:focus-visible{outline:3px solid var(--mustard);outline-offset:2px;}
+.srv-chip::before{
+  content:'';width:18px;height:18px;flex-shrink:0;
+  border:1.5px solid var(--ink);
+  background:var(--paper);
+}
+.srv-chip.on{
+  background:rgba(168,40,31,0.08);
+  border-color:var(--blood);
+  border-width:2px;padding:13.5px 15.5px;
+}
+.srv-chip.on::before{
+  background:var(--blood);
+  background-image:linear-gradient(45deg,transparent 40%,var(--paper) 40% 60%,transparent 60%),
+                   linear-gradient(-45deg,transparent 40%,var(--paper) 40% 60%,transparent 60%);
+}
+.srv-chip.on::after{
+  content:'CHOISI';
+  position:absolute;top:-8px;right:14px;
+  background:var(--mustard);color:var(--ink);
+  font-family:'JetBrains Mono',monospace;font-size:8px;
+  font-weight:700;letter-spacing:0.22em;
+  padding:2px 8px;border:1.5px solid var(--ink);
+  transform:rotate(2deg);
+}
 .srv-chip-n{
-  font-family:'Bowlby One',sans-serif;font-size:18px;letter-spacing:-0.01em;color:inherit;
+  font-family:'Bowlby One',sans-serif;font-size:17px;letter-spacing:-0.01em;
+  color:var(--ink);
 }
 .srv-chip-p{
   font-family:'Bowlby One',sans-serif;font-size:22px;
-  color:var(--blood);
+  color:var(--blood);line-height:1;
+  background:var(--mustard);
+  padding:6px 10px 4px;
+  border:1.5px solid var(--ink);
+  transform:rotate(2deg);
 }
-.srv-chip.on .srv-chip-p{color:var(--mustard);}
+.srv-chip.on .srv-chip-p{transform:rotate(-1deg);}
 
+/* Calendrier — feuilles de timbre */
 .cal-chip{
-  background:var(--paper-2);border:1.5px solid var(--ink);
-  padding:10px 4px;text-align:center;cursor:pointer;transition:all 0.15s;
+  background:transparent;border:1.5px solid var(--ink);
+  padding:8px 4px 6px;text-align:center;cursor:pointer;
+  transition:all 0.15s;position:relative;
 }
-.cal-chip:hover{background:var(--paper-3);}
-.cal-chip.on{background:var(--blood);color:var(--paper);}
-.cal-n{font-family:'Bowlby One',sans-serif;font-size:22px;color:inherit;line-height:1;}
+.cal-chip:hover{background:rgba(168,40,31,0.05);}
+.cal-chip:focus-visible{outline:3px solid var(--mustard);outline-offset:2px;}
+.cal-chip.on{
+  background:var(--blood);
+  border-color:var(--ink);
+  transform:rotate(-1deg) scale(1.02);
+}
+.cal-n{font-family:'Bowlby One',sans-serif;font-size:24px;color:var(--ink);line-height:1;}
+.cal-chip.on .cal-n{color:var(--paper);}
 .cal-l{
   font-family:'JetBrains Mono',monospace;
-  font-size:9px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;
-  color:inherit;opacity:0.65;margin-top:4px;
+  font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--ink-3);margin-top:4px;
 }
-.cal-chip.on .cal-l{opacity:1;}
+.cal-chip.on .cal-l{color:var(--mustard);}
 
+/* Heures */
 .hr-chip{
-  background:var(--paper-2);border:1.5px solid var(--ink);
-  padding:10px 4px;text-align:center;cursor:pointer;
+  background:transparent;border:1.5px solid var(--ink);
+  padding:9px 4px;text-align:center;cursor:pointer;
   font-family:'JetBrains Mono',monospace;
   font-size:13px;font-weight:700;color:var(--ink);
   transition:all 0.15s;
 }
-.hr-chip:hover{background:var(--paper-3);}
+.hr-chip:hover{background:rgba(168,40,31,0.05);}
+.hr-chip:focus-visible{outline:3px solid var(--mustard);outline-offset:2px;}
 .hr-chip.on{background:var(--blood);color:var(--paper);}
-.hr-chip.taken{opacity:0.25;pointer-events:none;text-decoration:line-through;}
+.hr-chip.taken{
+  opacity:0.45;pointer-events:none;
+  background:repeating-linear-gradient(135deg,transparent 0 4px,rgba(26,20,16,0.18) 4px 5px);
+}
 
+/* Inputs — papier ligné */
 .f-inp{
   width:100%;display:block;
-  background:var(--paper);
+  background:transparent;
   border:none;border-bottom:1.5px solid var(--ink);
-  color:var(--ink);padding:13px 0;
-  font-family:'JetBrains Mono',monospace;
-  font-size:13px;font-weight:500;letter-spacing:0.02em;
-  outline:none;transition:border-color 0.18s;margin-bottom:6px;
+  color:var(--ink);padding:14px 0 8px 22px;
+  font-family:'Fraunces',serif;
+  font-size:16px;font-weight:500;letter-spacing:0.01em;
+  outline:none;transition:border-color 0.18s;margin-bottom:4px;
+  background-image:linear-gradient(to right,var(--blood) 0,var(--blood) 14px,transparent 14px);
+  background-repeat:no-repeat;background-position:0 24px;background-size:auto 1.5px;
 }
+.f-inp::placeholder{color:var(--ink-3);font-weight:400;text-transform:none;font-size:14px;letter-spacing:0;font-style:italic;font-variation-settings:"opsz" 36,"WONK" 1;}
 .f-inp:focus{border-color:var(--blood);border-bottom-width:2.5px;}
-.f-inp::placeholder{color:var(--ink-3);font-weight:400;text-transform:uppercase;font-size:11px;letter-spacing:0.18em;}
+.f-inp:focus::placeholder{opacity:0.4;}
+.f-inp::before{content:'→';}
 
+/* Récap — souche carbone */
 .recap{
-  background:var(--ink);color:var(--paper);
-  padding:18px 18px;margin:22px 0 12px;
+  background:#fdf6e3;color:var(--ink);
+  background-image:repeating-linear-gradient(0deg,transparent 0 26px,rgba(168,40,31,0.06) 26px 27px);
+  padding:22px 18px 18px;margin:26px 0 14px;
   display:none;
-  border:2px dashed var(--mustard);
+  border:2px solid var(--ink);
   position:relative;
 }
 .recap.show{display:block;}
 .recap::before{
-  content:'TOTAL';position:absolute;top:-10px;left:14px;
-  background:var(--mustard);color:var(--ink);
-  font-family:'JetBrains Mono',monospace;
-  font-size:10px;font-weight:700;letter-spacing:0.22em;
-  padding:2px 8px;
+  content:'★ Total à régler';position:absolute;top:-12px;left:14px;
+  background:var(--blood);color:var(--paper);
+  font-family:'Bowlby One',sans-serif;
+  font-size:11px;font-weight:400;letter-spacing:0.06em;text-transform:uppercase;
+  padding:4px 12px;border:1.5px solid var(--ink);
+  transform:rotate(-1.5deg);
+}
+/* Code-barres décoratif */
+.recap::after{
+  content:'';position:absolute;bottom:8px;right:14px;
+  width:90px;height:24px;
+  background-image:repeating-linear-gradient(90deg,
+    var(--ink) 0 1px,transparent 1px 3px,
+    var(--ink) 3px 5px,transparent 5px 6px,
+    var(--ink) 6px 7px,transparent 7px 10px,
+    var(--ink) 10px 12px,transparent 12px 13px);
 }
 .recap-line{
   font-family:'JetBrains Mono',monospace;
-  font-size:12px;font-weight:500;letter-spacing:0.04em;
-  color:var(--paper);margin-bottom:5px;
-  display:flex;justify-content:space-between;
+  font-size:11px;font-weight:500;letter-spacing:0.06em;
+  color:var(--ink);margin-bottom:6px;
+  display:flex;justify-content:space-between;align-items:baseline;
+  text-transform:uppercase;
+  border-bottom:1px dotted rgba(26,20,16,0.18);
+  padding-bottom:6px;
 }
-.recap-line span{color:var(--mustard);font-weight:700;}
+.recap-line span{
+  color:var(--ink);font-weight:700;
+  font-family:'Fraunces',serif;font-style:italic;
+  font-variation-settings:"opsz" 36,"WONK" 1;
+  font-size:14px;text-transform:none;letter-spacing:0;
+}
+.recap-line:nth-last-child(2){border-bottom:none;margin-bottom:0;padding-bottom:0;}
 .recap-line:last-child{
-  margin-top:8px;padding-top:8px;border-top:1px dashed rgba(239,229,207,0.3);
-  font-family:'Bowlby One',sans-serif;font-size:18px;letter-spacing:-0.01em;
+  margin-top:14px;padding:10px 12px;
+  border:2px solid var(--ink);background:var(--mustard);
+  font-family:'Bowlby One',sans-serif;font-size:16px;letter-spacing:0;
+  color:var(--ink);text-transform:uppercase;
 }
-.recap-line:last-child span{font-size:1em;color:var(--blood-3);}
+.recap-line:last-child span{
+  font-family:'Bowlby One',sans-serif;font-style:normal;
+  font-size:24px;color:var(--blood);letter-spacing:-0.02em;
+}
 
 .btn-wa{
   width:100%;
   font-family:'Bowlby One',sans-serif;
-  font-size:18px;letter-spacing:0;
-  background:#1a8a4a;color:#f0e7d2;
-  padding:18px;
+  font-size:18px;letter-spacing:0.02em;
+  background:#1a8a4a;color:#fdf6e3;
+  padding:20px;
   border:2px solid var(--ink);
   box-shadow:5px 5px 0 var(--ink);
-  display:flex;align-items:center;justify-content:center;gap:10px;
+  display:flex;align-items:center;justify-content:center;gap:12px;
   cursor:pointer;
+  text-transform:uppercase;
+  position:relative;
   transition:transform 0.15s,box-shadow 0.15s;
+}
+.btn-wa::before{
+  content:'';position:absolute;left:14px;top:50%;
+  width:34px;height:34px;border:2px solid var(--mustard);
+  border-radius:50%;transform:translateY(-50%) rotate(-8deg);
+  pointer-events:none;
+}
+.btn-wa::after{
+  content:'BON POUR ACCORD';
+  position:absolute;left:18px;top:50%;transform:translateY(-50%) rotate(-8deg);
+  font-family:'JetBrains Mono',monospace;
+  font-size:6px;font-weight:700;letter-spacing:0.1em;
+  color:var(--mustard);
+  width:30px;line-height:1.1;text-align:center;
+  pointer-events:none;
 }
 .btn-wa:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink);}
 .btn-wa:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink);}
@@ -962,7 +1175,7 @@ footer{
 
   <div class="hero-r">
     <div class="hero-vid-frame">
-      <video id="heroVid" autoplay muted playsinline preload="auto" webkit-playsinline>
+      <video id="heroVid" autoplay muted loop playsinline preload="auto" webkit-playsinline>
         <source src="https://res.cloudinary.com/dzh5vllay/video/upload/q_auto,w_720/v1776027285/un_burger_%C3%A9clat%C3%A9_ok_ehmmyc.mp4" type="video/mp4" media="(max-width:600px)">
         <source src="https://res.cloudinary.com/dzh5vllay/video/upload/v1776027285/un_burger_%C3%A9clat%C3%A9_ok_ehmmyc.mp4" type="video/mp4">
       </video>
@@ -1118,44 +1331,52 @@ footer{
     </div>
 
     <div class="commande-form fade-up">
+      <span class="form-stamp-original">★ Bon · Original</span>
       <div class="form-header">
         <span class="form-title">Bon de commande</span>
-        <span class="form-num">Nº <span id="ticketNum">001</span></span>
+        <span class="form-num">Nº A-<span id="ticketNum">237</span><small>Souche client</small></span>
       </div>
       <div class="form-body">
+        <div class="form-meta-bar">
+          <span>Émis le <strong id="formDate">—</strong></span>
+          <span>Atelier · <strong>Douai</strong></span>
+        </div>
+
         <div class="prog">
-          <div class="prog-step done" id="ps1"></div>
-          <div class="prog-step" id="ps2"></div>
-          <div class="prog-step" id="ps3"></div>
-          <div class="prog-step" id="ps4"></div>
+          <div class="prog-step done" id="ps1" data-roman="I"></div>
+          <div class="prog-step" id="ps2" data-roman="II"></div>
+          <div class="prog-step" id="ps3" data-roman="III"></div>
+          <div class="prog-step" id="ps4" data-roman="IV"></div>
+        </div>
+        <div class="prog-cap">
+          <span>Burger</span><span>Mode</span><span>Jour</span><span>Heure</span>
         </div>
 
-        <div class="step-lbl">I — Ton burger</div>
+        <div class="step-lbl"><span class="step-num">I</span>Ton burger<span class="step-hint">— un seul, on cuisine à la commande</span></div>
         <div id="srv-grid">
-          <div class="srv-chip" data-v="Le Classic" data-p="8" onclick="selS(this)"><div class="srv-chip-n">Le Classic</div><div class="srv-chip-p">8€</div></div>
-          <div class="srv-chip" data-v="Le Smash" data-p="10" onclick="selS(this)"><div class="srv-chip-n">Le Smash</div><div class="srv-chip-p">10€</div></div>
-          <div class="srv-chip" data-v="Le Chicken" data-p="9" onclick="selS(this)"><div class="srv-chip-n">Le Chicken</div><div class="srv-chip-p">9€</div></div>
-          <div class="srv-chip" data-v="Le Combo" data-p="14" onclick="selS(this)"><div class="srv-chip-n">Le Combo</div><div class="srv-chip-p">14€</div></div>
+          <div class="srv-chip" data-v="Le Classic" data-p="8" onclick="selS(this)" tabindex="0" role="button" aria-label="Le Classic, 8 euros"><div class="srv-chip-n">Le Classic</div><div class="srv-chip-p">8€</div></div>
+          <div class="srv-chip" data-v="Le Smash" data-p="10" onclick="selS(this)" tabindex="0" role="button" aria-label="Le Smash, 10 euros"><div class="srv-chip-n">Le Smash</div><div class="srv-chip-p">10€</div></div>
+          <div class="srv-chip" data-v="Le Chicken" data-p="9" onclick="selS(this)" tabindex="0" role="button" aria-label="Le Chicken, 9 euros"><div class="srv-chip-n">Le Chicken</div><div class="srv-chip-p">9€</div></div>
+          <div class="srv-chip" data-v="Le Combo" data-p="14" onclick="selS(this)" tabindex="0" role="button" aria-label="Le Combo, 14 euros"><div class="srv-chip-n">Le Combo</div><div class="srv-chip-p">14€</div></div>
         </div>
 
-        <div class="step-lbl">II — Livraison ou à emporter ?</div>
+        <div class="step-lbl"><span class="step-num">II</span>Mode<span class="step-hint">— livraison ou à emporter</span></div>
         <div class="g2">
-          <div class="chip" data-v="Livraison" onclick="selB(this)"><div class="chip-n">🛵 Livraison</div></div>
-          <div class="chip" data-v="À emporter" onclick="selB(this)"><div class="chip-n">🏃 À emporter</div></div>
+          <div class="chip" data-v="Livraison" onclick="selB(this)" tabindex="0" role="button" aria-label="Livraison"><div class="chip-n">🛵 Livraison</div></div>
+          <div class="chip" data-v="À emporter" onclick="selB(this)" tabindex="0" role="button" aria-label="À emporter"><div class="chip-n">🏃 À emporter</div></div>
         </div>
 
-        <div class="step-lbl">III — Quel jour ?</div>
-        <div class="g4" id="cal-grid"></div>
+        <div class="step-lbl"><span class="step-num">III</span>Quand<span class="step-hint">— jour &amp; heure</span></div>
+        <div class="g4" id="cal-grid" role="radiogroup" aria-label="Jour de commande"></div>
 
-        <div id="hrs-wrap" style="display:none">
-          <div class="step-lbl">— Quelle heure ?</div>
-          <div class="g4" id="hrs-grid"></div>
+        <div id="hrs-wrap" style="display:none;margin-top:12px;">
+          <div class="g4" id="hrs-grid" role="radiogroup" aria-label="Heure de commande"></div>
         </div>
 
-        <div class="step-lbl">IV — Tes infos</div>
-        <input class="f-inp" type="text" id="c-name" placeholder="Ton prénom *">
-        <input class="f-inp" type="tel" id="c-tel" placeholder="Ton numéro WhatsApp *">
-        <input class="f-inp" type="text" id="c-adresse" placeholder="Ton adresse (si livraison)">
+        <div class="step-lbl"><span class="step-num">IV</span>Tes infos<span class="step-hint">— pour qu'on te trouve</span></div>
+        <input class="f-inp" type="text" id="c-name" placeholder="Ton prénom" autocomplete="given-name">
+        <input class="f-inp" type="tel" id="c-tel" placeholder="Ton numéro WhatsApp" autocomplete="tel" inputmode="tel">
+        <input class="f-inp" type="text" id="c-adresse" placeholder="Ton adresse (si livraison)" autocomplete="street-address">
 
         <div class="recap" id="recap">
           <div class="recap-line">Burger <span id="rc-s">—</span></div>
@@ -1259,16 +1480,21 @@ window.addEventListener('scroll', function() {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 80);
 });
 
-// VIDEO
+// VIDEO — boucle infinie sans pause
 var vid = document.getElementById('heroVid');
 if (vid) {
-  vid.muted = true; vid.playbackRate = 1.2;
+  vid.muted = true; vid.loop = true; vid.playbackRate = 1.2;
   vid.setAttribute('playsinline','');
-  vid.addEventListener('ended', function(){ vid.currentTime=0; vid.pause(); });
+  vid.setAttribute('loop','');
+  // Failsafe : relancer si jamais le navigateur arrête
+  vid.addEventListener('ended', function(){ vid.currentTime=0; vid.play().catch(function(){}); });
+  vid.addEventListener('pause', function(){ if(!vid.ended) vid.play().catch(function(){}); });
   function tryPlay(){ vid.play().catch(function(){}); }
-  tryPlay(); setTimeout(tryPlay,600); setTimeout(tryPlay,1600);
+  tryPlay(); setTimeout(tryPlay,400); setTimeout(tryPlay,1200);
   document.addEventListener('touchstart', tryPlay, {once:true});
   document.addEventListener('click', tryPlay, {once:true});
+  // Replay si l'onglet redevient visible
+  document.addEventListener('visibilitychange', function(){ if(!document.hidden) tryPlay(); });
 }
 
 // REVEAL
@@ -1278,8 +1504,25 @@ var io = new IntersectionObserver(function(entries){
 }, { threshold:0.1 });
 fadeEls.forEach(function(el){ io.observe(el); });
 
-// TICKET NUMBER (random feel)
+// TICKET NUMBER (random feel) + date émission
 document.getElementById('ticketNum').textContent = String(Math.floor(Math.random()*900)+100);
+(function(){
+  var d=new Date();
+  var dd=String(d.getDate()).padStart(2,'0');
+  var mm=String(d.getMonth()+1).padStart(2,'0');
+  var yy=String(d.getFullYear()).slice(-2);
+  var hh=String(d.getHours()).padStart(2,'0');
+  var mn=String(d.getMinutes()).padStart(2,'0');
+  var el=document.getElementById('formDate');
+  if(el) el.textContent = dd+'.'+mm+'.'+yy+' · '+hh+':'+mn;
+})();
+
+// Keyboard support pour les chips (Enter / Space)
+document.querySelectorAll('.srv-chip,.chip,.cal-chip,.hr-chip').forEach(function(el){
+  el.addEventListener('keydown', function(e){
+    if(e.key==='Enter'||e.key===' '){ e.preventDefault(); el.click(); }
+  });
+});
 
 // COMMANDE STATE
 var R = { s:'', b:'', p:'', d:'', t:'' };

@@ -306,18 +306,19 @@ nav.scrolled{background:rgba(239,229,207,0.96);backdrop-filter:blur(8px);}
 
 .hero-title{
   font-family:'Bowlby One',sans-serif;
-  font-size:clamp(50px,9.5vw,134px);
-  line-height:0.84;letter-spacing:-0.025em;
+  font-size:clamp(40px,7.5vw,108px);
+  line-height:0.86;letter-spacing:-0.025em;
   color:var(--paper);
-  margin-bottom:6px;
+  margin-bottom:14px;
   position:relative;
   text-shadow:0 4px 30px rgba(0,0,0,0.55);
 }
+.hero-title .l1{display:block;color:var(--paper);}
 .hero-title .l1{display:block;}
 .hero-title .l2{display:block;color:var(--blood-3);position:relative;}
 .hero-title .l2::before{
-  content:'BURGER';
-  position:absolute;left:8px;top:6px;color:var(--mustard);
+  content:attr(data-text);
+  position:absolute;left:6px;top:5px;color:var(--mustard);
   z-index:-1;opacity:0.55;
   text-shadow:none;
 }
@@ -340,14 +341,23 @@ nav.scrolled{background:rgba(239,229,207,0.96);backdrop-filter:blur(8px);}
 }
 
 .hero-sub{
-  font-family:'Fraunces',serif;
-  font-size:15px;line-height:1.55;
-  color:rgba(239,229,207,0.86);
-  max-width:480px;margin-bottom:26px;
-  font-variation-settings:"opsz" 14;
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;font-weight:500;
+  letter-spacing:0.16em;text-transform:uppercase;
+  color:rgba(239,229,207,0.92);
+  margin-bottom:26px;
   text-shadow:0 1px 6px rgba(0,0,0,0.6);
 }
-.hero-sub strong{color:var(--paper);font-weight:600;background:linear-gradient(180deg,transparent 60%,rgba(217,154,31,0.55) 60%);padding:0 3px;}
+.hero-sub strong{
+  color:var(--paper);font-weight:700;
+  font-family:'Bowlby One',sans-serif;
+  font-size:1.4em;letter-spacing:0;line-height:1;
+  display:inline-block;
+  background:var(--mustard);color:var(--ink);
+  padding:2px 9px 0px;margin-left:4px;
+  text-transform:none;
+  vertical-align:middle;
+}
 
 .hero-btns{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
 .btn-primary{
@@ -911,6 +921,68 @@ section{padding:90px 4%;position:relative;z-index:2;}
   font-size:13px;letter-spacing:0;
   color:var(--ink);
 }
+
+/* === SELECT BURGER (simplifié) === */
+.srv-select-wrap{
+  position:relative;
+  margin-bottom:6px;
+}
+.srv-select{
+  width:100%;
+  background:var(--paper-2);
+  border:2px solid var(--ink);
+  padding:18px 50px 16px 18px;
+  font-family:'Bowlby One',sans-serif;
+  font-size:18px;letter-spacing:-0.01em;
+  color:var(--ink);
+  cursor:pointer;
+  outline:none;
+  appearance:none;-webkit-appearance:none;-moz-appearance:none;
+  background-image:none;
+  min-height:62px;
+  transition:background 0.18s,border-color 0.18s;
+}
+.srv-select:hover{background:var(--paper-3);}
+.srv-select:focus-visible{border-color:var(--blood);background:var(--paper);}
+.srv-select.has-value{
+  background:rgba(168,40,31,0.06);
+  border-color:var(--blood);
+  border-width:2.5px;
+  padding:17.5px 49.5px 15.5px 17.5px;
+}
+.srv-select-arrow{
+  position:absolute;right:18px;top:50%;
+  width:24px;height:24px;
+  transform:translateY(-50%);
+  pointer-events:none;
+  font-family:'Bowlby One',sans-serif;
+  font-size:18px;color:var(--blood);
+  display:flex;align-items:center;justify-content:center;
+  background:var(--mustard);
+  border:2px solid var(--ink);
+  border-radius:50%;
+  transition:transform 0.18s;
+}
+.srv-select-wrap:hover .srv-select-arrow{transform:translateY(-50%) rotate(180deg);}
+.srv-select option{
+  font-family:'DM Sans',sans-serif;
+  font-size:15px;
+  padding:10px;
+  background:var(--paper);
+  color:var(--ink);
+}
+/* Étiquette "Le plus commandé" sur le select quand Smash sélectionné */
+.srv-select-badge{
+  display:none;
+  position:absolute;top:-10px;right:54px;z-index:2;
+  background:var(--mustard);color:var(--ink);
+  font-family:'JetBrains Mono',monospace;font-size:9px;
+  font-weight:700;letter-spacing:0.18em;text-transform:uppercase;
+  padding:3px 9px;border:1.5px solid var(--ink);
+  transform:rotate(-2deg);
+  pointer-events:none;
+}
+.srv-select-wrap.is-bestseller .srv-select-badge{display:inline-block;}
 
 /* Burger chip — entrée bordereau */
 .srv-chip{
@@ -2630,29 +2702,18 @@ footer{
   </div>
 
   <div class="hero-l">
-    <div class="hero-tag">100% Halal — Fait Maison</div>
     <h1 class="hero-title">
-      <span class="l1">LA DALLE</span>
-      <span class="l2">BURGER</span>
+      <span class="l1">LE SMASH</span>
+      <span class="l2" data-text="DE TON QUARTIER">DE TON QUARTIER</span>
     </h1>
-    <div class="hero-kicker">
-      <span class="kicker-num">↳</span>
-      <span><span class="italic">Street food</span> faite <strong style="font-style:normal;font-family:'Bowlby One',sans-serif;color:var(--mustard);">à la main</strong>, pas à la chaîne.</span>
-    </div>
-    <p class="hero-sub">Bun brioché <strong>fabriqué chaque matin</strong>. Viande fraîche du jour, jamais surgelée. Sauces secrètes. Tu commandes <strong>directement sur WhatsApp</strong>, en 30 secondes.</p>
+    <p class="hero-sub">Halal AVS · Fait main · <strong>À partir de 8&nbsp;€</strong></p>
     <div class="hero-btns">
       <a href="#commande" class="btn-primary">→ Commander maintenant</a>
-      <a href="#menu" class="btn-secondary">Voir le menu</a>
-    </div>
-    <div class="hero-cta-promise" aria-hidden="true">
-      <span>Prêt en 15 min</span>
-      <span>Livré en 35 min</span>
-      <span>Paiement à la livraison</span>
     </div>
     <div class="hero-stats">
-      <div class="hstat"><div class="hstat-v">4.9<span class="star">★</span></div><div class="hstat-l">Note Google</div></div>
-      <div class="hstat"><div class="hstat-v">200<span style="color:var(--blood-3);font-size:0.7em;">+</span></div><div class="hstat-l">Avis vérifiés</div></div>
-      <div class="hstat"><div class="hstat-v">7<span style="color:var(--mustard);font-size:0.7em;">/7</span></div><div class="hstat-l">11h — 23h</div></div>
+      <div class="hstat"><div class="hstat-v">4,9<span class="star">★</span></div><div class="hstat-l">Google · 200+ avis</div></div>
+      <div class="hstat"><div class="hstat-v">15<span style="color:var(--mustard);font-size:0.7em;">′</span></div><div class="hstat-l">Prep' minute</div></div>
+      <div class="hstat"><div class="hstat-v">35<span style="color:var(--blood-3);font-size:0.7em;">′</span></div><div class="hstat-l">Livré chez toi</div></div>
     </div>
   </div>
 </section>
@@ -2944,12 +3005,17 @@ footer{
           <span>Burger</span><span>Mode</span><span>Jour</span><span>Heure</span>
         </div>
 
-        <div class="step-lbl"><span class="step-num">I</span>Ton burger<span class="step-hint">— un seul, on cuisine à la commande</span></div>
-        <div id="srv-grid">
-          <div class="srv-chip" data-v="Le Classic" data-p="8" onclick="selS(this)" tabindex="0" role="button" aria-label="Le Classic, 8 euros"><div class="srv-chip-n">Le Classic</div><div class="srv-chip-p">8€</div></div>
-          <div class="srv-chip" data-v="Le Smash" data-p="10" onclick="selS(this)" tabindex="0" role="button" aria-label="Le Smash, 10 euros"><div class="srv-chip-n">Le Smash</div><div class="srv-chip-p">10€</div></div>
-          <div class="srv-chip" data-v="Le Chicken" data-p="9" onclick="selS(this)" tabindex="0" role="button" aria-label="Le Chicken, 9 euros"><div class="srv-chip-n">Le Chicken</div><div class="srv-chip-p">9€</div></div>
-          <div class="srv-chip" data-v="Le Combo" data-p="14" onclick="selS(this)" tabindex="0" role="button" aria-label="Le Combo, 14 euros"><div class="srv-chip-n">Le Combo</div><div class="srv-chip-p">14€</div></div>
+        <div class="step-lbl"><span class="step-num">I</span>Ton burger<span class="step-hint">— choisis dans la liste</span></div>
+        <div class="srv-select-wrap" id="srvSelectWrap">
+          <span class="srv-select-badge" aria-hidden="true">★ Le plus commandé</span>
+          <select id="srvSelect" class="srv-select" onchange="selSFromDropdown(this)" aria-label="Choisis ton burger">
+            <option value="" data-p="0">— Choisis ton burger —</option>
+            <option value="Le Classic" data-p="8">Le Classic — 8 €</option>
+            <option value="Le Smash" data-p="10">★ Le Smash — 10 € (le plus commandé)</option>
+            <option value="Le Chicken" data-p="9">Le Chicken — 9 €</option>
+            <option value="Le Combo" data-p="14">Le Combo — 14 € (burger + frites + boisson)</option>
+          </select>
+          <span class="srv-select-arrow" aria-hidden="true">▾</span>
         </div>
 
         <!-- RÉSUMÉ EXTRAS (cliquable pour rouvrir la modale) -->
@@ -3608,11 +3674,36 @@ document.addEventListener('keydown', function(e){
 document.getElementById('upsellBackdrop').addEventListener('click', function(e){
   if(e.target === this) closeUpsellModal();
 });
+// === SÉLECTION BURGER (dropdown simplifié) ===
+function selSFromDropdown(sel){
+  var prev = R.s;
+  var opt = sel.options[sel.selectedIndex];
+  var v = opt.value;
+  var p = opt.getAttribute('data-p') || '0';
+  var wrap = document.getElementById('srvSelectWrap');
+
+  if(!v){
+    R.s=''; R.p=0;
+    sel.classList.remove('has-value');
+    wrap.classList.remove('is-bestseller');
+    updRecap();
+    return;
+  }
+  R.s = v; R.p = p;
+  sel.classList.add('has-value');
+  wrap.classList.toggle('is-bestseller', v === 'Le Smash');
+  updRecap();
+  // Ouvre la modale upsell uniquement au changement
+  if(prev !== R.s){
+    setTimeout(function(){ openUpsellModal(false); }, 280);
+  }
+}
+
+// Conservée pour compatibilité (anciens clics .srv-chip si ré-injectés)
 function selS(el){
   var prev = R.s;
   document.querySelectorAll('.srv-chip').forEach(function(e){e.classList.remove('on');});
   el.classList.add('on'); R.s=el.getAttribute('data-v'); R.p=el.getAttribute('data-p'); updRecap();
-  // Ouvre la modale upsell uniquement à la 1ère sélection burger (ou changement)
   if(prev !== R.s){
     setTimeout(function(){ openUpsellModal(false); }, 280);
   }
@@ -3701,7 +3792,12 @@ function autoScrollToStep(stepNum){
   }, 250);
 }
 function pickSrv(name,price){
-  document.querySelectorAll('.srv-chip').forEach(function(el){if(el.getAttribute('data-v')===name)selS(el);});
+  // Sélection depuis le menu : on règle la valeur du dropdown puis on déclenche le handler
+  var sel = document.getElementById('srvSelect');
+  if(sel){
+    sel.value = name;
+    selSFromDropdown(sel);
+  }
   document.getElementById('commande').scrollIntoView({behavior:'smooth'});
 }
 

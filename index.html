@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>La Dalle Burger — Boucherie zine · Halal · Fait main</title>
 <meta name="description" content="La Dalle Burger : burgers halal faits maison, viande fraîche du matin, bun brioché à la main, sauces secrètes. Commande sur WhatsApp en 30 secondes. 4,9★ — 200+ avis.">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -900,23 +903,31 @@ section{padding:90px 4%;position:relative;z-index:2;}
 
 /* === UPSELL — Suggestion du chef === */
 .upsell{
-  margin:20px 0 6px;
+  margin:30px 0 14px;
   position:relative;
-  border:2px dashed var(--blood);
+  border:2.5px solid var(--blood);
   background:
     repeating-linear-gradient(45deg,
-      transparent 0 12px,
-      rgba(217,154,31,0.04) 12px 14px);
-  padding:22px 18px 14px;
+      transparent 0 14px,
+      rgba(217,154,31,0.08) 14px 16px),
+    var(--paper-2);
+  padding:30px 18px 18px;
+  box-shadow:4px 4px 0 var(--mustard);
+  animation:upsell-pop 0.6s ease-out 0.3s both;
+}
+@keyframes upsell-pop{
+  from{transform:scale(0.96);opacity:0;}
+  to{transform:scale(1);opacity:1;}
 }
 .upsell::before{
-  content:'★ Suggestion du chef';
-  position:absolute;top:-12px;left:50%;transform:translateX(-50%) rotate(-1deg);
-  background:var(--mustard);color:var(--ink);
+  content:'★ Suggestion du chef ★';
+  position:absolute;top:-14px;left:50%;transform:translateX(-50%) rotate(-1.5deg);
+  background:var(--blood);color:var(--paper);
   font-family:'Bowlby One',sans-serif;
-  font-size:12px;letter-spacing:0.04em;text-transform:uppercase;
-  padding:5px 14px;border:2px solid var(--ink);
+  font-size:13px;letter-spacing:0.06em;text-transform:uppercase;
+  padding:6px 16px;border:2px solid var(--ink);
   white-space:nowrap;
+  box-shadow:2px 2px 0 var(--ink);
 }
 .upsell-intro{
   font-family:'Fraunces',serif;font-style:italic;

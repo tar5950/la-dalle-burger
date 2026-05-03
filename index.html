@@ -583,6 +583,39 @@ section{padding:90px 4%;position:relative;z-index:2;}
   position:relative;
   border-bottom:1.5px solid var(--ink);
 }
+/* Mini-badges flottants sur la photo (top-left) */
+.menu-card-floating{
+  position:absolute;top:10px;left:10px;z-index:3;
+  display:flex;flex-direction:column;gap:5px;align-items:flex-start;
+}
+.menu-card-floating .mc-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;
+  background:rgba(239,229,207,0.94);color:var(--ink);
+  padding:4px 8px;border:1.5px solid var(--ink);
+  display:inline-flex;align-items:center;gap:4px;
+}
+.menu-card-floating .mc-tag.hot{background:var(--blood);color:var(--paper);}
+.menu-card-floating .mc-tag.deal{background:var(--mustard);color:var(--ink);}
+
+/* Strip d'infos sous la description (Halal · prep · portion) */
+.menu-card-meta{
+  display:flex;gap:6px;flex-wrap:wrap;
+  margin:14px 0 18px;
+}
+.menu-card-meta-chip{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--ink-2);
+  padding:5px 9px;
+  background:var(--paper);
+  border:1px solid var(--line);
+  display:inline-flex;align-items:center;gap:4px;
+  white-space:nowrap;
+}
+.menu-card-meta-chip strong{color:var(--ink);}
+.menu-card-meta-chip.halal{border-color:var(--blood);color:var(--blood);background:rgba(168,40,31,0.04);}
+.menu-card-meta-chip.halal strong{color:var(--blood);}
 .menu-card-img-wrap img{
   width:100%;height:100%;object-fit:cover;display:block;
   filter:saturate(1.1) contrast(1.05);
@@ -2867,60 +2900,103 @@ footer{
 
   <div class="menu-wrap">
     <div class="menu-card fade-up" onclick="pickSrv('Le Classic','8')">
-      <div class="menu-card-img-wrap"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&h=450&fit=crop&q=85" alt="Le Classic — burger gourmet halal" loading="lazy" width="600" height="450"></div>
+      <div class="menu-card-img-wrap">
+        <div class="menu-card-floating">
+          <span class="mc-tag">★ Le plus simple</span>
+        </div>
+        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&h=450&fit=crop&q=85" alt="Le Classic — burger gourmet halal" loading="lazy" width="600" height="450">
+      </div>
       <div class="menu-card-content">
         <div class="menu-card-num">Nº <strong>01</strong></div>
         <div class="menu-card-name">Le Classic</div>
-        <div class="menu-card-desc">Steak haché du matin, cheddar fondu, salade fraîche, tomate, oignons rouges, sauce maison.</div>
+        <div class="menu-card-desc">Steak haché du matin, cheddar fondu, salade, tomate, sauce maison.</div>
+        <div class="menu-card-meta">
+          <span class="menu-card-meta-chip halal"><strong>Halal AVS</strong></span>
+          <span class="menu-card-meta-chip">⏱ <strong>15 min</strong></span>
+          <span class="menu-card-meta-chip">🍔 Petite faim</span>
+        </div>
         <div class="menu-card-rule"></div>
         <div class="menu-card-row">
           <div class="menu-card-price">8<span class="euro">€</span></div>
-          <div class="menu-card-time"><strong>15 min</strong>de prep'</div>
+          <div class="menu-card-time"><strong>Steak haché</strong>du jour</div>
         </div>
-        <span class="menu-card-cta">Commander →</span>
+        <span class="menu-card-cta">Commander Le Classic →</span>
       </div>
     </div>
+
     <div class="menu-card fade-up" onclick="pickSrv('Le Smash','10')">
       <span class="menu-card-badge">★ Le plus commandé</span>
-      <div class="menu-card-img-wrap"><img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=600&h=450&fit=crop&q=85" alt="Le Smash — double smash burger halal" loading="lazy" width="600" height="450"></div>
+      <div class="menu-card-img-wrap">
+        <div class="menu-card-floating">
+          <span class="mc-tag hot">🔥 87 cette semaine</span>
+        </div>
+        <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=600&h=450&fit=crop&q=85" alt="Le Smash — double smash burger halal" loading="lazy" width="600" height="450">
+      </div>
       <div class="menu-card-content">
         <div class="menu-card-num">Nº <strong>02</strong></div>
         <div class="menu-card-name">Le Smash</div>
-        <div class="menu-card-desc">Double smash patty écrasée minute, double cheddar, pickles maison, sauce spéciale du chef.</div>
+        <div class="menu-card-desc">Double smash patty écrasée minute, double cheddar, pickles maison, sauce du chef.</div>
+        <div class="menu-card-meta">
+          <span class="menu-card-meta-chip halal"><strong>Halal AVS</strong></span>
+          <span class="menu-card-meta-chip">⏱ <strong>15 min</strong></span>
+          <span class="menu-card-meta-chip">🍔🍔 Grosse faim</span>
+        </div>
         <div class="menu-card-rule"></div>
         <div class="menu-card-row">
           <div class="menu-card-price">10<span class="euro">€</span></div>
-          <div class="menu-card-time"><strong>15 min</strong>de prep'</div>
+          <div class="menu-card-time"><strong>Double patty</strong>écrasé minute</div>
         </div>
-        <span class="menu-card-cta">Commander →</span>
+        <span class="menu-card-cta">Commander Le Smash →</span>
       </div>
     </div>
+
     <div class="menu-card fade-up" onclick="pickSrv('Le Chicken','9')">
-      <div class="menu-card-img-wrap"><img src="https://images.unsplash.com/photo-1606756790138-261d2b21cd75?w=600&h=450&fit=crop&q=85" alt="Le Chicken — burger poulet pané halal" loading="lazy" width="600" height="450"></div>
+      <div class="menu-card-img-wrap">
+        <div class="menu-card-floating">
+          <span class="mc-tag">🐔 Plus léger</span>
+        </div>
+        <img src="https://images.unsplash.com/photo-1606756790138-261d2b21cd75?w=600&h=450&fit=crop&q=85" alt="Le Chicken — burger poulet pané halal" loading="lazy" width="600" height="450">
+      </div>
       <div class="menu-card-content">
         <div class="menu-card-num">Nº <strong>03</strong></div>
         <div class="menu-card-name">Le Chicken</div>
-        <div class="menu-card-desc">Filet de poulet pané croustillant, coleslaw maison, choix sauce buffalo ou ranch ailé.</div>
+        <div class="menu-card-desc">Filet de poulet pané croustillant, coleslaw maison, sauce buffalo <em>ou</em> ranch.</div>
+        <div class="menu-card-meta">
+          <span class="menu-card-meta-chip halal"><strong>Halal AVS</strong></span>
+          <span class="menu-card-meta-chip">⏱ <strong>15 min</strong></span>
+          <span class="menu-card-meta-chip">🍔 Petite faim</span>
+        </div>
         <div class="menu-card-rule"></div>
         <div class="menu-card-row">
           <div class="menu-card-price">9<span class="euro">€</span></div>
-          <div class="menu-card-time"><strong>15 min</strong>de prep'</div>
+          <div class="menu-card-time"><strong>Poulet pané</strong>pas surgelé</div>
         </div>
-        <span class="menu-card-cta">Commander →</span>
+        <span class="menu-card-cta">Commander Le Chicken →</span>
       </div>
     </div>
+
     <div class="menu-card fade-up" onclick="pickSrv('Le Combo','14')">
-      <div class="menu-card-img-wrap"><img src="https://images.unsplash.com/photo-1551782450-17144efb9c50?w=600&h=450&fit=crop&q=85" alt="Le Combo — burger frites boisson" loading="lazy" width="600" height="450"></div>
+      <div class="menu-card-img-wrap">
+        <div class="menu-card-floating">
+          <span class="mc-tag deal">💰 Économise 1 €</span>
+        </div>
+        <img src="https://images.unsplash.com/photo-1551782450-17144efb9c50?w=600&h=450&fit=crop&q=85" alt="Le Combo — burger frites boisson" loading="lazy" width="600" height="450">
+      </div>
       <div class="menu-card-content">
         <div class="menu-card-num">Nº <strong>04</strong></div>
         <div class="menu-card-name">Le Combo</div>
-        <div class="menu-card-desc">Le burger de ton choix + frites maison taillées au couteau + boisson fraîche. La totale.</div>
+        <div class="menu-card-desc">Burger au choix + frites maison taillées au couteau + boisson fraîche. La totale.</div>
+        <div class="menu-card-meta">
+          <span class="menu-card-meta-chip halal"><strong>Halal AVS</strong></span>
+          <span class="menu-card-meta-chip">⏱ <strong>15 min</strong></span>
+          <span class="menu-card-meta-chip">🍔🍟🥤 La totale</span>
+        </div>
         <div class="menu-card-rule"></div>
         <div class="menu-card-row">
           <div class="menu-card-price">14<span class="euro">€</span></div>
-          <div class="menu-card-time"><strong>15 min</strong>de prep'</div>
+          <div class="menu-card-time"><strong>vs 15 €</strong>commandé séparé</div>
         </div>
-        <span class="menu-card-cta">Commander →</span>
+        <span class="menu-card-cta">Composer mon Combo →</span>
       </div>
     </div>
   </div>

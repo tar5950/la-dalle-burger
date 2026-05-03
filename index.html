@@ -1019,6 +1019,352 @@ section{padding:90px 4%;position:relative;z-index:2;}
 .f-inp:focus::placeholder{opacity:0.4;}
 .f-inp::before{content:'→';}
 
+/* === BRAND FILM 30s — Story stack façon Reels/TikTok === */
+.film-section{
+  background:#0a0806;color:var(--paper);
+  padding:80px 5% 90px;position:relative;overflow:hidden;
+}
+.film-section .section-meta{color:rgba(239,229,207,0.7);border-top-color:rgba(239,229,207,0.4);border-bottom-color:rgba(239,229,207,0.18);}
+.film-section .section-meta strong{color:var(--paper);}
+.film-section .section-title{color:var(--paper);}
+.film-section .section-title .accent{color:var(--blood-3);}
+.film-section .section-lead{color:rgba(239,229,207,0.85);}
+.film-grid{
+  display:grid;grid-template-columns:0.55fr 0.45fr;gap:50px;align-items:center;
+  margin-top:24px;
+}
+.film-info h3{
+  font-family:'Bowlby One',sans-serif;
+  font-size:clamp(34px,4.5vw,56px);line-height:0.95;letter-spacing:-0.02em;
+  color:var(--paper);margin-bottom:18px;
+}
+.film-info h3 .it{
+  font-family:'Fraunces',serif;font-style:italic;font-weight:300;
+  font-variation-settings:"opsz" 144,"SOFT" 100,"WONK" 1;
+  color:var(--mustard);
+}
+.film-info p{
+  font-family:'Fraunces',serif;font-size:17px;line-height:1.6;
+  color:rgba(239,229,207,0.85);margin-bottom:14px;
+  font-variation-settings:"opsz" 14;
+}
+.film-info p strong{color:var(--paper);font-weight:600;}
+.film-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  margin-top:28px;
+  border-top:1.5px solid rgba(239,229,207,0.3);
+  border-bottom:1.5px solid rgba(239,229,207,0.3);
+}
+.film-stats .stat{padding:14px 12px;border-right:1px dashed rgba(239,229,207,0.18);}
+.film-stats .stat:last-child{border-right:none;}
+.film-stats .v{font-family:'Bowlby One',sans-serif;font-size:24px;color:var(--mustard);line-height:1;}
+.film-stats .l{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(239,229,207,0.6);margin-top:5px;}
+
+/* Le "phone" 9:16 */
+.film-phone{
+  position:relative;
+  width:100%;max-width:340px;
+  margin:0 auto;
+  aspect-ratio:9/16;
+  background:#000;
+  border:3px solid var(--ink);
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:
+    0 0 0 12px #1a1410,
+    8px 8px 0 var(--blood),
+    16px 16px 0 var(--mustard);
+}
+.film-phone::before{
+  content:'';position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  width:80px;height:6px;background:#000;border-radius:4px;z-index:10;
+  box-shadow:0 0 0 1px rgba(239,229,207,0.1);
+}
+.film-track{
+  position:absolute;inset:0;
+  display:flex;
+}
+.film-scene{
+  position:absolute;inset:0;
+  opacity:0;transition:opacity 0.6s ease-in-out;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  background-size:cover;background-position:center;
+}
+.film-scene.active{opacity:1;z-index:2;}
+.film-scene::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0.85) 100%);
+}
+.film-scene-cap{
+  position:relative;z-index:2;padding:24px 22px 60px;
+}
+.film-scene-time{
+  display:inline-block;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:700;letter-spacing:0.22em;
+  color:var(--mustard);margin-bottom:10px;
+  background:rgba(0,0,0,0.4);padding:4px 8px;
+}
+.film-scene-title{
+  font-family:'Bowlby One',sans-serif;
+  font-size:28px;line-height:1;letter-spacing:-0.02em;color:var(--paper);
+  margin-bottom:6px;text-shadow:0 2px 12px rgba(0,0,0,0.6);
+}
+.film-scene-sub{
+  font-family:'Fraunces',serif;font-style:italic;
+  font-variation-settings:"opsz" 144,"WONK" 1;
+  font-size:14px;color:rgba(239,229,207,0.92);line-height:1.3;
+  text-shadow:0 1px 6px rgba(0,0,0,0.7);
+}
+
+/* Progress bars (style Instagram Stories) */
+.film-progress{
+  position:absolute;top:30px;left:14px;right:14px;z-index:5;
+  display:flex;gap:4px;
+}
+.film-progress-bar{
+  flex:1;height:3px;background:rgba(239,229,207,0.32);overflow:hidden;border-radius:2px;
+}
+.film-progress-fill{
+  height:100%;background:var(--paper);width:0;
+  transition:none;
+}
+.film-progress-bar.done .film-progress-fill{width:100%;}
+.film-progress-bar.active .film-progress-fill{
+  animation:fill-bar 5s linear forwards;
+}
+@keyframes fill-bar{from{width:0;}to{width:100%;}}
+
+.film-controls{
+  position:absolute;left:0;right:0;bottom:0;z-index:6;
+  display:flex;gap:0;
+}
+.film-tap{
+  flex:1;height:90%;background:transparent;border:none;cursor:pointer;
+}
+.film-brand{
+  position:absolute;top:48px;left:14px;z-index:5;
+  display:flex;align-items:center;gap:8px;
+  background:rgba(0,0,0,0.3);
+  padding:5px 10px;
+  font-family:'Bowlby One',sans-serif;font-size:11px;
+  letter-spacing:-0.01em;color:var(--paper);
+}
+.film-brand::before{
+  content:'';width:7px;height:7px;background:var(--blood-3);border-radius:50%;
+}
+@media(max-width:760px){
+  .film-grid{grid-template-columns:1fr;gap:30px;}
+  .film-phone{max-width:280px;}
+  .film-info{order:2;text-align:center;}
+  .film-info h3{font-size:32px;}
+  .film-info p{text-align:left;}
+  .film-stats{margin-left:auto;margin-right:auto;max-width:420px;}
+}
+
+/* === FIDÉLITÉ === */
+.loyalty-widget{
+  position:fixed;right:18px;bottom:18px;z-index:55;
+  background:var(--paper);border:2px solid var(--ink);
+  box-shadow:4px 4px 0 var(--mustard);
+  padding:12px 14px;min-width:220px;max-width:280px;
+  transform:translateY(140%);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  display:none;
+}
+.loyalty-widget.show{transform:translateY(0);}
+.loyalty-top{
+  display:flex;align-items:center;gap:8px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--blood);margin-bottom:8px;
+}
+.loyalty-top::before{content:'★';color:var(--mustard);font-size:12px;}
+.loyalty-progress{
+  display:flex;gap:4px;margin-bottom:8px;
+}
+.loyalty-stamp{
+  flex:1;aspect-ratio:1;
+  border:1.5px solid var(--ink);background:var(--paper-2);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bowlby One',sans-serif;font-size:13px;
+  color:var(--ink-3);
+  position:relative;
+  border-radius:50%;
+}
+.loyalty-stamp.filled{
+  background:var(--blood);color:var(--paper);
+  transform:rotate(-6deg);border-color:var(--ink);
+}
+.loyalty-stamp.filled::after{
+  content:'★';font-family:'Bowlby One',sans-serif;font-size:14px;color:var(--mustard);
+}
+.loyalty-stamp.filled .stamp-num{display:none;}
+.loyalty-msg{
+  font-family:'Fraunces',serif;font-style:italic;
+  font-variation-settings:"opsz" 36,"WONK" 1;
+  font-size:12px;line-height:1.35;color:var(--ink-2);
+}
+.loyalty-msg strong{color:var(--blood);font-weight:600;}
+.loyalty-close{
+  position:absolute;top:6px;right:8px;
+  background:none;border:none;cursor:pointer;
+  font-size:14px;color:var(--ink-3);line-height:1;padding:2px 4px;
+}
+.loyalty-close:hover{color:var(--blood);}
+
+/* Fidélité — modal celebration au 5/5 */
+.loyalty-celebrate{
+  position:fixed;inset:0;z-index:300;
+  background:rgba(10,8,6,0.85);backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  opacity:0;pointer-events:none;transition:opacity 0.3s;
+}
+.loyalty-celebrate.show{opacity:1;pointer-events:auto;}
+.loyalty-celebrate-card{
+  background:var(--paper);border:3px solid var(--ink);
+  padding:36px 28px 28px;text-align:center;
+  max-width:420px;width:100%;
+  box-shadow:8px 8px 0 var(--blood),16px 16px 0 var(--mustard);
+  position:relative;
+  transform:scale(0.85) rotate(-2deg);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+.loyalty-celebrate.show .loyalty-celebrate-card{transform:scale(1) rotate(0);}
+.loyalty-celebrate-card h2{
+  font-family:'Bowlby One',sans-serif;
+  font-size:42px;line-height:0.95;color:var(--blood);margin-bottom:8px;
+  letter-spacing:-0.02em;
+}
+.loyalty-celebrate-card p{
+  font-family:'Fraunces',serif;font-size:16px;line-height:1.5;
+  color:var(--ink-2);margin-bottom:18px;
+}
+.loyalty-code{
+  background:var(--ink);color:var(--mustard);
+  font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;
+  letter-spacing:0.2em;padding:14px 22px;display:inline-block;
+  border:2px dashed var(--mustard);margin-bottom:20px;
+}
+.loyalty-celebrate-card .btn-primary{padding:14px 24px;font-size:14px;}
+
+/* === ORDER TRACKING === */
+.order-tracking{
+  position:fixed;inset:0;z-index:250;
+  background:var(--paper);
+  display:none;flex-direction:column;
+  overflow-y:auto;
+}
+.order-tracking.show{display:flex;}
+.order-tracking-header{
+  background:var(--ink);color:var(--paper);
+  padding:18px 5%;
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:3px double var(--mustard);
+  position:sticky;top:0;z-index:5;
+}
+.order-tracking-header h2{
+  font-family:'Bowlby One',sans-serif;font-size:18px;letter-spacing:-0.01em;
+}
+.order-id{
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+  letter-spacing:0.18em;color:var(--mustard);
+}
+.order-tracking-body{
+  flex:1;padding:36px 5% 50px;max-width:560px;width:100%;margin:0 auto;
+}
+.order-eta{
+  text-align:center;margin-bottom:32px;
+  padding:24px 18px;
+  border:2.5px solid var(--ink);background:var(--paper-2);
+  position:relative;
+}
+.order-eta::before{
+  content:'★ ETA estimé ★';position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+  background:var(--mustard);color:var(--ink);
+  font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;
+  letter-spacing:0.22em;padding:4px 12px;border:2px solid var(--ink);
+}
+.order-eta-time{
+  font-family:'Bowlby One',sans-serif;font-size:48px;color:var(--blood);
+  letter-spacing:-0.02em;line-height:1;
+}
+.order-eta-label{
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
+  letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-3);margin-top:6px;
+}
+
+.order-steps{
+  list-style:none;padding:0;margin:0;
+  position:relative;
+}
+.order-steps::before{
+  content:'';position:absolute;left:18px;top:18px;bottom:18px;width:2px;
+  background:repeating-linear-gradient(180deg,var(--ink) 0 4px,transparent 4px 8px);
+}
+.order-step{
+  display:flex;gap:18px;align-items:flex-start;
+  padding:14px 0;position:relative;
+}
+.order-step-icon{
+  width:38px;height:38px;flex-shrink:0;
+  border:2px solid var(--ink);border-radius:50%;
+  background:var(--paper-2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;position:relative;z-index:2;
+  transition:all 0.3s;
+}
+.order-step.done .order-step-icon{background:#1a8a4a;color:var(--paper);}
+.order-step.current .order-step-icon{
+  background:var(--blood);color:var(--paper);
+  animation:step-pulse 1.4s ease-in-out infinite;
+}
+@keyframes step-pulse{0%,100%{box-shadow:0 0 0 0 rgba(168,40,31,0.5);}50%{box-shadow:0 0 0 10px rgba(168,40,31,0);}}
+.order-step-body{flex:1;padding-top:6px;}
+.order-step-title{
+  font-family:'Bowlby One',sans-serif;font-size:16px;letter-spacing:-0.01em;
+  color:var(--ink-3);margin-bottom:3px;
+}
+.order-step.done .order-step-title,
+.order-step.current .order-step-title{color:var(--ink);}
+.order-step-time{
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
+  letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-3);
+}
+.order-step.current .order-step-time{color:var(--blood);}
+.order-step-desc{
+  font-family:'Fraunces',serif;font-style:italic;
+  font-variation-settings:"opsz" 36,"WONK" 1;
+  font-size:13px;color:var(--ink-2);margin-top:4px;line-height:1.4;
+  display:none;
+}
+.order-step.current .order-step-desc{display:block;}
+
+.order-summary{
+  margin-top:32px;padding:20px;
+  border:1.5px dashed var(--ink);
+}
+.order-summary-title{
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
+  letter-spacing:0.22em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px;
+}
+.order-summary-line{
+  font-family:'Fraunces',serif;font-size:15px;color:var(--ink);
+  padding:6px 0;border-bottom:1px dotted rgba(26,20,16,0.18);
+  display:flex;justify-content:space-between;
+}
+.order-summary-line:last-child{border-bottom:none;font-family:'Bowlby One',sans-serif;font-size:18px;color:var(--blood);padding-top:10px;}
+.order-actions{margin-top:24px;display:flex;gap:10px;flex-wrap:wrap;}
+.order-actions .btn-secondary{flex:1;min-width:140px;}
+.order-help{
+  margin-top:18px;text-align:center;
+  font-family:'Fraunces',serif;font-style:italic;font-size:13px;
+  font-variation-settings:"opsz" 36,"WONK" 1;color:var(--ink-3);
+}
+.order-help a{color:var(--blood);text-decoration:underline;}
+@media(max-width:600px){
+  .order-eta-time{font-size:36px;}
+  .order-tracking-body{padding:30px 5% 40px;}
+}
+
 /* === BANNIÈRE TIME-AWARE === */
 .time-banner{
   position:relative;z-index:40;
@@ -1759,6 +2105,7 @@ footer{
   </a>
   <div class="nav-links">
     <a href="#menu">Le menu</a>
+    <a href="#film">Le film</a>
     <a href="#concept">L'atelier</a>
     <a href="#avis">Témoins</a>
     <a href="#commande" class="nav-cta">Commander</a>
@@ -1900,6 +2247,80 @@ footer{
         <div class="cstat"><div class="cstat-v">200+</div><div class="cstat-l">Avis clients</div></div>
         <div class="cstat"><div class="cstat-v">7/7</div><div class="cstat-l">11h — 23h</div></div>
         <div class="cstat"><div class="cstat-v acc">0%</div><div class="cstat-l">Surgelé</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND FILM 30s — Story stack -->
+<section id="film" class="film-section">
+  <div class="section-meta fade-up">
+    <span><strong>§ Nº 04</strong> — L'atelier en 30 secondes</span>
+    <span>Tournage maison · 6h42 du matin · sans filtre</span>
+  </div>
+  <h2 class="section-title fade-up">Trente <span class="accent">secondes</span><br><span class="it">avec nous, à 6h42.</span></h2>
+  <div class="film-grid">
+    <div class="film-info fade-up">
+      <h3>De la <span class="it">farine</span> au <span class="it">smash</span> — <span style="color:var(--mustard);">tout est fait main, ici.</span></h3>
+      <p>On t'a filmé une matinée à l'atelier. <strong>Le bun qu'on pétrit à 6h42</strong>. La viande qu'on hache à 7h. Le smash sur la plancha brûlante. La sauce secrète qu'on monte. Le burger qui sort.</p>
+      <p>Pas de stock images, pas de food styling. C'est <strong>notre cuisine, vraiment.</strong></p>
+      <div class="film-stats">
+        <div class="stat"><div class="v">06:42</div><div class="l">Atelier ouvre</div></div>
+        <div class="stat"><div class="v">100%</div><div class="l">Fait main</div></div>
+        <div class="stat"><div class="v">0</div><div class="l">Surgelé</div></div>
+      </div>
+    </div>
+
+    <div class="film-phone fade-up" id="filmPhone" role="region" aria-label="Brand film de l'atelier — 30 secondes">
+      <div class="film-progress" id="filmProgress" aria-hidden="true"></div>
+      <div class="film-brand">La Dalle · LIVE</div>
+      <div class="film-track" id="filmTrack">
+        <div class="film-scene active" style="background-image:url('https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=600&h=900&fit=crop&q=80');">
+          <div class="film-scene-cap">
+            <span class="film-scene-time">06:42</span>
+            <h4 class="film-scene-title">L'atelier ouvre.</h4>
+            <p class="film-scene-sub">Pétrin lancé. Levure activée. Le bun commence sa vie.</p>
+          </div>
+        </div>
+        <div class="film-scene" style="background-image:url('https://images.unsplash.com/photo-1565299543923-37dd37887442?w=600&h=900&fit=crop&q=80');">
+          <div class="film-scene-cap">
+            <span class="film-scene-time">07:18</span>
+            <h4 class="film-scene-title">Le bun, à la main.</h4>
+            <p class="film-scene-sub">Pétrissage 12 min. Levée 1h30. Aucune machine industrielle.</p>
+          </div>
+        </div>
+        <div class="film-scene" style="background-image:url('https://images.unsplash.com/photo-1571091655789-405eb7a3a3a8?w=600&h=900&fit=crop&q=80');">
+          <div class="film-scene-cap">
+            <span class="film-scene-time">07:55</span>
+            <h4 class="film-scene-title">La viande, fraîche.</h4>
+            <p class="film-scene-sub">Halal, du boucher du coin. Hachée du matin. Jamais surgelée.</p>
+          </div>
+        </div>
+        <div class="film-scene" style="background-image:url('https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=600&h=900&fit=crop&q=80');">
+          <div class="film-scene-cap">
+            <span class="film-scene-time">11:04</span>
+            <h4 class="film-scene-title">Le smash.</h4>
+            <p class="film-scene-sub">Plancha 280°. Boule écrasée. La croûte se fait en 90 secondes.</p>
+          </div>
+        </div>
+        <div class="film-scene" style="background-image:url('https://images.unsplash.com/photo-1607013251379-e6eecfffe234?w=600&h=900&fit=crop&q=80');">
+          <div class="film-scene-cap">
+            <span class="film-scene-time">11:06</span>
+            <h4 class="film-scene-title">La sauce, le secret.</h4>
+            <p class="film-scene-sub">Trois ingrédients, ratio top-secret. Faite chaque matin.</p>
+          </div>
+        </div>
+        <div class="film-scene" style="background-image:url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&h=900&fit=crop&q=80');">
+          <div class="film-scene-cap">
+            <span class="film-scene-time">11:08</span>
+            <h4 class="film-scene-title">Tu mords.</h4>
+            <p class="film-scene-sub">Bun moelleux, viande juteuse, sauce qui coule. C'est ça La Dalle.</p>
+          </div>
+        </div>
+      </div>
+      <div class="film-controls" aria-hidden="true">
+        <button type="button" class="film-tap" data-dir="prev" aria-label="Scène précédente"></button>
+        <button type="button" class="film-tap" data-dir="next" aria-label="Scène suivante"></button>
       </div>
     </div>
   </div>
@@ -2165,6 +2586,99 @@ footer{
         <span class="upsell-btn-yes-total" id="upsellTotal">0,00&nbsp;€</span>
       </button>
     </div>
+  </div>
+</div>
+
+<!-- WIDGET FIDÉLITÉ — bottom right -->
+<div class="loyalty-widget" id="loyaltyWidget" role="complementary" aria-label="Programme fidélité La Dalle">
+  <button type="button" class="loyalty-close" onclick="document.getElementById('loyaltyWidget').classList.remove('show');" aria-label="Fermer">×</button>
+  <div class="loyalty-top">★ Carte fidélité La Dalle</div>
+  <div class="loyalty-progress" id="loyaltyProgress">
+    <div class="loyalty-stamp"><span class="stamp-num">1</span></div>
+    <div class="loyalty-stamp"><span class="stamp-num">2</span></div>
+    <div class="loyalty-stamp"><span class="stamp-num">3</span></div>
+    <div class="loyalty-stamp"><span class="stamp-num">4</span></div>
+    <div class="loyalty-stamp"><span class="stamp-num">5</span></div>
+  </div>
+  <p class="loyalty-msg" id="loyaltyMsg">Plus que <strong>5 burgers</strong> avant le 6e offert.</p>
+</div>
+
+<!-- MODAL CÉLÉBRATION FIDÉLITÉ 5/5 -->
+<div class="loyalty-celebrate" id="loyaltyCelebrate" role="dialog" aria-modal="true">
+  <div class="loyalty-celebrate-card">
+    <h2>🎉 Bravo !</h2>
+    <p>Tu as débloqué <strong>1 burger offert</strong>. Utilise ce code à ta prochaine commande sur WhatsApp&nbsp;:</p>
+    <div class="loyalty-code" id="loyaltyCode">DALLE-XXXX</div>
+    <p style="font-size:13px;font-style:italic;color:var(--ink-3);">Le code est ajouté automatiquement à ton message WhatsApp lors de ta prochaine commande.</p>
+    <button type="button" class="btn-primary" onclick="closeLoyaltyCelebrate()">Continuer</button>
+  </div>
+</div>
+
+<!-- ORDER TRACKING — page de suivi post-commande -->
+<div class="order-tracking" id="orderTracking" role="dialog" aria-modal="true" aria-labelledby="orderTrackingTitle">
+  <div class="order-tracking-header">
+    <h2 id="orderTrackingTitle">Ta commande en direct</h2>
+    <span class="order-id">Nº <span id="orderTrackingId">—</span></span>
+  </div>
+  <div class="order-tracking-body">
+    <div class="order-eta">
+      <div class="order-eta-time" id="orderEtaTime">—</div>
+      <div class="order-eta-label" id="orderEtaLabel">temps restant estimé</div>
+    </div>
+
+    <ol class="order-steps" id="orderStepsList">
+      <li class="order-step done" data-step="1">
+        <div class="order-step-icon">✓</div>
+        <div class="order-step-body">
+          <div class="order-step-title">Commande reçue</div>
+          <div class="order-step-time" id="orderTime1">à l'instant</div>
+          <div class="order-step-desc">On vient de recevoir ton message WhatsApp. On te confirme dans 5 min max.</div>
+        </div>
+      </li>
+      <li class="order-step" data-step="2">
+        <div class="order-step-icon">📞</div>
+        <div class="order-step-body">
+          <div class="order-step-title">Confirmée par le chef</div>
+          <div class="order-step-time" id="orderTime2">en attente…</div>
+          <div class="order-step-desc">Tarik ou Yacine répond sur WhatsApp pour confirmer le créneau et l'adresse.</div>
+        </div>
+      </li>
+      <li class="order-step" data-step="3">
+        <div class="order-step-icon">🔥</div>
+        <div class="order-step-body">
+          <div class="order-step-title">En cuisine</div>
+          <div class="order-step-time" id="orderTime3">en attente…</div>
+          <div class="order-step-desc">Le bun sort du four, la viande passe sur la plancha, la sauce est montée.</div>
+        </div>
+      </li>
+      <li class="order-step" data-step="4">
+        <div class="order-step-icon">🛵</div>
+        <div class="order-step-body">
+          <div class="order-step-title">En route</div>
+          <div class="order-step-time" id="orderTime4">en attente…</div>
+          <div class="order-step-desc">Le livreur a quitté l'atelier. Burger encore tiède, garanti.</div>
+        </div>
+      </li>
+      <li class="order-step" data-step="5">
+        <div class="order-step-icon">📍</div>
+        <div class="order-step-body">
+          <div class="order-step-title">Arrivée</div>
+          <div class="order-step-time" id="orderTime5">en attente…</div>
+          <div class="order-step-desc">Bon appétit&nbsp;! Pense à laisser un avis Google si t'es content.</div>
+        </div>
+      </li>
+    </ol>
+
+    <div class="order-summary">
+      <div class="order-summary-title">★ Récap de ta commande</div>
+      <div id="orderSummaryLines"></div>
+    </div>
+
+    <div class="order-actions">
+      <a href="https://wa.me/33600000000" target="_blank" rel="noopener" class="btn-secondary" style="text-align:center;text-decoration:none;">💬 Contacter le chef</a>
+      <button type="button" class="btn-secondary" onclick="closeOrderTracking()">Fermer le suivi</button>
+    </div>
+    <p class="order-help">Une question&nbsp;? <a href="tel:+33600000000">Appelle-nous</a> · <a href="https://wa.me/33600000000" target="_blank" rel="noopener">WhatsApp</a></p>
   </div>
 </div>
 
@@ -2548,6 +3062,289 @@ function showNotif(){
   setTimeout(function(){el.classList.remove('show');},5000); ni++;
 }
 setTimeout(function(){showNotif();setInterval(showNotif,12000);},6000);
+
+// ============================================================
+// === BRAND FILM 30s — Story stack auto-loop ===
+// ============================================================
+(function(){
+  var scenes = document.querySelectorAll('.film-scene');
+  if(!scenes.length) return;
+  var progressWrap = document.getElementById('filmProgress');
+  // Build progress bars
+  scenes.forEach(function(_,i){
+    var bar = document.createElement('div');
+    bar.className = 'film-progress-bar' + (i===0?' active':'');
+    bar.innerHTML = '<div class="film-progress-fill"></div>';
+    progressWrap.appendChild(bar);
+  });
+  var bars = progressWrap.querySelectorAll('.film-progress-bar');
+  var idx = 0;
+  var timer = null;
+  var paused = false;
+
+  function show(i){
+    idx = (i+scenes.length)%scenes.length;
+    scenes.forEach(function(s,j){ s.classList.toggle('active', j===idx); });
+    bars.forEach(function(b,j){
+      b.classList.remove('active','done');
+      if(j<idx) b.classList.add('done');
+      else if(j===idx) b.classList.add('active');
+    });
+  }
+
+  function next(){ show(idx+1); }
+  function prev(){ show(idx-1); }
+
+  function startTimer(){
+    if(timer) clearInterval(timer);
+    timer = setInterval(function(){ if(!paused) next(); }, 5000);
+  }
+
+  // Tap controls
+  document.querySelectorAll('.film-tap').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if(btn.getAttribute('data-dir')==='prev') prev();
+      else next();
+      startTimer();
+    });
+  });
+
+  // IntersectionObserver — pause hors-écran (économie batterie + cohérence visuelle)
+  var phone = document.getElementById('filmPhone');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        paused = !e.isIntersecting;
+        if(e.isIntersecting && !timer) startTimer();
+      });
+    }, {threshold:0.3});
+    io.observe(phone);
+  }
+
+  show(0);
+  startTimer();
+})();
+
+// ============================================================
+// === FIDÉLITÉ — localStorage, 5 burgers = 1 offert ===
+// ============================================================
+var LOYALTY_KEY = 'dalle_loyalty_v1';
+function loadLoyalty(){
+  try{
+    var raw = localStorage.getItem(LOYALTY_KEY);
+    if(!raw) return {count:0, code:null, claimed:false};
+    return JSON.parse(raw);
+  } catch(e){ return {count:0, code:null, claimed:false}; }
+}
+function saveLoyalty(d){
+  try{ localStorage.setItem(LOYALTY_KEY, JSON.stringify(d)); } catch(e){}
+}
+function genLoyaltyCode(){
+  var s='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  var c='';
+  for(var i=0;i<4;i++) c += s[Math.floor(Math.random()*s.length)];
+  return 'DALLE-'+c;
+}
+function renderLoyalty(){
+  var d = loadLoyalty();
+  var stamps = document.querySelectorAll('.loyalty-stamp');
+  var msg = document.getElementById('loyaltyMsg');
+  var n = Math.min(d.count, 5);
+  stamps.forEach(function(el,i){ el.classList.toggle('filled', i<n); });
+  if(d.count===0){
+    msg.innerHTML = 'Achète <strong>5 burgers</strong>, le 6<sup>e</sup> est offert.';
+  } else if(d.count<5){
+    var rest = 5-d.count;
+    msg.innerHTML = 'Plus que <strong>'+rest+' burger'+(rest>1?'s':'')+'</strong> avant le 6<sup>e</sup> offert.';
+  } else if(!d.claimed){
+    msg.innerHTML = '🎉 <strong>Burger offert</strong> débloqué&nbsp;! Code : <strong>'+(d.code||'')+'</strong>';
+  } else {
+    msg.innerHTML = 'Carte remise à zéro. <strong>5 nouveaux burgers</strong> pour le prochain.';
+  }
+}
+function showLoyaltyWidget(){
+  renderLoyalty();
+  var w = document.getElementById('loyaltyWidget');
+  if(w) w.classList.add('show');
+}
+function closeLoyaltyCelebrate(){
+  document.getElementById('loyaltyCelebrate').classList.remove('show');
+}
+// Affiche le widget après 8s au premier visit, sinon immédiat si compteur > 0
+(function(){
+  var d = loadLoyalty();
+  var delay = d.count > 0 ? 1500 : 8000;
+  setTimeout(showLoyaltyWidget, delay);
+})();
+
+// ============================================================
+// === ORDER TRACKING ===
+// ============================================================
+var ORDER_KEY = 'dalle_order_active';
+function fmtMin(min){
+  if(min<=0) return 'Arrivé';
+  if(min<60) return min+' min';
+  return Math.floor(min/60)+'h'+(min%60>0?(min%60+'min'):'');
+}
+function fmtAgo(secAgo){
+  if(secAgo<60) return 'à l\'instant';
+  var m=Math.floor(secAgo/60);
+  if(m<60) return 'il y a '+m+' min';
+  return 'il y a '+Math.floor(m/60)+'h';
+}
+function startOrderTracking(orderData){
+  // orderData = {id, ts, items:[], total, mode, when}
+  try{ localStorage.setItem(ORDER_KEY, JSON.stringify(orderData)); }catch(e){}
+  document.getElementById('orderTrackingId').textContent = orderData.id;
+  // Render summary
+  var lines = '';
+  orderData.items.forEach(function(it){ lines += '<div class="order-summary-line"><span>'+it.name+'</span><span>'+it.price.toFixed(2).replace('.',',')+' €</span></div>'; });
+  lines += '<div class="order-summary-line"><span>Mode</span><span>'+orderData.mode+'</span></div>';
+  lines += '<div class="order-summary-line"><span>Pour</span><span>'+orderData.when+'</span></div>';
+  lines += '<div class="order-summary-line"><span>Total</span><span>'+orderData.total.toFixed(2).replace('.',',')+' €</span></div>';
+  document.getElementById('orderSummaryLines').innerHTML = lines;
+  document.getElementById('orderTracking').classList.add('show');
+  document.body.style.overflow='hidden';
+  updateOrderProgress();
+  if(window._orderTimer) clearInterval(window._orderTimer);
+  window._orderTimer = setInterval(updateOrderProgress, 30000);
+}
+function updateOrderProgress(){
+  try{
+    var raw = localStorage.getItem(ORDER_KEY);
+    if(!raw) return;
+    var o = JSON.parse(raw);
+    var elapsedSec = Math.floor((Date.now() - o.ts)/1000);
+    var elapsedMin = Math.floor(elapsedSec/60);
+
+    // Étapes :
+    // 0-2min : Reçue (done) → Confirmation (current)
+    // 2-5min : Confirmation done → Cuisine (current)
+    // 5-20min : Cuisine done → En route (current) (si livraison)
+    // 20-35min : En route done → Arrivée (current)
+    // 35+min : Tout done
+
+    var stepStates = ['done','done','done','done','done'];
+    if(elapsedMin < 2){ stepStates = ['done','current','','','']; }
+    else if(elapsedMin < 5){ stepStates = ['done','done','current','','']; }
+    else if(elapsedMin < 20){ stepStates = ['done','done','done','current','']; }
+    else if(elapsedMin < 35){ stepStates = ['done','done','done','done','current']; }
+
+    document.querySelectorAll('.order-step').forEach(function(el, i){
+      el.classList.remove('done','current');
+      if(stepStates[i]) el.classList.add(stepStates[i]);
+    });
+
+    // Times
+    document.getElementById('orderTime1').textContent = fmtAgo(elapsedSec);
+    document.getElementById('orderTime2').textContent = elapsedMin>=2 ? fmtAgo(elapsedSec-2*60) : 'en attente…';
+    document.getElementById('orderTime3').textContent = elapsedMin>=5 ? fmtAgo(elapsedSec-5*60) : 'en attente…';
+    document.getElementById('orderTime4').textContent = elapsedMin>=20 ? fmtAgo(elapsedSec-20*60) : 'en attente…';
+    document.getElementById('orderTime5').textContent = elapsedMin>=35 ? fmtAgo(elapsedSec-35*60) : 'en attente…';
+
+    // ETA
+    var etaMin = Math.max(0, 35 - elapsedMin);
+    var etaEl = document.getElementById('orderEtaTime');
+    var etaLbl = document.getElementById('orderEtaLabel');
+    if(etaMin <= 0){
+      etaEl.textContent = '🎉';
+      etaLbl.textContent = 'Ta commande est arrivée';
+    } else {
+      etaEl.textContent = fmtMin(etaMin);
+      etaLbl.textContent = 'temps restant estimé';
+    }
+  } catch(e){ console.error('order tracking error', e); }
+}
+function closeOrderTracking(){
+  document.getElementById('orderTracking').classList.remove('show');
+  document.body.style.overflow='';
+  if(window._orderTimer) clearInterval(window._orderTimer);
+}
+// Restaure si une commande est en cours (rechargement de page)
+(function(){
+  try{
+    var raw = localStorage.getItem(ORDER_KEY);
+    if(!raw) return;
+    var o = JSON.parse(raw);
+    var elapsedMin = Math.floor((Date.now() - o.ts)/1000/60);
+    // Auto-clean après 90 min
+    if(elapsedMin > 90){
+      localStorage.removeItem(ORDER_KEY);
+      return;
+    }
+    // Bouton "Voir le suivi" si commande active
+    setTimeout(function(){
+      if(confirm('Tu as une commande en cours (Nº '+o.id+'). Voir le suivi ?')){
+        startOrderTracking(o);
+      }
+    }, 2000);
+  } catch(e){}
+})();
+
+// ============================================================
+// === HOOK sendWA — fidélité + tracking ===
+// ============================================================
+var _origSendWA = sendWA;
+sendWA = function(){
+  var prenom=document.getElementById('c-name').value.trim()||'Client';
+  var tel=document.getElementById('c-tel').value.trim();
+  var adresse=document.getElementById('c-adresse').value.trim();
+  if(!R.s||!R.b||!R.t){alert('Merci de compléter toutes les étapes.');return;}
+
+  // Fidélité — incrémente + génère code si 5e
+  var loyalty = loadLoyalty();
+  loyalty.count = (loyalty.count||0) + 1;
+  var loyaltyMsg = '';
+  if(loyalty.count >= 5 && !loyalty.code){
+    loyalty.code = genLoyaltyCode();
+    loyaltyMsg = '\n\n🎁 Code fidélité débloqué : '+loyalty.code+' (1 burger offert sur la prochaine commande)';
+  } else if(loyalty.code && !loyalty.claimed){
+    loyaltyMsg = '\n\n🎁 J\'utilise mon code fidélité : '+loyalty.code;
+    loyalty.claimed = true;
+    loyalty.count = 0; // reset pour nouveau cycle après usage
+  } else {
+    var rest = 5 - loyalty.count;
+    if(rest>0) loyaltyMsg = '\n\n★ Carte fidélité : '+loyalty.count+'/5 burgers';
+  }
+  saveLoyalty(loyalty);
+
+  // Génère ID commande + ETA selon mode
+  var orderId = 'A-'+String(Math.floor(Math.random()*9000)+1000);
+  var extrasTxt = R.extras.length ? '\nExtras : '+R.extras.map(function(e){return e.v+' (+'+e.p+'€)';}).join(' + ') : '';
+  var msg='Salam, je veux commander 🍔\n\nCommande Nº '+orderId+'\nBurger : '+R.s+extrasTxt+'\nMode : '+R.b+'\nPour : '+R.t+'\nTotal : '+totalPrice()+'€\nPrénom : '+prenom+(tel?'\nNuméro : '+tel:'')+(adresse?'\nAdresse : '+adresse:'')+loyaltyMsg+'\n\nMerci !';
+  window.open('https://wa.me/33600000000?text='+encodeURIComponent(msg),'_blank');
+
+  // Sauvegarde commande pour tracking
+  var items = [{name:R.s, price:parseFloat(R.p)||0}];
+  R.extras.forEach(function(e){ items.push({name:e.v, price:parseFloat(e.p)||0}); });
+  var orderData = {
+    id: orderId,
+    ts: Date.now(),
+    items: items,
+    total: totalPrice(),
+    mode: R.b,
+    when: R.t
+  };
+
+  // Affiche fidélité célébration si 5e
+  if(loyalty.count >= 5 && loyalty.code && !loyalty.claimed){
+    setTimeout(function(){
+      document.getElementById('loyaltyCode').textContent = loyalty.code;
+      document.getElementById('loyaltyCelebrate').classList.add('show');
+    }, 1200);
+  }
+
+  // Lance le tracking après 1.8s (laisse le temps à WhatsApp de s'ouvrir)
+  setTimeout(function(){ startOrderTracking(orderData); renderLoyalty(); showLoyaltyWidget(); }, 1800);
+};
+
+// ESC ferme order tracking + loyalty celebrate
+document.addEventListener('keydown', function(e){
+  if(e.key==='Escape'){
+    if(document.getElementById('orderTracking').classList.contains('show')) closeOrderTracking();
+    if(document.getElementById('loyaltyCelebrate').classList.contains('show')) closeLoyaltyCelebrate();
+  }
+});
 </script>
 </body>
 </html>

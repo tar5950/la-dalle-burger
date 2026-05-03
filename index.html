@@ -1407,11 +1407,14 @@ footer{
           <div class="chip" data-v="À emporter" onclick="selB(this)" tabindex="0" role="button" aria-label="À emporter"><div class="chip-n">🏃 À emporter</div></div>
         </div>
 
-        <div class="step-lbl"><span class="step-num">III</span>Quand<span class="step-hint">— jour &amp; heure</span></div>
-        <div class="g4" id="cal-grid" role="radiogroup" aria-label="Jour de commande"></div>
-
-        <div id="hrs-wrap" style="display:none;margin-top:12px;">
+        <div class="step-lbl"><span class="step-num">III</span>Pour quand<span class="step-hint">— maintenant ou heure précise</span></div>
+        <div class="g2" style="margin-bottom:10px;">
+          <div class="chip" data-v="ASAP" onclick="selT(this)" tabindex="0" role="button" aria-label="Le plus tôt possible"><div class="chip-n">⚡ Le plus tôt possible</div></div>
+          <div class="chip" data-v="HOUR" onclick="toggleHrs(this)" tabindex="0" role="button" aria-label="Choisir une heure précise"><div class="chip-n">🕐 Heure précise</div></div>
+        </div>
+        <div id="hrs-wrap" style="display:none;">
           <div class="g4" id="hrs-grid" role="radiogroup" aria-label="Heure de commande"></div>
+          <p style="font-family:'Fraunces',serif;font-style:italic;font-size:12px;color:var(--ink-3);margin-top:8px;font-variation-settings:'opsz' 36,'WONK' 1;">— Créneaux d'aujourd'hui · les barrés sont déjà pris</p>
         </div>
 
         <div class="step-lbl"><span class="step-num">IV</span>Tes infos<span class="step-hint">— pour qu'on te trouve</span></div>
@@ -1422,8 +1425,8 @@ footer{
         <div class="recap" id="recap">
           <div class="recap-line">Burger <span id="rc-s">—</span></div>
           <div class="recap-line">Mode <span id="rc-b">—</span></div>
-          <div class="recap-line">Jour <span id="rc-d">—</span></div>
-          <div class="recap-line">Heure <span id="rc-t">—</span></div>
+          <div class="recap-line">Pour <span id="rc-t">—</span></div>
+          <span id="rc-d" hidden></span>
           <div class="recap-line">À payer <span id="rc-p">—</span></div>
         </div>
 
@@ -1589,7 +1592,9 @@ function selS(el){
   el.classList.add('on'); R.s=el.getAttribute('data-v'); R.p=el.getAttribute('data-p'); updRecap();
 }
 function selB(el){
-  document.querySelectorAll('.g2 .chip').forEach(function(e){e.classList.remove('on');});
+  // Sélecteur scope-restreint au step "Mode" uniquement (II)
+  var parent=el.parentNode;
+  parent.querySelectorAll('.chip').forEach(function(e){e.classList.remove('on');});
   el.classList.add('on'); R.b=el.getAttribute('data-v'); updRecap();
 }
 function pickSrv(name,price){
@@ -1597,38 +1602,54 @@ function pickSrv(name,price){
   document.getElementById('commande').scrollIntoView({behavior:'smooth'});
 }
 
-// CALENDRIER
-(function(){
-  var grid=document.getElementById('cal-grid');
-  var j=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
-  var now=new Date(); var cnt=0;
-  for(var i=0;i<=8&&cnt<8;i++){
-    var d=new Date(now); d.setDate(now.getDate()+i);
-    var el=document.createElement('div'); el.className='cal-chip';
-    el.innerHTML='<div class="cal-n">'+d.getDate()+'</div><div class="cal-l">'+j[d.getDay()]+'</div>';
-    el.setAttribute('data-date',j[d.getDay()]+' '+d.getDate()+'/'+(d.getMonth()+1));
-    el.addEventListener('click',(function(e){return function(){
-      document.querySelectorAll('.cal-chip').forEach(function(x){x.classList.remove('on');});
-      e.classList.add('on'); R.d=e.getAttribute('data-date');
-      buildHrs(); updRecap();
-    };})(el));
-    grid.appendChild(el); cnt++;
-  }
-})();
+// TIMING — "ASAP" ou "Heure précise"
+function selT(el){
+  // Désélectionne le toggle "Heure précise" et toutes les heures
+  var parent=el.parentNode;
+  parent.querySelectorAll('.chip').forEach(function(e){e.classList.remove('on');});
+  document.querySelectorAll('.hr-chip').forEach(function(x){x.classList.remove('on');});
+  document.getElementById('hrs-wrap').style.display='none';
+  el.classList.add('on');
+  // Date par défaut = aujourd'hui (sandwicherie : commande pour le jour même)
+  R.d='Aujourd\'hui';
+  R.t='Le plus tôt possible (15-30 min)';
+  updRecap();
+}
+function toggleHrs(el){
+  var parent=el.parentNode;
+  parent.querySelectorAll('.chip').forEach(function(e){e.classList.remove('on');});
+  el.classList.add('on');
+  R.d='Aujourd\'hui';
+  R.t=''; // doit choisir une heure
+  buildHrs();
+  updRecap();
+}
 
 function buildHrs(){
   var grid=document.getElementById('hrs-grid'); var wrap=document.getElementById('hrs-wrap');
-  grid.innerHTML=''; wrap.style.display='block';
-  var slots=['11:00','11:30','12:00','12:30','13:00','13:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00','22:30'];
+  if(grid.children.length>0){ wrap.style.display='block'; return; }
+  wrap.style.display='block';
+
+  // Créneaux du jour, masquant ceux déjà passés (avec marge de 30 min pour la prep')
+  var allSlots=['11:00','11:30','12:00','12:30','13:00','13:30','14:00',
+                '18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00','22:30'];
+  var now=new Date();
+  var nowMin=now.getHours()*60+now.getMinutes()+30; // +30 min de prep'
   var taken=['12:30','19:00','21:00'];
-  slots.forEach(function(t){
+  allSlots.forEach(function(t){
+    var parts=t.split(':');
+    var slotMin=parseInt(parts[0])*60+parseInt(parts[1]);
+    var isPast=slotMin<nowMin;
+    var isTaken=taken.indexOf(t)>=0;
     var el=document.createElement('div');
-    el.className='hr-chip'+(taken.indexOf(t)>=0?' taken':'');
+    el.className='hr-chip'+(isTaken||isPast?' taken':'');
     el.textContent=t;
-    el.addEventListener('click',(function(e,time){return function(){
-      document.querySelectorAll('.hr-chip').forEach(function(x){x.classList.remove('on');});
-      e.classList.add('on'); R.t=time; updRecap();
-    };})(el,t));
+    if(!isTaken && !isPast){
+      el.addEventListener('click',(function(e,time){return function(){
+        document.querySelectorAll('.hr-chip').forEach(function(x){x.classList.remove('on');});
+        e.classList.add('on'); R.t=time; updRecap();
+      };})(el,t));
+    }
     grid.appendChild(el);
   });
 }
@@ -1637,8 +1658,8 @@ function sendWA(){
   var prenom=document.getElementById('c-name').value.trim()||'Client';
   var tel=document.getElementById('c-tel').value.trim();
   var adresse=document.getElementById('c-adresse').value.trim();
-  if(!R.s||!R.b||!R.d||!R.t){alert('Merci de compléter toutes les étapes.');return;}
-  var msg='Salam, je veux commander 🍔\n\nBurger : '+R.s+'\nMode : '+R.b+'\nJour : '+R.d+'\nHeure : '+R.t+'\nPrénom : '+prenom+(tel?'\nNuméro : '+tel:'')+(adresse?'\nAdresse : '+adresse:'')+'\n\nMerci !';
+  if(!R.s||!R.b||!R.t){alert('Merci de compléter toutes les étapes.');return;}
+  var msg='Salam, je veux commander 🍔\n\nBurger : '+R.s+'\nMode : '+R.b+'\nPour : '+R.t+'\nPrénom : '+prenom+(tel?'\nNuméro : '+tel:'')+(adresse?'\nAdresse : '+adresse:'')+'\n\nMerci !';
   window.open('https://wa.me/33600000000?text='+encodeURIComponent(msg),'_blank');
 }
 

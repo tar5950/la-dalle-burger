@@ -898,6 +898,75 @@ section{padding:90px 4%;position:relative;z-index:2;}
 .f-inp:focus::placeholder{opacity:0.4;}
 .f-inp::before{content:'→';}
 
+/* === UPSELL — Suggestion du chef === */
+.upsell{
+  margin:20px 0 6px;
+  position:relative;
+  border:2px dashed var(--blood);
+  background:
+    repeating-linear-gradient(45deg,
+      transparent 0 12px,
+      rgba(217,154,31,0.04) 12px 14px);
+  padding:22px 18px 14px;
+}
+.upsell::before{
+  content:'★ Suggestion du chef';
+  position:absolute;top:-12px;left:50%;transform:translateX(-50%) rotate(-1deg);
+  background:var(--mustard);color:var(--ink);
+  font-family:'Bowlby One',sans-serif;
+  font-size:12px;letter-spacing:0.04em;text-transform:uppercase;
+  padding:5px 14px;border:2px solid var(--ink);
+  white-space:nowrap;
+}
+.upsell-intro{
+  font-family:'Fraunces',serif;font-style:italic;
+  font-variation-settings:"opsz" 36,"WONK" 1;
+  font-size:14px;color:var(--ink-2);
+  text-align:center;margin-bottom:14px;line-height:1.4;
+}
+.upsell-intro strong{color:var(--blood);font-weight:600;}
+.upsell-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.upsell-chip{
+  background:var(--paper);
+  border:1.5px solid var(--ink);
+  padding:14px 8px 12px;
+  text-align:center;cursor:pointer;
+  position:relative;
+  transition:all 0.18s;
+}
+.upsell-chip:hover{background:rgba(217,154,31,0.08);transform:translateY(-2px);}
+.upsell-chip:focus-visible{outline:3px solid var(--mustard);outline-offset:2px;}
+.upsell-chip.on{
+  background:var(--mustard);
+  border-color:var(--ink);border-width:2px;padding:13.5px 7.5px 11.5px;
+  transform:rotate(-1deg);
+}
+.upsell-chip.on::after{
+  content:'+';position:absolute;top:-12px;right:-8px;
+  width:26px;height:26px;border-radius:50%;
+  background:var(--blood);color:var(--paper);
+  font-family:'Bowlby One',sans-serif;font-size:18px;line-height:26px;
+  border:2px solid var(--ink);
+}
+.upsell-emoji{font-size:28px;line-height:1;margin-bottom:6px;display:block;}
+.upsell-name{
+  font-family:'Bowlby One',sans-serif;font-size:13px;letter-spacing:-0.01em;
+  color:var(--ink);line-height:1.1;
+}
+.upsell-price{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:700;color:var(--blood);
+  margin-top:4px;letter-spacing:0.04em;
+}
+.upsell-chip.on .upsell-price{color:var(--ink);}
+@media(max-width:600px){
+  .upsell{padding:20px 14px 12px;}
+  .upsell-grid{gap:6px;}
+  .upsell-emoji{font-size:24px;}
+  .upsell-name{font-size:11px;}
+  .upsell-price{font-size:10px;}
+}
+
 /* Récap — souche carbone */
 .recap{
   background:#fdf6e3;color:var(--ink);
@@ -1505,6 +1574,28 @@ footer{
           <div class="srv-chip" data-v="Le Combo" data-p="14" onclick="selS(this)" tabindex="0" role="button" aria-label="Le Combo, 14 euros"><div class="srv-chip-n">Le Combo</div><div class="srv-chip-p">14€</div></div>
         </div>
 
+        <!-- UPSELL — Suggestion du chef -->
+        <div class="upsell" role="group" aria-label="Suggestions du chef à ajouter">
+          <p class="upsell-intro">On t'ajoute un truc&nbsp;? <strong>Frites maison</strong>, boisson fraîche ou cookie tiède sorti du four.</p>
+          <div class="upsell-grid">
+            <div class="upsell-chip" data-v="Frites maison" data-p="3" onclick="toggleUpsell(this)" tabindex="0" role="button" aria-label="Ajouter frites maison, 3 euros">
+              <span class="upsell-emoji">🍟</span>
+              <div class="upsell-name">Frites maison</div>
+              <div class="upsell-price">+3€</div>
+            </div>
+            <div class="upsell-chip" data-v="Boisson" data-p="2" onclick="toggleUpsell(this)" tabindex="0" role="button" aria-label="Ajouter boisson, 2 euros">
+              <span class="upsell-emoji">🥤</span>
+              <div class="upsell-name">Boisson 33cl</div>
+              <div class="upsell-price">+2€</div>
+            </div>
+            <div class="upsell-chip" data-v="Cookie tiède" data-p="3" onclick="toggleUpsell(this)" tabindex="0" role="button" aria-label="Ajouter cookie tiède, 3 euros">
+              <span class="upsell-emoji">🍪</span>
+              <div class="upsell-name">Cookie tiède</div>
+              <div class="upsell-price">+3€</div>
+            </div>
+          </div>
+        </div>
+
         <div class="step-lbl"><span class="step-num">II</span>Mode<span class="step-hint">— livraison ou à emporter</span></div>
         <div class="g2">
           <div class="chip" data-v="Livraison" onclick="selB(this)" tabindex="0" role="button" aria-label="Livraison"><div class="chip-n">🛵 Livraison</div></div>
@@ -1666,14 +1757,20 @@ document.getElementById('ticketNum').textContent = String(Math.floor(Math.random
 })();
 
 // Keyboard support pour les chips (Enter / Space)
-document.querySelectorAll('.srv-chip,.chip,.cal-chip,.hr-chip').forEach(function(el){
+document.querySelectorAll('.srv-chip,.chip,.cal-chip,.hr-chip,.upsell-chip').forEach(function(el){
   el.addEventListener('keydown', function(e){
     if(e.key==='Enter'||e.key===' '){ e.preventDefault(); el.click(); }
   });
 });
 
 // COMMANDE STATE
-var R = { s:'', b:'', p:'', d:'', t:'' };
+var R = { s:'', b:'', p:0, d:'', t:'', extras:[] };
+
+function totalPrice(){
+  var base = parseFloat(R.p)||0;
+  var extrasSum = R.extras.reduce(function(a,e){return a+parseFloat(e.p);},0);
+  return base + extrasSum;
+}
 
 function updBar() {
   var v=[R.s,R.b,R.d,R.t];
@@ -1683,13 +1780,32 @@ function updRecap() {
   var ok=R.s&&R.b&&R.d&&R.t;
   document.getElementById('recap').classList.toggle('show',ok);
   if(ok){
-    document.getElementById('rc-s').textContent=R.s;
+    var burgerLine = R.s;
+    if(R.extras.length){
+      burgerLine += ' + ' + R.extras.map(function(e){return e.v;}).join(' + ');
+    }
+    document.getElementById('rc-s').textContent=burgerLine;
     document.getElementById('rc-b').textContent=R.b;
     document.getElementById('rc-d').textContent=R.d;
     document.getElementById('rc-t').textContent=R.t;
-    document.getElementById('rc-p').textContent=R.p+'€';
+    document.getElementById('rc-p').textContent=totalPrice()+'€';
   }
   updBar();
+}
+
+// EXTRAS — multi-select toggle
+function toggleUpsell(el){
+  var v = el.getAttribute('data-v');
+  var p = parseFloat(el.getAttribute('data-p'));
+  var idx = R.extras.findIndex(function(x){return x.v===v;});
+  if(idx>=0){
+    R.extras.splice(idx,1);
+    el.classList.remove('on');
+  } else {
+    R.extras.push({v:v,p:p});
+    el.classList.add('on');
+  }
+  updRecap();
 }
 function selS(el){
   document.querySelectorAll('.srv-chip').forEach(function(e){e.classList.remove('on');});
@@ -1763,7 +1879,8 @@ function sendWA(){
   var tel=document.getElementById('c-tel').value.trim();
   var adresse=document.getElementById('c-adresse').value.trim();
   if(!R.s||!R.b||!R.t){alert('Merci de compléter toutes les étapes.');return;}
-  var msg='Salam, je veux commander 🍔\n\nBurger : '+R.s+'\nMode : '+R.b+'\nPour : '+R.t+'\nPrénom : '+prenom+(tel?'\nNuméro : '+tel:'')+(adresse?'\nAdresse : '+adresse:'')+'\n\nMerci !';
+  var extrasTxt = R.extras.length ? '\nExtras : '+R.extras.map(function(e){return e.v+' (+'+e.p+'€)';}).join(' + ') : '';
+  var msg='Salam, je veux commander 🍔\n\nBurger : '+R.s+extrasTxt+'\nMode : '+R.b+'\nPour : '+R.t+'\nTotal : '+totalPrice()+'€\nPrénom : '+prenom+(tel?'\nNuméro : '+tel:'')+(adresse?'\nAdresse : '+adresse:'')+'\n\nMerci !';
   window.open('https://wa.me/33600000000?text='+encodeURIComponent(msg),'_blank');
 }
 
